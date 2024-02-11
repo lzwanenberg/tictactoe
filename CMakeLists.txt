@@ -23,8 +23,18 @@ FetchContent_Declare(unity
 FetchContent_MakeAvailable(unity)
 
 # Create a separate target for running tests
-add_executable(TicTacToe.test src/TicTacToe.test.c)
-target_link_libraries(TicTacToe.test unity)
+# Find all test source files in the top-level src directory
+file(GLOB TEST_SOURCE_FILES_TOPLEVEL "src/*.test.c")
 
-add_executable(Helper.test src/modulea/Helper.test.c)
-target_link_libraries(Helper.test unity)
+# Find all test source files recursively within the src directory and its subdirectories
+file(GLOB_RECURSE TEST_SOURCE_FILES_SUBDIRS "src/**/*.test.c")
+
+# Concatenate the lists
+set(TEST_SOURCE_FILES ${TEST_SOURCE_FILES_TOPLEVEL} ${TEST_SOURCE_FILES_SUBDIRS})
+
+# Create executables for each test source file
+foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
+    get_filename_component(TEST_EXECUTABLE_NAME ${TEST_SOURCE_FILE} NAME_WE)
+    add_executable(${TEST_EXECUTABLE_NAME}.test ${TEST_SOURCE_FILE})
+    target_link_libraries(${TEST_EXECUTABLE_NAME}.test unity)
+endforeach()
