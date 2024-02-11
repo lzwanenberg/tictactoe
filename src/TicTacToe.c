@@ -1,7 +1,9 @@
 ﻿#include <stdio.h>
+#include "modulea/Helper.c"
 
 int main()
 {
-	printf("Hello from C Cmakio!");
+	int result = increment(4);
+	printf("Result: %i\n", result);
 	return 0;
 }
