@@ -1,6 +1,7 @@
-﻿#include <stdio.h>
+﻿#pragma once
+
+#include <stdio.h>
 #include "modulea/Helper.c"
-#include "modulea/DumbExample.c"
 #include "moduleb/Helper.c"
 
 int main()
