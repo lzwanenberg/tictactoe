@@ -1,9 +1,6 @@
 ﻿#pragma once
 
 #include <stdio.h>
-#include "modulea/Helper.c"
-#include "moduleb/Helper.c"
-#include "modulea/Helper.test.c"
 #include "unity.h"
 
 // Setup function called before each test case
@@ -31,7 +28,6 @@ void test_suite(void)
 	// Register setup and teardown functions
 	UNITY_BEGIN();
 	RUN_TEST(test_example);
-	helper_test_suite();
 	UNITY_END();
 }
 

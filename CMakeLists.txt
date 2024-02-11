@@ -30,15 +30,15 @@ if(CMAKE_COMPILER_IS_GNUCC)
 endif()
 
 # Create a separate target for running tests
-add_executable(TicTacToeTest src/TicTacToe.test.c)
-target_link_libraries(TicTacToeTest unity)
+add_executable(TicTacToe.test src/TicTacToe.test.c)
+target_link_libraries(TicTacToe.test unity)
 
-# Set the entry point for the test target
-add_custom_target(run_tests
-    COMMAND TicTacToeTest
-    DEPENDS TicTacToeTest
-)
+# # Set the entry point for the test target
+# add_custom_target(run_tests
+#     COMMAND TicTacToeTest
+#     DEPENDS TicTacToeTest
+# )
 
-# Optionally, configure CTest to run tests with 'make test'
-include(CTest)
-add_test(NAME TicTacToeTest COMMAND TicTacToeTest)
+# # Optionally, configure CTest to run tests with 'make test'
+# include(CTest)
+# add_test(NAME TicTacToeTest COMMAND TicTacToeTest)

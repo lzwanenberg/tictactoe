@@ -1,1 +1,1 @@
-build64\Debug\TicTacToeTest.exe
+build64\Debug\TicTacToe.test.exe

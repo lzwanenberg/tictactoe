@@ -34,6 +34,7 @@ void helper_test_suite(void)
   // UNITY_BEGIN();
   RUN_TEST(test_increment_1);
   RUN_TEST(test_increment_2);
+
   // UNITY_END();
 }
 
