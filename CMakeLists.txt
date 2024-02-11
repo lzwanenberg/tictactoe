@@ -30,7 +30,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
 endif()
 
 # Create a separate target for running tests
-add_executable(TicTacToeTest src/TicTacToeTest.c)
+add_executable(TicTacToeTest src/TicTacToe.test.c)
 target_link_libraries(TicTacToeTest unity)
 
 # Set the entry point for the test target

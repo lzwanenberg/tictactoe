@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "modulea/Helper.c"
 #include "moduleb/Helper.c"
-#include "modulea/HelperTest.c"
+#include "modulea/Helper.test.c"
 #include "unity.h"
 
 // Setup function called before each test case
