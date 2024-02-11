@@ -4,17 +4,17 @@
 #include "Helper.c"
 #include "unity.h"
 
-// // Setup function called before each test case
-// void setUp(void)
-// {
-//   // Perform any necessary setup here
-// }
+// Setup function called before each test case
+void setUp(void)
+{
+  // Perform any necessary setup here
+}
 
-// // Teardown function called after each test case
-// void tearDown(void)
-// {
-//   // Perform any necessary teardown here
-// }
+// Teardown function called after each test case
+void tearDown(void)
+{
+  // Perform any necessary teardown here
+}
 
 // Test function
 void test_increment_1(void)
@@ -28,19 +28,18 @@ void test_increment_2(void)
 }
 
 // Define the test suite
-void helper_test_suite(void)
+void test_suite(void)
 {
   // Register setup and teardown functions
-  // UNITY_BEGIN();
+  UNITY_BEGIN();
   RUN_TEST(test_increment_1);
   RUN_TEST(test_increment_2);
-
-  // UNITY_END();
+  UNITY_END();
 }
 
-// int main()
-// {
-//   test_suite();
+int main()
+{
+  test_suite();
 
-//   return 0;
-// }
+  return 0;
+}

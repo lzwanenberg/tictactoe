@@ -25,3 +25,6 @@ FetchContent_MakeAvailable(unity)
 # Create a separate target for running tests
 add_executable(TicTacToe.test src/TicTacToe.test.c)
 target_link_libraries(TicTacToe.test unity)
+
+add_executable(Helper.test src/modulea/Helper.test.c)
+target_link_libraries(Helper.test unity)
