@@ -1,1 +1,0 @@
-cd bin && buildrun && cd ..
