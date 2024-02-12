@@ -12,7 +12,6 @@ def run_cmake_build():
         command.extend(sys.argv[1:])
 
         subprocess.run(command, check=True)
-        print("CMake build command executed successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error: CMake build command failed with return code {e.returncode}.")
         print(f"Output: {e.output.decode()}")

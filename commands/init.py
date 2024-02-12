@@ -11,7 +11,6 @@ def run_init():
         ]
         
         subprocess.run(command, check=True)
-        print("CMake command executed successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error: CMake command failed with return code {e.returncode}.")
         print(f"Output: {e.output.decode()}")

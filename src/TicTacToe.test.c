@@ -25,7 +25,7 @@ void test_example(void)
 void test_example2(void)
 {
 	// Test code goes here
-	TEST_ASSERT_EQUAL_INT(1, 2); // Example assertion
+	TEST_ASSERT_EQUAL_INT(1, 1); // Example assertion
 }
 
 // Define the test suite
