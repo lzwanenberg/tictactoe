@@ -22,19 +22,27 @@ FetchContent_Declare(unity
 
 FetchContent_MakeAvailable(unity)
 
-# Create a separate target for running tests
-# Find all test source files in the top-level src directory
-file(GLOB TEST_SOURCE_FILES_TOPLEVEL "src/*.test.c")
 
-# Find all test source files recursively within the src directory and its subdirectories
-file(GLOB_RECURSE TEST_SOURCE_FILES_SUBDIRS "src/**/*.test.c")
+# Find all test source files
+file(GLOB_RECURSE TEST_SOURCE_FILES "src/*.test.c")
 
-# Concatenate the lists
-set(TEST_SOURCE_FILES ${TEST_SOURCE_FILES_TOPLEVEL} ${TEST_SOURCE_FILES_SUBDIRS})
+
 
 # Create executables for each test source file
 foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
     get_filename_component(TEST_EXECUTABLE_NAME ${TEST_SOURCE_FILE} NAME_WE)
-    add_executable(${TEST_EXECUTABLE_NAME}.test ${TEST_SOURCE_FILE})
-    target_link_libraries(${TEST_EXECUTABLE_NAME}.test unity)
+    get_filename_component(TEST_SOURCE_DIR ${TEST_SOURCE_FILE} DIRECTORY)
+
+    # Generate relative path for output directory
+    file(RELATIVE_PATH TEST_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src" "${TEST_SOURCE_DIR}")
+    set(TEST_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/Tests/${TEST_OUTPUT_DIR}")
+
+    # Append .test suffix to executable name
+    set(TEST_EXECUTABLE_NAME "${TEST_EXECUTABLE_NAME}.test")
+
+    add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCE_FILE})
+    target_link_libraries(${TEST_EXECUTABLE_NAME} unity)
+    set_target_properties(${TEST_EXECUTABLE_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${TEST_OUTPUT_DIR}"
+    )
 endforeach()

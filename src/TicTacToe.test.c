@@ -22,12 +22,19 @@ void test_example(void)
 	TEST_ASSERT_EQUAL_INT(1, 1); // Example assertion
 }
 
+void test_example2(void)
+{
+	// Test code goes here
+	TEST_ASSERT_EQUAL_INT(1, 2); // Example assertion
+}
+
 // Define the test suite
 void test_suite(void)
 {
 	// Register setup and teardown functions
 	UNITY_BEGIN();
 	RUN_TEST(test_example);
+	RUN_TEST(test_example2);
 	UNITY_END();
 }
 
