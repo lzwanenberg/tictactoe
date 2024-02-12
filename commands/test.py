@@ -6,12 +6,8 @@ from typing import List
 
 TEST_DIRECTORY = "bin/build64/Tests"
 
-class TestStatus(Enum):
+class Status(Enum):
     PASS = 'PASS'
-    FAIL = 'FAIL'
-
-class TestFileStatus(Enum):
-    OK = 'OK'
     FAIL = 'FAIL'
 
 class TestSummaryItem(Enum):
@@ -29,7 +25,7 @@ class TestFunctionResult:
     raw: str
     line_number: int
     function_name: str
-    status: TestStatus
+    status: Status
     message: str
 
 @dataclass
@@ -38,7 +34,7 @@ class TestFileResult:
     filename: str
     relative_path: str
     results: List[TestFunctionResult]
-    status: TestFileStatus
+    status: Status
     summary: dict 
 
 @dataclass
@@ -64,10 +60,10 @@ def run_tests(test_directory):
 
 def create_test_suite_result(test_file_results):
     file_count = len(test_file_results)
-    file_failure_count = sum(1 for result in test_file_results if result.status == TestFileStatus.FAIL)
+    file_failure_count = sum(1 for result in test_file_results if result.status == Status.FAIL)
     tests_count = sum(len(result.results) for result in test_file_results)
-    test_fail_count = (sum(sum(1 for test in result.results if test.status == TestStatus.FAIL) for result in test_file_results))
-    test_pass_count = (sum(sum(1 for test in result.results if test.status == TestStatus.PASS) for result in test_file_results))
+    test_fail_count = (sum(sum(1 for test in result.results if test.status == Status.FAIL) for result in test_file_results))
+    test_pass_count = (sum(sum(1 for test in result.results if test.status == Status.PASS) for result in test_file_results))
 
     return TestSuiteResult(
         results=test_file_results,
@@ -109,7 +105,7 @@ def run_test(test_file):
 def parse_test_file_result(test_file, lines):
     # OK|FAIL
     last_line = lines[len(lines) - 1]
-    status = TestFileStatus[last_line]
+    status = Status.FAIL if last_line == Status.FAIL else Status.PASS
 
     # x Tests y Failures z Ignored
     second_to_last_line = lines[len(lines)- 2] 
@@ -146,8 +142,8 @@ def parse_test_result(line):
 
     line_number = int(subparts[0].strip())
     function_name = subparts[1].strip()
-    status = TestStatus[subparts[2].strip()]
-    message = "" if status == TestStatus.PASS else subparts[3].strip()
+    status = Status[subparts[2].strip()]
+    message = "" if status == Status.PASS else subparts[3].strip()
 
     return TestFunctionResult(
         raw=line,
@@ -188,16 +184,10 @@ def print_test_suite_result(suite):
 
 def get_icon(status):
     match status:
-        case TestFileStatus.OK:
+        case Status.PASS:
             return "✔"
         
-        case TestFileStatus.FAIL:
-            return "❌"
-
-        case TestStatus.PASS:
-            return "✔"
-        
-        case TestStatus.FAIL:
+        case Status.FAIL:
             return "❌"
         
         case _:
