@@ -10,11 +10,6 @@ class Status(Enum):
     PASS = 'PASS'
     FAIL = 'FAIL'
 
-class TestSummaryItem(Enum):
-    Tests = 'Tests'
-    Failures = 'Failures'
-    Ignored = 'Ignored'
-
 @dataclass
 class TestFile:
     filename: str
@@ -105,7 +100,7 @@ def run_test(test_file):
 def parse_test_file_result(test_file, lines):
     # OK|FAIL
     last_line = lines[len(lines) - 1]
-    status = Status.FAIL if last_line == Status.FAIL else Status.PASS
+    status = Status.FAIL if last_line == Status.FAIL.value else Status.PASS
 
     # x Tests y Failures z Ignored
     second_to_last_line = lines[len(lines)- 2] 
@@ -156,10 +151,14 @@ def parse_test_result(line):
 def parse_summary(string):
     words = string.split()
 
+    total = int(words[0])
+    failures = int(words[2])
+    ignored = int(words[4])
+    passes = total - failures - ignored
+
     return {
-        TestSummaryItem.Tests: int(words[0]),
-        TestSummaryItem.Failures: int(words[2]),
-        TestSummaryItem.Ignored: int(words[4]),
+        Status.PASS: passes,
+        Status.FAIL: failures
     }
 
 def print_test_file_result(test_file_result):
@@ -179,19 +178,27 @@ def print_test_suite_result(suite):
     test_failures = suite.functions_summary['failures']
     test_total = suite.functions_summary['total']
 
-    print(f'Test Files: {str(file_failures)} failed, {str(file_total)} total')
-    print(f'Tests:      {str(test_failures)} failed, {str(test_passes)} passed, {str(test_total)} total')
+    print(f'Test Files: {red(str(file_failures) + " failed, ") if file_failures > 0 else ""}{str(file_total)} total')
+    print(f'Tests:      {red(str(test_failures) + " failed, ") if test_failures > 0 else ""}{green(str(test_passes) + " passed, ")}{str(test_total)} total')
 
 def get_icon(status):
     match status:
         case Status.PASS:
-            return "✔"
+            return green("✔")
         
         case Status.FAIL:
-            return "❌"
+            return red("❌")
         
         case _:
             return "?"
 
+def red(text):
+    return ansi(91, text)
+
+def green(text):
+    return ansi(92, text)
+
+def ansi(id, text):
+    return f'\033[{id}m{text}\033[0m'
 
 run_tests(test_directory=TEST_DIRECTORY)
