@@ -1,5 +1,7 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
+# APP
+# -----------------------------------------------------------------------------
 include(FetchContent)
 
 if (POLICY CMP0141)
@@ -12,6 +14,7 @@ project ("TicTacToe")
 add_executable (TicTacToe "src/TicTacToe.c")
 
 # TEST SUITE
+# -----------------------------------------------------------------------------
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET TicTacToe PROPERTY CXX_STANDARD 20)
 endif()
@@ -22,11 +25,8 @@ FetchContent_Declare(unity
 
 FetchContent_MakeAvailable(unity)
 
-
 # Find all test source files
 file(GLOB_RECURSE TEST_SOURCE_FILES "src/*.test.c")
-
-
 
 # Create executables for each test source file
 foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
