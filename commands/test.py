@@ -25,7 +25,7 @@ class TestFile:
     path: str
 
 @dataclass
-class TestResult:
+class TestFunctionResult:
     raw: str
     line_number: int
     function_name: str
@@ -37,7 +37,7 @@ class TestFileResult:
     raw: List[str]
     filename: str
     relative_path: str
-    tests: List[TestResult]
+    results: List[TestFunctionResult]
     status: TestFileStatus
     summary: dict 
 
@@ -96,7 +96,7 @@ def parse_test_file_result(test_file, lines):
         filename=test_file.filename,
         relative_path=relative_path,
         status=status,
-        tests=tests,
+        results=tests,
         summary=summary
     )
 
@@ -118,7 +118,7 @@ def parse_test_result(line):
     status = TestStatus[subparts[2].strip()]
     message = "" if status == TestStatus.PASS else subparts[3].strip()
 
-    return TestResult(
+    return TestFunctionResult(
         raw=line,
         line_number=line_number,
         function_name=function_name,
@@ -138,8 +138,8 @@ def parse_summary(string):
 def print_test_file_result(test_file_result):
     print(f'{get_icon(test_file_result.status)} {test_file_result.relative_path}')
 
-    for test in test_file_result.tests:
-        print_test_result(test)
+    for result in test_file_result.results:
+        print_test_result(result)
 
 def print_test_result(test_result):
     print(f'  {get_icon(test_result.status)} {test_result.function_name}:{test_result.line_number}{": " if test_result.message != "" else ""}{test_result.message}')
