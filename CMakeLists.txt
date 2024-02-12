@@ -1,5 +1,6 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
+
 # APP
 # -----------------------------------------------------------------------------
 include(FetchContent)
@@ -15,6 +16,8 @@ add_executable (TicTacToe "src/TicTacToe.c")
 
 # TEST SUITE
 # -----------------------------------------------------------------------------
+message(STATUS "Value of CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET TicTacToe PROPERTY CXX_STANDARD 20)
 endif()
