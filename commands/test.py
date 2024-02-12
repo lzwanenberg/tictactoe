@@ -41,6 +41,12 @@ class TestFileResult:
     status: TestFileStatus
     summary: dict 
 
+@dataclass
+class TestSuiteResult:
+    results: List[TestFileResult]
+    files_summary: dict
+    functions_summary: dict
+
 def run_tests(test_directory):
     test_files = discover_test_files(test_directory)
     test_file_results = []
@@ -50,6 +56,31 @@ def run_tests(test_directory):
         print("")
         print_test_file_result(result)
         test_file_results.append(result)
+
+    suite_result = create_test_suite_result(test_file_results)
+
+    print("")
+    print_test_suite_result(suite_result)
+
+def create_test_suite_result(test_file_results):
+    file_count = len(test_file_results)
+    file_failure_count = sum(1 for result in test_file_results if result.status == TestFileStatus.FAIL)
+    tests_count = sum(len(result.results) for result in test_file_results)
+    test_fail_count = (sum(sum(1 for test in result.results if test.status == TestStatus.FAIL) for result in test_file_results))
+    test_pass_count = (sum(sum(1 for test in result.results if test.status == TestStatus.PASS) for result in test_file_results))
+
+    return TestSuiteResult(
+        results=test_file_results,
+        files_summary={
+            "total": file_count,
+            "failures": file_failure_count
+        },
+        functions_summary={
+            "total": tests_count,
+            "passes": test_pass_count,
+            "failures": test_fail_count
+        }
+    )
 
 def discover_test_files(test_directory):
     test_files = []
@@ -143,6 +174,17 @@ def print_test_file_result(test_file_result):
 
 def print_test_result(test_result):
     print(f'  {get_icon(test_result.status)} {test_result.function_name}:{test_result.line_number}{": " if test_result.message != "" else ""}{test_result.message}')
+
+def print_test_suite_result(suite):
+    file_failures = suite.files_summary['failures']
+    file_total = suite.files_summary['total']
+
+    test_passes = suite.functions_summary['passes']
+    test_failures = suite.functions_summary['failures']
+    test_total = suite.functions_summary['total']
+
+    print(f'Test Files: {str(file_failures)} failed, {str(file_total)} total')
+    print(f'Tests:      {str(test_failures)} failed, {str(test_passes)} passed, {str(test_total)} total')
 
 def get_icon(status):
     match status:
