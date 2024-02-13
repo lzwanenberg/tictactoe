@@ -39,6 +39,11 @@ class TestSuiteResult:
     files_summary: dict
     functions_summary: dict
 
+def remove_suffix(input_str, suffix):
+    if input_str.endswith(suffix):
+        return input_str[:-len(suffix)]
+    return input_str
+
 def path_to_id(path):
     id = path.replace("\\", "/")
     id = id.replace("/Debug/", "/")
@@ -51,7 +56,9 @@ def path_to_id(path):
     if id.startswith("src/"):
         id = id[len("src/"):]
 
-    id = id.replace(".test.exe", ".test.c")
+    id = remove_suffix(id, '.c')
+    id = remove_suffix(id, '.exe')
+    id = remove_suffix(id, '.test')
 
     return id
 
