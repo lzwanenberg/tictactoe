@@ -37,15 +37,30 @@ foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
     get_filename_component(TEST_SOURCE_DIR ${TEST_SOURCE_FILE} DIRECTORY)
 
     # Generate relative path for output directory
-    file(RELATIVE_PATH TEST_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src" "${TEST_SOURCE_DIR}")
-    set(TEST_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/Tests/${TEST_OUTPUT_DIR}")
+    file(RELATIVE_PATH TEST_RELATIVE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src" "${TEST_SOURCE_DIR}")
+
+    string(REPLACE "/" "_" NAMESPACE_ID "${TEST_RELATIVE_SOURCE_DIR}")
+    set(EXECUTABLE_ID "${NAMESPACE_ID}__${TEST_EXECUTABLE_NAME}")
+
+    
+    message(STATUS "=========================================")
+    message(STATUS "NAMESPACE_ID: ${NAMESPACE_ID}")
+    message(STATUS "TEST_EXECUTABLE_NAME: ${TEST_EXECUTABLE_NAME}")
+    message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+    message(STATUS "TEST_SOURCE_DIR: ${TEST_SOURCE_DIR}")
+    message(STATUS "TEST_RELATIVE_SOURCE_DIR: ${TEST_RELATIVE_SOURCE_DIR}")
+    message(STATUS "EXECUTABLE_ID: ${EXECUTABLE_ID}")
 
     # Append .test suffix to executable name
-    set(TEST_EXECUTABLE_NAME "${TEST_EXECUTABLE_NAME}.test")
+    # set(TEST_EXECUTABLE_NAME "${TEST_RELATIVE_SOURCE_DIR}_${TEST_EXECUTABLE_NAME}.test")
 
-    add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCE_FILE})
-    target_link_libraries(${TEST_EXECUTABLE_NAME} unity)
-    set_target_properties(${TEST_EXECUTABLE_NAME} PROPERTIES
+    # Generate output directory
+    set(TEST_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/Tests/${TEST_RELATIVE_SOURCE_DIR}")
+
+    add_executable(${EXECUTABLE_ID} ${TEST_SOURCE_FILE})
+    target_link_libraries(${EXECUTABLE_ID} unity)
+    set_target_properties(${EXECUTABLE_ID} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${TEST_OUTPUT_DIR}"
+        OUTPUT_NAME "${TEST_EXECUTABLE_NAME}.test"
     )
 endforeach()
