@@ -2,6 +2,7 @@ import os
 import subprocess
 from dataclasses import dataclass, field
 from enum import Enum
+import sys
 from typing import List
 
 TEST_DIRECTORY = "bin/build64/Tests"
@@ -38,11 +39,25 @@ class TestSuiteResult:
     files_summary: dict
     functions_summary: dict
 
-def run_tests(test_directory):
+def should_run(test_file, query):
+    if query == '*':
+        return True
+    
+    path = test_file.path.replace("\\", "/")
+    id = path.replace("/Debug/", "/")
+    id = id.split("/Tests/")[1]
+    id = id.replace(".test.exe", ".c")
+
+    return query in id
+
+def run_tests(test_directory, query):
     test_files = discover_test_files(test_directory)
     test_file_results = []
 
     for test_file in test_files:
+        if not should_run(test_file, query):
+            continue
+
         result = run_test(test_file)
         print("")
         print_test_file_result(result)
@@ -178,6 +193,10 @@ def print_test_suite_result(suite):
     test_failures = suite.functions_summary['failures']
     test_total = suite.functions_summary['total']
 
+    if (not file_total):
+        print("No test files found.")
+        return
+
     print(f'Test Files: {red(str(file_failures) + " failed, ") if file_failures > 0 else ""}{str(file_total)} total')
     print(f'Tests:      {red(str(test_failures) + " failed, ") if test_failures > 0 else ""}{green(str(test_passes) + " passed, ")}{str(test_total)} total')
 
@@ -201,4 +220,15 @@ def green(text):
 def ansi(id, text):
     return f'\033[{id}m{text}\033[0m'
 
-run_tests(test_directory=TEST_DIRECTORY)
+
+
+def main(test_directory):
+    query = sys.argv[1] if len(sys.argv) > 1 else '*'
+
+    run_tests(
+        test_directory=test_directory,
+        query=query
+    )
+
+if __name__ == "__main__":
+    main(test_directory=TEST_DIRECTORY)
