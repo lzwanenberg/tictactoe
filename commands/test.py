@@ -68,6 +68,8 @@ def run_tests(test_directory, query):
     print("")
     print_test_suite_result(suite_result)
 
+    return suite_result
+
 def create_test_suite_result(test_file_results):
     file_count = len(test_file_results)
     file_failure_count = sum(1 for result in test_file_results if result.status == Status.FAIL)
@@ -225,10 +227,15 @@ def ansi(id, text):
 def main(test_directory):
     query = sys.argv[1] if len(sys.argv) > 1 else '*'
 
-    run_tests(
+    suite_result = run_tests(
         test_directory=test_directory,
         query=query
     )
 
+    success = suite_result.files_summary['failures'] == 0
+    return 0 if success else 1
+
+
 if __name__ == "__main__":
-    main(test_directory=TEST_DIRECTORY)
+    exit_code = main(test_directory=TEST_DIRECTORY)
+    sys.exit(exit_code)
