@@ -39,23 +39,37 @@ class TestSuiteResult:
     files_summary: dict
     functions_summary: dict
 
-def should_run(test_file, query):
-    if query == '*':
-        return True
-    
-    path = test_file.path.replace("\\", "/")
-    id = path.replace("/Debug/", "/")
-    id = id.split("/Tests/")[1]
-    id = id.replace(".test.exe", ".c")
+def path_to_id(path):
+    id = path.replace("\\", "/")
+    id = id.replace("/Debug/", "/")
+    id = id.replace("/src/", "/")
 
-    return query in id
+    parts = id.split("/Tests/")
+    if len(parts) > 1:
+        id = id.split("/Tests/")[1]
+    
+    if id.startswith("src/"):
+        id = id[len("src/"):]
+
+    id = id.replace(".test.exe", ".test.c")
+
+    return id
+
+        
+def should_run(test_file, query_id):
+    if query_id == '*':
+        return True
+
+    file_id = path_to_id(test_file.path)
+
+    return query_id in file_id
 
 def run_tests(test_directory, query):
     test_files = discover_test_files(test_directory)
     test_file_results = []
 
     for test_file in test_files:
-        if not should_run(test_file, query):
+        if not should_run(test_file, path_to_id(query)):
             continue
 
         result = run_test(test_file)
