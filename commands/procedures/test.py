@@ -120,7 +120,7 @@ def discover_test_files(test_directory):
                 path = os.path.join(root, file)
                 test_file = TestFile(
                     filename=file,
-                    path=path
+                    path=path.replace("\\", "/")
                 )
                 test_files.append(test_file)
 
@@ -150,7 +150,7 @@ def parse_test_file_result(test_file, lines):
         test_result = parse_test_result(line)
         tests.append(test_result)
 
-    relative_path = get_relative_path(lines[0])
+    relative_path = get_relative_path(test_file)
 
     return TestFileResult(
         raw=lines,
@@ -161,9 +161,14 @@ def parse_test_file_result(test_file, lines):
         summary=summary
     )
 
-def get_relative_path(line):
-    return 'src/' + line.replace("\\", "/").split(".test.c:")[0].split("src/")[1] + ".test.c"
+def get_relative_path(test_file):
+    path = test_file.path
+    
+    path = path.replace("bin/build64/Tests", "src")
+    path = path.replace(".test.exe", ".test.c")
+    path = path.replace("/Debug/", "/")
 
+    return path
 
 def parse_test_result(line):
     line = line.replace("\\", "/")
