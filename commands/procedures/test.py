@@ -163,11 +163,15 @@ def parse_test_file_result(test_file, lines):
     if len(tests) == 0:
         status = Status.FAIL
 
+    filename = test_file.filename.replace('.test.exe', '.test.c')
+
     relative_path = get_relative_path(test_file)
+    last_slash_index = relative_path.rfind('/')
+    relative_path = relative_path[:last_slash_index + 1]
 
     return TestFileResult(
         raw=lines,
-        filename=test_file.filename,
+        filename=filename,
         relative_path=relative_path,
         status=status,
         results=tests,
@@ -219,7 +223,8 @@ def parse_summary(string):
     }
 
 def print_test_file_result(test_file_result):
-    print(f'{get_icon(test_file_result.status)} {test_file_result.relative_path}')
+
+    print(f'{get_icon(test_file_result.status)}  {gray(test_file_result.relative_path)}{test_file_result.filename}')
 
     if len(test_file_result.results) == 0:
         print(italic("   No tests found"))
@@ -228,7 +233,8 @@ def print_test_file_result(test_file_result):
         print_test_result(result)
 
 def print_test_result(test_result):
-    print(f'  {get_icon(test_result.status)} {test_result.function_name}:{test_result.line_number}{": " if test_result.message != "" else ""}{test_result.message}')
+    name = f'{test_result.function_name}:{test_result.line_number}'
+    print(f'  {get_icon(test_result.status)}  {gray(name)}{": " if test_result.message != "" else ""}{test_result.message}')
 
 def print_test_suite_result(suite):
     file_failures = suite.files_summary['failures']
@@ -261,6 +267,9 @@ def red(text):
 
 def green(text):
     return ansi(92, text)
+
+def gray(text):
+    return ansi(90, text)
 
 def italic(text):
     return ansi(3, text)

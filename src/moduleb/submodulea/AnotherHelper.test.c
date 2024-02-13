@@ -37,9 +37,9 @@ void test_suite(void)
 {
   // Register setup and teardown functions
   UNITY_BEGIN();
-  // RUN_TEST(test_increment_1);
-  // RUN_TEST(test_increment_2);
-  // RUN_TEST(test_increment_3);
+  RUN_TEST(test_increment_1);
+  RUN_TEST(test_increment_2);
+  RUN_TEST(test_increment_3);
   UNITY_END();
 }
 
