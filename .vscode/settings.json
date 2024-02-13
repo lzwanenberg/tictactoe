@@ -19,6 +19,7 @@
     "Build": "call run build",
     "Run all tests": "call run clean && call run init && call run build && call run test",
     "Run current test": "call run build && call run test ${relativeFile}",
-    "Init and run current test": "call run init && call run build && call run test ${relativeFile}"
+    "Init and run current test": "call run init && call run build && call run test ${relativeFile}",
+    "Run test hook": "call run test-hook ${relativeFile}"
   }
 }

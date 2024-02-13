@@ -1,19 +1,3 @@
-import subprocess
-import sys
+from procedures.build import build
 
-def run_cmake_build():
-    try:
-        command = [
-            "cmake",
-            "--build", "./bin/build64",
-            "--config", "Debug"
-        ]
-
-        command.extend(sys.argv[1:])
-
-        subprocess.run(command, check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error: CMake build command failed with return code {e.returncode}.")
-        print(f"Output: {e.output.decode()}")
-
-run_cmake_build()
+build()
