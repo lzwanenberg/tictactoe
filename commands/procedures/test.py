@@ -94,7 +94,17 @@ def run_tests(test_directory, query):
 
 def create_test_suite_result(test_file_results):
     file_count = len(test_file_results)
-    file_failure_count = sum(1 for result in test_file_results if result.status == Status.FAIL)
+    file_failure_count = 0
+
+    for file_results in test_file_results:
+        if len(file_results.results) == 0:
+            file_failure_count += 1
+            
+        for result in file_results.results:
+            if result.status == Status.FAIL:
+                file_failure_count += 1
+                break
+
     tests_count = sum(len(result.results) for result in test_file_results)
     test_fail_count = (sum(sum(1 for test in result.results if test.status == Status.FAIL) for result in test_file_results))
     test_pass_count = (sum(sum(1 for test in result.results if test.status == Status.PASS) for result in test_file_results))
@@ -150,6 +160,9 @@ def parse_test_file_result(test_file, lines):
         test_result = parse_test_result(line)
         tests.append(test_result)
 
+    if len(tests) == 0:
+        status = Status.FAIL
+
     relative_path = get_relative_path(test_file)
 
     return TestFileResult(
@@ -163,7 +176,7 @@ def parse_test_file_result(test_file, lines):
 
 def get_relative_path(test_file):
     path = test_file.path
-    
+
     path = path.replace("bin/build64/Tests", "src")
     path = path.replace(".test.exe", ".test.c")
     path = path.replace("/Debug/", "/")
@@ -208,6 +221,9 @@ def parse_summary(string):
 def print_test_file_result(test_file_result):
     print(f'{get_icon(test_file_result.status)} {test_file_result.relative_path}')
 
+    if len(test_file_result.results) == 0:
+        print(italic("   No tests found"))
+
     for result in test_file_result.results:
         print_test_result(result)
 
@@ -227,7 +243,7 @@ def print_test_suite_result(suite):
         return
 
     print(f'Test Files: {red(str(file_failures) + " failed, ") if file_failures > 0 else ""}{str(file_total)} total')
-    print(f'Tests:      {red(str(test_failures) + " failed, ") if test_failures > 0 else ""}{green(str(test_passes) + " passed, ")}{str(test_total)} total')
+    print(f'Tests:      {red(str(test_failures) + " failed, ") if test_failures > 0 else ""}{green(str(test_passes) + " passed, " if test_passes > 0 else "")}{str(test_total)} total')
 
 def get_icon(status):
     match status:
@@ -245,6 +261,9 @@ def red(text):
 
 def green(text):
     return ansi(92, text)
+
+def italic(text):
+    return ansi(3, text)
 
 def ansi(id, text):
     return f'\033[{id}m{text}\033[0m'
