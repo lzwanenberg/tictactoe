@@ -224,7 +224,7 @@ def parse_summary(string):
 
 def print_test_file_result(test_file_result):
 
-    print(f'{get_icon(test_file_result.status)}  {gray(test_file_result.relative_path)}{test_file_result.filename}')
+    print(f'{get_icon(test_file_result.status)} {gray(test_file_result.relative_path)}{test_file_result.filename}')
 
     if len(test_file_result.results) == 0:
         print(italic("   No tests found"))
@@ -234,7 +234,7 @@ def print_test_file_result(test_file_result):
 
 def print_test_result(test_result):
     name = f'{test_result.function_name}:{test_result.line_number}'
-    print(f'  {get_icon(test_result.status)}  {gray(name)}{": " if test_result.message != "" else ""}{test_result.message}')
+    print(f'  {get_icon(test_result.status)} {gray(name)}{": " if test_result.message != "" else ""}{test_result.message}')
 
 def print_test_suite_result(suite):
     file_failures = suite.files_summary['failures']
