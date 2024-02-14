@@ -20,30 +20,11 @@
 #define MARKER_X 'X'
 #define MARKER_O 'O'
 
-static size_t calculate_character_position(int row, int column)
-{
-  return HEADER_ROW_LENGTH +
-         ROW_OFFSET_LENGTH +
-         (column * (SEPARATOR_LENGTH + 1)) +
-         (row * (ROW_LENGTH + 1));
-}
-
-static void set_character_at_position(char *buffer, int row_id, int col_id, char character)
-{
-  size_t position = calculate_character_position(row_id, col_id);
-  buffer[position] = character;
-}
-
-static void process_cell(struct BoardView *board, char *buffer, int row, int col)
-{
-  enum CellValue cell_value = board->cells[row][col];
-
-  if (cell_value == CELL_VALUE_EMPTY)
-    return;
-
-  const char marker = cell_value == CELL_VALUE_X ? MARKER_X : MARKER_O;
-  set_character_at_position(buffer, row, col, marker);
-}
+char *create_board_string_buffer();
+void render_board_view(struct BoardView *board, char *buffer);
+static size_t calculate_character_position(int row, int column);
+static void set_character_at_position(char *buffer, int row_id, int col_id, char character);
+static void process_cell(struct BoardView *board, char *buffer, int row, int col);
 
 char *create_board_string_buffer()
 {
@@ -62,4 +43,29 @@ void render_board_view(struct BoardView *board, char *buffer)
       process_cell(board, buffer, row, col);
     }
   }
+}
+
+static void process_cell(struct BoardView *board, char *buffer, int row, int col)
+{
+  enum CellValue cell_value = board->cells[row][col];
+
+  if (cell_value == CELL_VALUE_EMPTY)
+    return;
+
+  const char marker = cell_value == CELL_VALUE_X ? MARKER_X : MARKER_O;
+  set_character_at_position(buffer, row, col, marker);
+}
+
+static void set_character_at_position(char *buffer, int row_id, int col_id, char character)
+{
+  size_t position = calculate_character_position(row_id, col_id);
+  buffer[position] = character;
+}
+
+static size_t calculate_character_position(int row, int column)
+{
+  return HEADER_ROW_LENGTH +
+         ROW_OFFSET_LENGTH +
+         (column * (SEPARATOR_LENGTH + 1)) +
+         (row * (ROW_LENGTH + 1));
 }

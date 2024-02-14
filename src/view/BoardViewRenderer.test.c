@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include "unity.h"
-#include "BoardView.c"
+#include "models/BoardView.c"
 #include "BoardViewRenderer.c"
 
 #define _ CELL_VALUE_EMPTY
@@ -21,12 +21,12 @@ void empty_board__renders_correctly(void)
 {
   char *buffer = create_board_string_buffer();
 
-  struct BoardView board = {
+  struct BoardView board_view = {
       .cells = {{_, _, _},
                 {_, _, _},
                 {_, _, _}}};
 
-  render_board_view(&board, buffer);
+  render_board_view(&board_view, buffer);
 
   char *expected =
       "   A   B   C\n"
@@ -43,12 +43,12 @@ void non_empty_board__renders_correctly(void)
 {
   char *buffer = create_board_string_buffer();
 
-  struct BoardView board = {
+  struct BoardView board_view = {
       .cells = {{_, X, O},
                 {O, O, X},
                 {X, _, _}}};
 
-  render_board_view(&board, buffer);
+  render_board_view(&board_view, buffer);
 
   char *expected =
       "   A   B   C\n"
