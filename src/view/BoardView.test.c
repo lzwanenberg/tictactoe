@@ -2,45 +2,70 @@
 
 #include <stdio.h>
 #include "unity.h"
+#include "BoardView.c"
 
-// Setup function called before each test case
+#define _ CELL_VALUE_EMPTY
+#define X CELL_VALUE_X
+#define O CELL_VALUE_O
+
 void setUp(void)
 {
-  // Perform any necessary setup here
 }
 
-// Teardown function called after each test case
 void tearDown(void)
 {
-  // Perform any necessary teardown here
 }
 
-// Test function
-void test_example(void)
+void empty_board__renders_correctly(void)
 {
-  // Test code goes here
-  TEST_ASSERT_EQUAL_INT(1, 1); // Example assertion
+  char *buffer = create_board_string_buffer();
+
+  struct TicTacToeBoard board = {
+      .cells = {{_, _, _},
+                {_, _, _},
+                {_, _, _}}};
+
+  board_to_string(&board, buffer);
+
+  char *expected =
+      "   A   B   C\n"
+      "1  _ | _ | _\n"
+      "2  _ | _ | _\n"
+      "3  _ | _ | _\n";
+
+  TEST_ASSERT_EQUAL_STRING(expected, buffer);
+
+  free(buffer);
 }
 
-void test_example2(void)
+void non_empty_board__renders_correctly(void)
 {
-  // Test code goes here
-  TEST_ASSERT_EQUAL_INT(1, 1); // Example assertion
-}
+  char *buffer = create_board_string_buffer();
 
-// Define the test suite
-void test_suite(void)
-{
-  // Register setup and teardown functions
-  UNITY_BEGIN();
-  RUN_TEST(test_example);
-  RUN_TEST(test_example2);
-  UNITY_END();
+  struct TicTacToeBoard board = {
+      .cells = {{_, X, O},
+                {O, O, X},
+                {X, _, _}}};
+
+  board_to_string(&board, buffer);
+
+  char *expected =
+      "   A   B   C\n"
+      "1  _ | X | O\n"
+      "2  O | O | X\n"
+      "3  X | _ | _\n";
+
+  TEST_ASSERT_EQUAL_STRING(expected, buffer);
+
+  free(buffer);
 }
 
 int main()
 {
-  test_suite();
+  UNITY_BEGIN();
+  RUN_TEST(empty_board__renders_correctly);
+  RUN_TEST(non_empty_board__renders_correctly);
+  UNITY_END();
 
   return 0;
 }

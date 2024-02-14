@@ -7,7 +7,6 @@
 
 int main()
 {
-	// char buffer[BOARD_STRING_SIZE];
 	char *buffer = create_board_string_buffer();
 
 	struct TicTacToeBoard board2 = {
