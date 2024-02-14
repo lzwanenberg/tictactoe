@@ -23,10 +23,10 @@ enum BoardView_CellValue
 /**
  * @brief Structure representing a board view in a Tic Tac Toe game.
  */
-struct BoardView
+typedef struct
 {
   /**
    * 2D array representing the cells of the board.
    */
   enum BoardView_CellValue cells[BOARD_SIZE][BOARD_SIZE];
-};
+} BoardView;

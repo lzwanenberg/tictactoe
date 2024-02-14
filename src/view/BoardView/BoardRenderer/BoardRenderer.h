@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../BoardView.h"
+
 /**
  * @brief Creates a buffer for representing the board as a string.
  *
@@ -21,4 +23,4 @@ char *create_board_string_buffer();
  *               The buffer must be preallocated by the caller and have a size of at least
  *               BOARD_STRING_SIZE.
  */
-void render_board_view(struct BoardView *board, char *buffer);
+void render_board_view(BoardView *board, char *buffer);

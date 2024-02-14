@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "model/Game/Game.h"
 #include "view/BoardView/BoardView.h"
 #include "view/BoardView/BoardRenderer/BoardRenderer.h"
 
@@ -12,9 +13,12 @@
 
 int main()
 {
+	Game game;
+	initialize_game(&game);
+
 	char *buffer = create_board_string_buffer();
 
-	struct BoardView board_view = {
+	BoardView board_view = {
 			.cells = {{X, _, _},
 								{O, X, O},
 								{_, _, X}}};

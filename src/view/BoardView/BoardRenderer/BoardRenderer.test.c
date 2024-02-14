@@ -22,7 +22,7 @@ void empty_board__renders_correctly(void)
 {
   char *buffer = create_board_string_buffer();
 
-  struct BoardView board_view = {
+  BoardView board_view = {
       .cells = {{_, _, _},
                 {_, _, _},
                 {_, _, _}}};
@@ -44,7 +44,7 @@ void non_empty_board__renders_correctly(void)
 {
   char *buffer = create_board_string_buffer();
 
-  struct BoardView board_view = {
+  BoardView board_view = {
       .cells = {{_, X, O},
                 {O, O, X},
                 {X, _, _}}};
