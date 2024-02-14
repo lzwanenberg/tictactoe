@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "../util/safe_malloc.c"
 #include "../board/Board.c"
 
 #define HEADER_ROW "   A   B   C\n"
@@ -37,7 +38,10 @@ static void process_cell(struct BoardView *board, char *buffer, int row, int col
  */
 char *create_board_string_buffer()
 {
-  char *buffer = malloc(BOARD_STRING_SIZE * sizeof(char));
+  char *buffer;
+
+  SAFE_MALLOC(buffer, BOARD_STRING_SIZE * sizeof(char));
+
   return buffer;
 }
 
