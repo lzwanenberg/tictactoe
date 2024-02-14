@@ -28,6 +28,7 @@ class TestFunctionResult:
 @dataclass
 class TestFileResult:
     raw: List[str]
+    other_output: List[str]
     filename: str
     relative_path: str
     results: List[TestFunctionResult]
@@ -81,7 +82,9 @@ def run_tests(test_directory, query):
             continue
 
         result = run_test(test_file)
-        print("")
+        for other_output_line in result.other_output:
+            print(other_output_line)
+
         print_test_file_result(result)
         test_file_results.append(result)
 
@@ -156,9 +159,13 @@ def parse_test_file_result(test_file, lines):
     summary = parse_summary(second_to_last_line)
 
     tests = []
-    for line in [s for s in lines if ':' in s]:
+    other_output = []
+    for line in lines[:-4]:
         test_result = parse_test_result(line)
-        tests.append(test_result)
+        if not test_result == None:
+            tests.append(test_result)
+        else:
+            other_output.append(line)
 
     if len(tests) == 0:
         status = Status.FAIL
@@ -175,7 +182,8 @@ def parse_test_file_result(test_file, lines):
         relative_path=relative_path,
         status=status,
         results=tests,
-        summary=summary
+        summary=summary,
+        other_output=other_output
     )
 
 def get_relative_path(test_file):
@@ -192,7 +200,7 @@ def parse_test_result(line):
     parts = line.split(".test.c:")
 
     if (len(parts) != 2):
-        raise "Couldn't parse line: '" + line + "'"
+        return None
 
     subparts = parts[1].split(":")
 
