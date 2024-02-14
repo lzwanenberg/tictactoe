@@ -2,7 +2,8 @@
   "files.associations": {
     "stdio.h": "c",
     "unity.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "board.c": "cpp"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

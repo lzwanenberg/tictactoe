@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 #include "unity.h"
-#include "models/BoardView.c"
-#include "BoardViewRenderer.c"
+#include "../BoardView.h"
+#include "BoardRenderer.h"
 
 #define _ CELL_VALUE_EMPTY
 #define X CELL_VALUE_X
@@ -17,7 +17,7 @@ void tearDown(void)
 {
 }
 
-void test_greeter(void)
+void empty_board__renders_correctly(void)
 {
   char *buffer = create_board_string_buffer();
 
@@ -64,7 +64,7 @@ void non_empty_board__renders_correctly(void)
 int main()
 {
   UNITY_BEGIN();
-  RUN_TEST(test_greeter);
+  RUN_TEST(empty_board__renders_correctly);
   RUN_TEST(non_empty_board__renders_correctly);
   UNITY_END();
 

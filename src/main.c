@@ -2,16 +2,13 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "board/Board.c"
-#include "view/models/BoardView.c"
-#include "view/BoardViewRenderer.c"
-#include "greeter/Greeter.h"
+
+#include "board/Board.h"
+#include "view/BoardView.h"
+#include "view/BoardRenderer/BoardRenderer.h"
 
 int main()
 {
-	const char *message = greet("World");
-	printf("%s\n", message);
-
 	char *buffer = create_board_string_buffer();
 
 	struct BoardView board_view = {

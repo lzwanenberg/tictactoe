@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../../board/Board.c"
+// TODO remove dependency
+#include "../board/Board.h"
 
 struct BoardView
 {

@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../util/safe_malloc.c"
-#include "../board/Board.c"
+#include "../BoardView.h"
+#include "../../board/Board.h"
 
 #define HEADER_ROW "   A   B   C\n"
 #define EMPTY_ROW "  _ | _ | _\n"
@@ -20,6 +20,28 @@
 
 #define MARKER_X 'X'
 #define MARKER_O 'O'
+
+// TODO move this SAFE_MALLOC to reusable macro lib
+/**
+ * @brief Safely allocate memory.
+ *
+ * This macro is used to safely allocate memory using malloc. It checks if
+ * memory allocation succeeds and terminates the program with an error message
+ * if allocation fails.
+ *
+ * @param ptr Pointer variable to store the allocated memory address.
+ * @param size Size of the memory block to allocate.
+ */
+#define SAFE_MALLOC(ptr, size)                       \
+  do                                                 \
+  {                                                  \
+    ptr = malloc(size);                              \
+    if (ptr == NULL)                                 \
+    {                                                \
+      fprintf(stderr, "Memory allocation failed\n"); \
+      exit(EXIT_FAILURE);                            \
+    }                                                \
+  } while (0)
 
 char *create_board_string_buffer();
 void render_board_view(struct BoardView *board, char *buffer);

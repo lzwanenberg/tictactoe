@@ -1,21 +1,21 @@
 ﻿cmake_minimum_required (VERSION 3.8)
+project(TicTacToe C)
 
+set(MODULES
+    src/view/BoardRenderer/BoardRenderer.c
+)
 
-# APP
-# -----------------------------------------------------------------------------
-include(FetchContent)
+# Add an executable target
+add_executable(TicTacToe ${MODULES} "src/main.c")
 
-if (POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
-endif()
-
-project ("TicTacToe")
-
-add_executable (TicTacToe "src/greeter/Greeter.c" "src/TicTacToe.c")
+# Optionally, set output directory
+set_target_properties(TicTacToe PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+)
 
 # TEST SUITE
 # -----------------------------------------------------------------------------
+include(FetchContent)
 message(STATUS "Value of CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
@@ -45,7 +45,7 @@ foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
     # Generate output directory
     set(TEST_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/Tests/${TEST_RELATIVE_SOURCE_DIR}")
 
-    add_executable(${EXECUTABLE_ID} ${TEST_SOURCE_FILE})
+    add_executable(${EXECUTABLE_ID} ${MODULES} ${TEST_SOURCE_FILE})
     target_link_libraries(${EXECUTABLE_ID} unity)
     set_target_properties(${EXECUTABLE_ID} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${TEST_OUTPUT_DIR}"
