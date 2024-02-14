@@ -6,7 +6,8 @@
     "board.c": "cpp",
     "boardrenderer.h": "c",
     "boardview.h": "c",
-    "board.h": "c"
+    "board.h": "c",
+    "safe_malloc.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {
