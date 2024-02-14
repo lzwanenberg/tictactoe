@@ -20,6 +20,11 @@
 #define MARKER_X 'X'
 #define MARKER_O 'O'
 
+struct BoardView
+{
+  enum CellValue cells[BOARD_SIZE][BOARD_SIZE];
+};
+
 static size_t calculate_character_position(int row, int column)
 {
   return HEADER_ROW_LENGTH +
@@ -40,7 +45,7 @@ char *create_board_string_buffer()
   return buffer;
 }
 
-void process_cell(struct TicTacToeBoard *board, char *buffer, int row, int col)
+void process_cell(struct BoardView *board, char *buffer, int row, int col)
 {
   enum CellValue cell_value = board->cells[row][col];
 
@@ -51,7 +56,7 @@ void process_cell(struct TicTacToeBoard *board, char *buffer, int row, int col)
   set_character_at_position(buffer, row, col, marker);
 }
 
-void board_to_string(struct TicTacToeBoard *board, char *buffer)
+void board_to_string(struct BoardView *board, char *buffer)
 {
   strcpy_s(buffer, BOARD_STRING_SIZE, EMPTY_BOARD);
 

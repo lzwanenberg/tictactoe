@@ -9,7 +9,7 @@ int main()
 {
 	char *buffer = create_board_string_buffer();
 
-	struct TicTacToeBoard board2 = {
+	struct Board board2 = {
 			.cells = {{CELL_VALUE_X, CELL_VALUE_EMPTY, CELL_VALUE_EMPTY},
 								{CELL_VALUE_O, CELL_VALUE_X, CELL_VALUE_O},
 								{CELL_VALUE_EMPTY, CELL_VALUE_EMPTY, CELL_VALUE_X}}};

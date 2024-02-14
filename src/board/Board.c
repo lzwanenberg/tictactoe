@@ -9,14 +9,14 @@ enum CellValue
   CELL_VALUE_O
 };
 
-struct TicTacToeBoard
+struct Board
 {
   enum CellValue cells[BOARD_SIZE][BOARD_SIZE];
 };
 
-struct TicTacToeBoard create_empty_board()
+struct Board create_empty_board()
 {
-  struct TicTacToeBoard board;
+  struct Board board;
 
   for (int i = 0; i < BOARD_SIZE; ++i)
   {
