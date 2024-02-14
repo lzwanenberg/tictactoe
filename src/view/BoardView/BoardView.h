@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BOARD_SIZE 3
+#include "../../config.h"
 
 /**
  * @brief Enumeration representing the possible states of a cell in a board view.

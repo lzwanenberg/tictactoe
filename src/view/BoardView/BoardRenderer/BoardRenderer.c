@@ -9,16 +9,12 @@
 
 #define HEADER_ROW "   A   B   C\n"
 #define EMPTY_ROW "  _ | _ | _\n"
-
 #define ROW_OFFSET_LENGTH strlen("1  ")
 #define SEPARATOR_LENGTH strlen(" | ")
 #define HEADER_ROW_LENGTH strlen(HEADER_ROW)
 #define ROW_LENGTH strlen(EMPTY_ROW)
-
 #define EMPTY_BOARD HEADER_ROW "1" EMPTY_ROW "2" EMPTY_ROW "3" EMPTY_ROW
-
 #define BOARD_STRING_SIZE sizeof(EMPTY_BOARD)
-
 #define MARKER_X 'X'
 #define MARKER_O 'O'
 

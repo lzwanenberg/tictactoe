@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "board/Board.h"
 #include "view/BoardView/BoardView.h"
 #include "view/BoardView/BoardRenderer/BoardRenderer.h"
 
