@@ -17,7 +17,7 @@ void tearDown(void)
 {
 }
 
-void empty_board__renders_correctly(void)
+void test_greeter(void)
 {
   char *buffer = create_board_string_buffer();
 
@@ -64,7 +64,7 @@ void non_empty_board__renders_correctly(void)
 int main()
 {
   UNITY_BEGIN();
-  RUN_TEST(empty_board__renders_correctly);
+  RUN_TEST(test_greeter);
   RUN_TEST(non_empty_board__renders_correctly);
   UNITY_END();
 

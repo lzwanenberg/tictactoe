@@ -5,9 +5,13 @@
 #include "board/Board.c"
 #include "view/models/BoardView.c"
 #include "view/BoardViewRenderer.c"
+#include "greeter/Greeter.h"
 
 int main()
 {
+	const char *message = greet("World");
+	printf("%s\n", message);
+
 	char *buffer = create_board_string_buffer();
 
 	struct BoardView board_view = {

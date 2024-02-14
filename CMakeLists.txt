@@ -12,7 +12,7 @@ endif()
 
 project ("TicTacToe")
 
-add_executable (TicTacToe "src/TicTacToe.c")
+add_executable (TicTacToe "src/greeter/Greeter.c" "src/TicTacToe.c")
 
 # TEST SUITE
 # -----------------------------------------------------------------------------
