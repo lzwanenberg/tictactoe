@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "unity.h"
 #include "BoardView.c"
+#include "BoardViewRenderer.c"
 
 #define _ CELL_VALUE_EMPTY
 #define X CELL_VALUE_X
@@ -25,7 +26,7 @@ void empty_board__renders_correctly(void)
                 {_, _, _},
                 {_, _, _}}};
 
-  board_to_string(&board, buffer);
+  render_board_view(&board, buffer);
 
   char *expected =
       "   A   B   C\n"
@@ -47,7 +48,7 @@ void non_empty_board__renders_correctly(void)
                 {O, O, X},
                 {X, _, _}}};
 
-  board_to_string(&board, buffer);
+  render_board_view(&board, buffer);
 
   char *expected =
       "   A   B   C\n"

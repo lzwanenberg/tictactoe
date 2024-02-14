@@ -4,17 +4,18 @@
 #include <stdio.h>
 #include "board/Board.c"
 #include "view/BoardView.c"
+#include "view/BoardViewRenderer.c"
 
 int main()
 {
 	char *buffer = create_board_string_buffer();
 
-	struct Board board2 = {
+	struct BoardView board_view = {
 			.cells = {{CELL_VALUE_X, CELL_VALUE_EMPTY, CELL_VALUE_EMPTY},
 								{CELL_VALUE_O, CELL_VALUE_X, CELL_VALUE_O},
 								{CELL_VALUE_EMPTY, CELL_VALUE_EMPTY, CELL_VALUE_X}}};
 
-	board_to_string(&board2, buffer);
+	render_board_view(&board_view, buffer);
 
 	printf("\n\n");
 	printf(buffer);
