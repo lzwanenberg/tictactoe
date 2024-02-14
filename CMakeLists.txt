@@ -2,7 +2,7 @@
 project(TicTacToe C)
 
 set(MODULES
-    src/view/BoardRenderer/BoardRenderer.c
+    src/view/BoardView/BoardRenderer/BoardRenderer.c
 )
 
 # Add an executable target

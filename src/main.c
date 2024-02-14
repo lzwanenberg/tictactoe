@@ -4,17 +4,21 @@
 #include <stdio.h>
 
 #include "board/Board.h"
-#include "view/BoardView.h"
-#include "view/BoardRenderer/BoardRenderer.h"
+#include "view/BoardView/BoardView.h"
+#include "view/BoardView/BoardRenderer/BoardRenderer.h"
+
+#define _ BOARD_VIEW__CELL_EMPTY
+#define X BOARD_VIEW__CELL_X
+#define O BOARD_VIEW__CELL_O
 
 int main()
 {
 	char *buffer = create_board_string_buffer();
 
 	struct BoardView board_view = {
-			.cells = {{CELL_VALUE_X, CELL_VALUE_EMPTY, CELL_VALUE_EMPTY},
-								{CELL_VALUE_O, CELL_VALUE_X, CELL_VALUE_O},
-								{CELL_VALUE_EMPTY, CELL_VALUE_EMPTY, CELL_VALUE_X}}};
+			.cells = {{X, _, _},
+								{O, X, O},
+								{_, _, X}}};
 
 	render_board_view(&board_view, buffer);
 

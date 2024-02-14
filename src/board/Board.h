@@ -2,14 +2,14 @@
 #pragma once
 #define BOARD_SIZE 3
 
-enum CellValue
+enum Board_CellValue
 {
-  CELL_VALUE_EMPTY,
-  CELL_VALUE_X,
-  CELL_VALUE_O
+  BOARD__CELL_VALUE_EMPTY,
+  BOARD__CELL_VALUE_P1,
+  BOARD__CELL_VALUE_P2
 };
 
 struct Board
 {
-  enum CellValue cells[BOARD_SIZE][BOARD_SIZE];
+  enum Board_CellValue cells[BOARD_SIZE][BOARD_SIZE];
 };

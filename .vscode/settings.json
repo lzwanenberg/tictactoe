@@ -3,7 +3,10 @@
     "stdio.h": "c",
     "unity.h": "c",
     "stdlib.h": "c",
-    "board.c": "cpp"
+    "board.c": "cpp",
+    "boardrenderer.h": "c",
+    "boardview.h": "c",
+    "board.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

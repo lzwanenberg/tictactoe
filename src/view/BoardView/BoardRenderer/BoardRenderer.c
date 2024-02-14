@@ -4,7 +4,6 @@
 #include <string.h>
 
 #include "../BoardView.h"
-#include "../../board/Board.h"
 
 #define HEADER_ROW "   A   B   C\n"
 #define EMPTY_ROW "  _ | _ | _\n"
@@ -92,12 +91,12 @@ void render_board_view(struct BoardView *board, char *buffer)
 
 static void process_cell(struct BoardView *board, char *buffer, int row, int col)
 {
-  enum CellValue cell_value = board->cells[row][col];
+  enum BoardView_CellValue cell_value = board->cells[row][col];
 
-  if (cell_value == CELL_VALUE_EMPTY)
+  if (cell_value == BOARD_VIEW__CELL_EMPTY)
     return;
 
-  const char marker = cell_value == CELL_VALUE_X ? MARKER_X : MARKER_O;
+  const char marker = cell_value == BOARD_VIEW__CELL_X ? MARKER_X : MARKER_O;
   set_character_at_position(buffer, row, col, marker);
 }
 

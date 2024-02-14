@@ -2,12 +2,13 @@
 
 #include <stdio.h>
 #include "unity.h"
+
 #include "../BoardView.h"
 #include "BoardRenderer.h"
 
-#define _ CELL_VALUE_EMPTY
-#define X CELL_VALUE_X
-#define O CELL_VALUE_O
+#define _ BOARD_VIEW__CELL_EMPTY
+#define X BOARD_VIEW__CELL_X
+#define O BOARD_VIEW__CELL_O
 
 void setUp(void)
 {
