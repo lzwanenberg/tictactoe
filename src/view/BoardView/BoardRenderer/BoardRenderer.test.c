@@ -7,8 +7,8 @@
 #include "BoardRenderer.h"
 
 #define _ BOARD_VIEW__CELL_EMPTY
-#define X BOARD_VIEW__CELL_X
-#define O BOARD_VIEW__CELL_O
+#define X BOARD_VIEW__CELL_P1
+#define O BOARD_VIEW__CELL_P2
 
 void setUp(void)
 {
