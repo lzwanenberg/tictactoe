@@ -3,14 +3,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../config.h"
-#include "Game.h"
 #include "../GameState/GameState.h"
+#include "../Move/Move.h"
+
+#include "Game.h"
 
 #define EMPTY_MOVE_CODE -1
 #define MOVE_OUT_OF_BOUNDS_CODE -2
 
 static void reset_moves(Game *game);
-static int get_move_id(Game_Move *move);
+static int get_move_id(Move *move);
 static bool game_has_finished(GameState state);
 
 void initialize_game(Game *game)
@@ -24,7 +26,7 @@ static void reset_moves(Game *game)
     game->moves[i] = EMPTY_MOVE_CODE;
 }
 
-static int get_move_id(Game_Move *move)
+static int get_move_id(Move *move)
 {
   if (move->col >= BOARD_SIZE || move->row >= BOARD_SIZE)
     return MOVE_OUT_OF_BOUNDS_CODE;
@@ -83,7 +85,7 @@ static void set_next_move(Game *game, int move_id)
   game->moves[i] = move_id;
 }
 
-Game_MoveResult attempt_make_move(Game *game, Game_Move *move)
+Game_MoveResult attempt_make_move(Game *game, Move *move)
 {
   int move_id = get_move_id(move);
   GameState state = calculate_game_state(game);
