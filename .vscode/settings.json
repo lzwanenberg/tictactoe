@@ -10,7 +10,11 @@
     "safe_malloc.h": "c",
     "config.h": "c",
     "game.h": "c",
-    "stdbool.h": "c"
+    "stdbool.h": "c",
+    "gamestatusanalyzer.h": "c",
+    "gameservice.h": "c",
+    "moveservice.h": "c",
+    "moveutil.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

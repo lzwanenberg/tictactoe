@@ -2,11 +2,8 @@
 project(TicTacToe C)
 
 set(MODULES
-    # src/model/Move/Move.c
-    # src/model/Game/Game.c
-    # src/model/GameState/GameState.c
     src/view/BoardView/BoardRenderer/BoardRenderer.c
-    src/services/MoveService/MoveService.c
+    src/utils/MoveUtil/MoveUtil.c
     src/services/GameService/GameService.c
     src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
     src/services/MoveValidator/MoveValidator.c

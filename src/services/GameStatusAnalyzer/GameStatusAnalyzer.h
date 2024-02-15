@@ -7,11 +7,11 @@
 
 typedef enum
 {
-  GAME_STATE__WAIT_FOR_MOVE_P1,
-  GAME_STATE__WAIT_FOR_MOVE_P2,
-  GAME_STATE__P1_WON,
-  GAME_STATE__P2_WON,
-  GAME_STATE__DRAW
-} GameStateService_Result;
+  GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P1,
+  GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P2,
+  GAME_STATUS_SERVICE__RESULT__P1_WON,
+  GAME_STATUS_SERVICE__RESULT__P2_WON,
+  GAME_STATUS_SERVICE__RESULT__DRAW
+} GameStatusService_Result;
 
-GameStateService_Result analyze_game_status(Game *game);
+GameStatusService_Result analyze_game_status(Game *game);

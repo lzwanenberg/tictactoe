@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "unity.h"
+#include "../../types/TicTacToe.h"
 
 void setUp(void)
 {
@@ -12,7 +13,7 @@ void tearDown(void)
 {
 }
 
-void test_todo(void)
+void validate_move__cell_occupied__returns_cell_occupied_code(void)
 {
   TEST_ASSERT_EQUAL(1, 1);
 }
@@ -20,7 +21,7 @@ void test_todo(void)
 int main()
 {
   UNITY_BEGIN();
-  RUN_TEST(test_todo);
+  RUN_TEST(validate_move__cell_occupied__returns_cell_occupied_code);
   UNITY_END();
 
   return 0;
