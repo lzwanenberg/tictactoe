@@ -56,4 +56,5 @@ foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
         RUNTIME_OUTPUT_DIRECTORY "${TEST_OUTPUT_DIR}"
         OUTPUT_NAME "${TEST_EXECUTABLE_NAME}.test"
     )
+    target_compile_definitions(${EXECUTABLE_ID} PRIVATE UNIT_TESTING)
 endforeach()
