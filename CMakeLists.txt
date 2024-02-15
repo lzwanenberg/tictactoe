@@ -6,6 +6,11 @@ set(MODULES
     # src/model/Game/Game.c
     # src/model/GameState/GameState.c
     src/view/BoardView/BoardRenderer/BoardRenderer.c
+    src/services/MoveService/MoveService.c
+    src/services/GameService/GameService.c
+    src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
+    src/services/MoveValidator/MoveValidator.c
+    src/services/AppService/AppService.c
 )
 
 # Add an executable target
