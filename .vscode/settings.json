@@ -14,7 +14,9 @@
     "gamestatusanalyzer.h": "c",
     "gameservice.h": "c",
     "moveservice.h": "c",
-    "moveutil.h": "c"
+    "moveutil.h": "c",
+    "tictactoe.h": "c",
+    "movevalidator.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

@@ -17,6 +17,21 @@ void empty_move(Move *move)
   move->row = -1;
 }
 
+void set_move(Move *move, char col, char row)
+{
+  move->col = col;
+  move->row = row;
+}
+
+Move create_move(char col, char row)
+{
+  Move move;
+
+  set_move(&move, col, row);
+
+  return move;
+}
+
 bool is_empty_move(Move *move)
 {
   return move->col == -1 || move->row == -1;

@@ -27,6 +27,14 @@ static bool is_out_of_bounds(Move *move)
 
 static bool is_cell_occupied(Game *game, Move *move)
 {
+  for (int i = 0; i < MAX_MOVES; i++)
+  {
+    if (moves_are_equal(&game->moves[i], move))
+    {
+      return true;
+    }
+  }
+
   return false;
 }
 

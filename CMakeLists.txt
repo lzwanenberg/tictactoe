@@ -36,6 +36,10 @@ FetchContent_MakeAvailable(unity)
 # Find all test source files
 file(GLOB_RECURSE TEST_SOURCE_FILES "src/*.test.c")
 
+set(TEST_MODULES
+    stubs/Game/Game.c
+)
+
 # Create executables for each test source file
 foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
     get_filename_component(TEST_EXECUTABLE_NAME ${TEST_SOURCE_FILE} NAME_WE)
@@ -50,7 +54,7 @@ foreach(TEST_SOURCE_FILE IN LISTS TEST_SOURCE_FILES)
     # Generate output directory
     set(TEST_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/Tests/${TEST_RELATIVE_SOURCE_DIR}")
 
-    add_executable(${EXECUTABLE_ID} ${MODULES} ${TEST_SOURCE_FILE})
+    add_executable(${EXECUTABLE_ID} ${MODULES} ${TEST_MODULES} ${TEST_SOURCE_FILE})
     target_link_libraries(${EXECUTABLE_ID} unity)
     set_target_properties(${EXECUTABLE_ID} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${TEST_OUTPUT_DIR}"

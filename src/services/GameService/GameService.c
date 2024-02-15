@@ -13,3 +13,15 @@ void initialize_game(Game *game)
     empty_move(&game->moves[i]);
   }
 }
+
+void load_game(Game *game, char moves[][2], int size)
+{
+  initialize_game(game);
+  for (int i = 0; i < size; i++)
+  {
+    char row = moves[i][0];
+    char col = moves[i][1];
+
+    set_move(&game->moves[i], row, col);
+  }
+}

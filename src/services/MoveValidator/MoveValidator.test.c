@@ -7,6 +7,8 @@
 #include "../GameService/GameService.h"
 #include "../../types/TicTacToe.h"
 #include "MoveValidator.h"
+#include "../../../stubs/Game/Game.h"
+#include "../../utils/MoveUtil/MoveUtil.h"
 
 void setUp(void)
 {
@@ -16,21 +18,89 @@ void tearDown(void)
 {
 }
 
-void validate_move_todo(void)
+void validate_move__valid_move__returns_valid(void)
 {
   Game game;
-  initialize_game(&game);
-  Move move = (Move){.col = 1, .row = 1};
+  load_game(&game, (char[][2]){{1, 1}, {0, 0}}, 2);
+
+  Move move = create_move(2, 2);
 
   MoveValidator_Result result = validate_move(&game, &move);
 
   TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__VALID, result);
 }
 
+void validate_move__cell_already_occupied__returns_invalid(void)
+{
+  Game game;
+  load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 2);
+
+  Move move = create_move(1, 2);
+
+  MoveValidator_Result result = validate_move(&game, &move);
+
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_CELL_OCCUPIED, result);
+}
+
+void validate_move__move_out_of_bounds__returns_invalid(void)
+{
+  Game game = game_stub__ongoing();
+
+  Move out_of_bound_moves[4] = {
+      create_move(-1, 0),
+      create_move(3, 0),
+      create_move(0, -1),
+      create_move(0, 3)};
+
+  for (int i = 0; i < 4; i++)
+  {
+    Move move = out_of_bound_moves[i];
+
+    MoveValidator_Result result = validate_move(&game, &move);
+
+    TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_OUT_OF_BOUNDS, result);
+  }
+}
+
+void validate_move__gamed_ended_draw__returns_invalid(void)
+{
+  Game game = game_stub__draw();
+  Move move = create_move(1, 1);
+
+  MoveValidator_Result result = validate_move(&game, &move);
+
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
+}
+
+void validate_move__game_ended_win_p1__returns_invaild(void)
+{
+  Game game = game_stub__p1_won();
+  Move move = create_move(1, 1);
+
+  MoveValidator_Result result = validate_move(&game, &move);
+
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
+}
+
+void validate_move__game_ended_win_p2__returns_invaild(void)
+{
+  Game game = game_stub__p2_won();
+  Move move = create_move(1, 1);
+
+  MoveValidator_Result result = validate_move(&game, &move);
+
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
+}
+
 int main()
 {
   UNITY_BEGIN();
-  RUN_TEST(validate_move_todo);
+  RUN_TEST(validate_move__valid_move__returns_valid);
+  RUN_TEST(validate_move__move_out_of_bounds__returns_invalid);
+  RUN_TEST(validate_move__cell_already_occupied__returns_invalid);
+  RUN_TEST(validate_move__gamed_ended_draw__returns_invalid);
+  RUN_TEST(validate_move__game_ended_win_p1__returns_invaild);
+  RUN_TEST(validate_move__game_ended_win_p2__returns_invaild);
   UNITY_END();
 
   return 0;
