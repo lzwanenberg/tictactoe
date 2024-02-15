@@ -2,6 +2,7 @@
 project(TicTacToe C)
 
 set(MODULES
+    src/model/Move/Move.c
     src/model/Game/Game.c
     src/model/GameState/GameState.c
     src/view/BoardView/BoardRenderer/BoardRenderer.c
