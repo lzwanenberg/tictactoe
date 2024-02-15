@@ -33,7 +33,7 @@ void validate_move__valid_move__returns_valid(void)
 void validate_move__cell_already_occupied__returns_invalid(void)
 {
   Game game;
-  load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 2);
+  load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 3);
 
   Move move = create_move(1, 2);
 

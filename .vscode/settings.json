@@ -16,7 +16,8 @@
     "moveservice.h": "c",
     "moveutil.h": "c",
     "tictactoe.h": "c",
-    "movevalidator.h": "c"
+    "movevalidator.h": "c",
+    "move.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

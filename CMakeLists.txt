@@ -4,6 +4,7 @@ project(TicTacToe C)
 set(MODULES
     src/view/BoardView/BoardRenderer/BoardRenderer.c
     src/utils/MoveUtil/MoveUtil.c
+    src/utils/GameUtil/GameUtil.c
     src/services/GameService/GameService.c
     src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
     src/services/MoveValidator/MoveValidator.c

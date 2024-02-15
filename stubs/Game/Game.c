@@ -42,7 +42,6 @@ static Game create_non_empty(char moves[][2], int size)
 
 Game game_stub__empty()
 {
-
   return create_empty();
 }
 
