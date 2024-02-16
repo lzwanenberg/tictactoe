@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "unity.h"
 #include "GameUtil.h"
+#include "../../services/GameService/GameService.h"
 #include "../../../stubs/Game/Game.h"
 #include "../../types/Move.h"
 #include "../../config.h"

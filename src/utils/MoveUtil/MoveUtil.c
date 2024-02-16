@@ -32,6 +32,15 @@ Move create_move(char col, char row)
   return move;
 }
 
+Move create_empty_move()
+{
+  Move move;
+
+  empty_move(&move);
+
+  return move;
+}
+
 bool is_empty_move(Move *move)
 {
   return move->col == -1 || move->row == -1;

@@ -2,7 +2,7 @@
 #include "../../src/types/Game.h"
 #include "../../src/services/GameService/GameService.h"
 
-#define GAME(arr) create_non_empty(arr, sizeof(arr) / sizeof(arr[0]))
+#define CREATE_GAME(arr) create_non_empty(arr, sizeof(arr) / sizeof(arr[0]))
 
 #define CELL(col, row) \
   {                    \
@@ -47,30 +47,30 @@ Game game_stub__empty()
 
 Game game_stub__draw()
 {
-  return GAME(DRAW);
+  return CREATE_GAME(DRAW);
 }
 
 Game game_stub__ongoing()
 {
-  return GAME(ONGOING_TURN_P1);
+  return CREATE_GAME(ONGOING_TURN_P1);
 }
 
 Game game_stub__ongoing_turn_p1()
 {
-  return GAME(ONGOING_TURN_P1);
+  return CREATE_GAME(ONGOING_TURN_P1);
 }
 
 Game game_stub__ongoing_turn_p2()
 {
-  return GAME(ONGOING_TURN_P2);
+  return CREATE_GAME(ONGOING_TURN_P2);
 }
 
 Game game_stub__p1_won()
 {
-  return GAME(P1_WON);
+  return CREATE_GAME(P1_WON);
 }
 
 Game game_stub__p2_won()
 {
-  return GAME(P2_WON);
+  return CREATE_GAME(P2_WON);
 }

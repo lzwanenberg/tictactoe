@@ -17,7 +17,8 @@
     "moveutil.h": "c",
     "tictactoe.h": "c",
     "movevalidator.h": "c",
-    "move.h": "c"
+    "move.h": "c",
+    "byteutil.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {
