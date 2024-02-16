@@ -58,27 +58,38 @@ typedef struct
 
 typedef Byte Projection[3];
 
+static bool contains_move(MoveSet *move_set, char move[2])
+{
+  for (int i = 0; i < move_set->count; i++)
+  {
+
+    if (move_set->moves[i].col == move[0] &&
+        move_set->moves[i].row == move[1])
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+static Byte create_projection_byte(MoveSet *move_set, char template[8][2])
+{
+  bool bits[8] = {false};
+
+  for (int i = 0; i < 8; i++)
+  {
+    bits[i] = contains_move(move_set, template[i]);
+  }
+
+  return create_byte(bits);
+}
+
 static void create_projection(MoveSet *move_set, Projection projection)
 {
-  for (int row = 0; row < 3; row++)
+  for (int i = 0; i < 3; i++)
   {
-    bool bits[8] = {false};
-
-    for (int win_type = 0; win_type < 8; win_type++)
-    {
-      for (int move_id = 0; move_id < move_set->count; move_id++)
-      {
-
-        if (move_set->moves[move_id].col == PROJECTION_TEMPLATE[row][win_type][0] &&
-            move_set->moves[move_id].row == PROJECTION_TEMPLATE[row][win_type][1])
-        {
-          bits[win_type] = true;
-          break;
-        }
-      }
-    }
-
-    projection[row] = create_byte(bits);
+    projection[i] = create_projection_byte(move_set, PROJECTION_TEMPLATE[i]);
   }
 }
 
