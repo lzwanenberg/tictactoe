@@ -8,22 +8,27 @@
 #include "view/BoardView/BoardRenderer/BoardRenderer.h"
 #include <stdbool.h>
 
+static void clear_screen();
+static void render(AppState *app);
+static void request_input(char *buffer);
+static void enter_game_loop(AppState *app);
+
+int main()
+{
+	AppState app;
+
+	clear_screen();
+	initialize_app(&app);
+	render(&app);
+	enter_game_loop(&app);
+	clear_screen();
+
+	return 0;
+}
+
 void clear_screen()
 {
 	printf("\033[H\033[J");
-}
-
-static void render(AppState *app)
-{
-	char output[OUTPUT_BUFFER_SIZE];
-	clear_screen();
-	render_app(app, output);
-	printf(output);
-}
-
-static void request_input(char *buffer)
-{
-	fgets(buffer, sizeof(buffer), stdin);
 }
 
 static void enter_game_loop(AppState *app)
@@ -38,15 +43,15 @@ static void enter_game_loop(AppState *app)
 	}
 }
 
-int main()
+static void request_input(char *buffer)
 {
-	AppState app;
+	fgets(buffer, sizeof(buffer), stdin);
+}
 
+static void render(AppState *app)
+{
+	char output[OUTPUT_BUFFER_SIZE];
 	clear_screen();
-	initialize_app(&app);
-	render(&app);
-	enter_game_loop(&app);
-	clear_screen();
-
-	return 0;
+	render_app(app, output);
+	printf(output);
 }
