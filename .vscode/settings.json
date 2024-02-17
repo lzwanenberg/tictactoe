@@ -20,7 +20,8 @@
     "move.h": "c",
     "byteutil.h": "c",
     "appservice.h": "c",
-    "gameutil.h": "c"
+    "gameutil.h": "c",
+    "boardviewmapper.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

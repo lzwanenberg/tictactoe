@@ -14,10 +14,9 @@ typedef struct
 {
   InputBuffer input_buffer;
   bool is_running;
-  char output[OUTPUT_BUFFER_SIZE];
   Game game;
 } AppState;
 
 void initialize_app(AppState *state);
 void process_input(AppState *state, char *input);
-void process_invalid_input(AppState *state);
+void render_app(AppState *app, char *output);
