@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "AppService.h"
+#include "../GameService/GameService.h"
 #include "../../config.h"
 
 static void copy_input(char *dst, char *src)
@@ -32,12 +33,22 @@ static void quit(AppState *app)
   app->is_running = false;
 }
 
+static void initialize_input_buffer(AppState *app)
+{
+  copy_input(app->input_buffer.current, "\n");
+  copy_input(app->input_buffer.previous, "\n");
+}
+
+static void new_game(AppState *app)
+{
+  initialize_game(&app->game);
+}
+
 void initialize_app(AppState *app)
 {
   app->is_running = true;
-
-  copy_input(app->input_buffer.current, "\n");
-  copy_input(app->input_buffer.previous, "\n");
+  initialize_input_buffer(app);
+  new_game(app);
   write_output(app, "Welcome!\n");
 }
 

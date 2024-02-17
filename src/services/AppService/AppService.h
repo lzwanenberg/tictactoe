@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 #include "../../config.h"
+#include "../../types/Game.h"
 
 typedef struct
 {
@@ -14,6 +15,7 @@ typedef struct
   InputBuffer input_buffer;
   bool is_running;
   char output[OUTPUT_BUFFER_SIZE];
+  Game game;
 } AppState;
 
 void initialize_app(AppState *state);
