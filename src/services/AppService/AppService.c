@@ -2,101 +2,60 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include "AppService.h"
 #include "../../config.h"
 
-// #define EMPTY_MOVE_CODE -1
-// #define MOVE_OUT_OF_BOUNDS_CODE -2
+static void copy_input(char *dst, char *src)
+{
+  strcpy_s(dst, INPUT_BUFFER_SIZE, src);
+}
 
-// static void reset_moves(Game *game);
-// static int get_move_id(Move *move);
-// static bool game_has_finished(GameState state);
+static void read_input_into_buffer(AppState *app, char *input)
+{
+  copy_input(app->input_buffer.previous, app->input_buffer.current);
+  copy_input(app->input_buffer.current, input);
+}
 
-// void initialize_game(Game *game)
-// {
-//   reset_moves(game);
-// }
+static void write_output(AppState *app, char *output)
+{
+  strcpy_s(app->output, OUTPUT_BUFFER_SIZE, output);
+}
 
-// static void reset_moves(Game *game)
-// {
-//   for (int i = 0; i < MAX_MOVES; i++)
-//     game->moves[i] = EMPTY_MOVE_CODE;
-// }
+static void clear_output(AppState *app)
+{
+  write_output(app, "");
+}
 
-// static int get_move_id(Move *move)
-// {
-//   if (move->col >= BOARD_SIZE || move->row >= BOARD_SIZE)
-//     return MOVE_OUT_OF_BOUNDS_CODE;
+static void quit(AppState *app)
+{
+  app->is_running = false;
+}
 
-//   return move->col + (move->row * BOARD_SIZE);
-// }
+void initialize_app(AppState *app)
+{
+  app->is_running = true;
 
-// static bool game_has_finished(GameState state)
-// {
-//   return state == GAME_STATE__P1_WON ||
-//          state == GAME_STATE__P2_WON ||
-//          state == GAME_STATE__DRAW;
-// }
+  copy_input(app->input_buffer.current, "\n");
+  copy_input(app->input_buffer.previous, "\n");
+  write_output(app, "Welcome!\n");
+}
 
-// static bool is_cell_free(Game *game, int move_id)
-// {
-//   for (int i = 0; i < MAX_MOVES; i++)
-//   {
-//     if (game->moves[i] == EMPTY_MOVE_CODE)
-//       return true;
+void process_input(AppState *app, char *input)
+{
+  clear_output(app);
+  read_input_into_buffer(app, input);
 
-//     if (game->moves[i] == move_id)
-//       return false;
-//   }
+  if (strcmp(input, "q\n") == 0)
+  {
+    write_output(app, "Quitting");
+    quit(app);
 
-//   return true;
-// }
+    return;
+  }
+}
 
-// static Game_MoveValidity validate_move(Game *game, GameState state, int move_id)
-// {
-//   if (game_has_finished(state))
-//     return GAME__MOVE_VALIDITY__INVALID_FINISHED;
-
-//   if (move_id == MOVE_OUT_OF_BOUNDS_CODE)
-//     return GAME__MOVE_VALIDITY__INVALID_OUT_OF_BOUNDS;
-
-//   if (!is_cell_free(game, move_id))
-//     return GAME__MOVE_VALIDITY__INVALID_CELL_OCCUPIED;
-
-//   return GAME__MOVE_VALIDITY__VALID;
-// }
-
-// static int find_first_empty_move_index(Game *game)
-// {
-//   for (int i = 0; i < MAX_MOVES; i++)
-//   {
-//     if (game->moves[i] == EMPTY_MOVE_CODE)
-//       return i;
-//   }
-//   return -1;
-// }
-
-// static void set_next_move(Game *game, int move_id)
-// {
-//   int i = find_first_empty_move_index(game);
-//   game->moves[i] = move_id;
-// }
-
-// Game_MoveResult attempt_make_move(Game *game, Move *move)
-// {
-//   int move_id = get_move_id(move);
-//   GameState state = calculate_game_state(game);
-//   Game_MoveValidity move_validity = validate_move(game, state, move_id);
-
-//   if (move_validity != GAME__MOVE_VALIDITY__VALID)
-
-//     return (Game_MoveResult){
-//         .move_validity = move_validity,
-//         .state = state};
-
-//   set_next_move(game, move_id);
-//   GameState new_state = calculate_game_state(game);
-
-//   return (Game_MoveResult){
-//       .move_validity = move_validity,
-//       .state = new_state};
-// }
+void process_invalid_input(AppState *app)
+{
+  printf("TODO: invalid input\n");
+}

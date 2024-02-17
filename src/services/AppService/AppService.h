@@ -1,16 +1,21 @@
 #pragma once
 
 #include <stdbool.h>
+#include "../../config.h"
 
-// #include "../config.h"
-// #include "../model/Move/Move.h"
-// #include "../model/GameState/GameState.h"
-// #include "../model/Game/Game.h"
+typedef struct
+{
+  char previous[INPUT_BUFFER_SIZE];
+  char current[INPUT_BUFFER_SIZE];
+} InputBuffer;
 
-// typedef struct
-// {
-//   Game current_game;
-// } App;
+typedef struct
+{
+  InputBuffer input_buffer;
+  bool is_running;
+  char output[OUTPUT_BUFFER_SIZE];
+} AppState;
 
-// App initialize();
-// make_move etc.
+void initialize_app(AppState *state);
+void process_input(AppState *state, char *input);
+void process_invalid_input(AppState *state);
