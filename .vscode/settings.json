@@ -18,7 +18,7 @@
     "tictactoe.h": "c",
     "movevalidator.h": "c",
     "move.h": "c",
-    "byteutil.h": "c",
+    "Byte.h": "c",
     "appservice.h": "c",
     "gameutil.h": "c",
     "boardviewmapper.h": "c",

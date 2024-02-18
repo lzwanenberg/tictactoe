@@ -5,7 +5,7 @@
 #include <math.h>
 #include "GameStatusAnalyzer.h"
 #include "../../config.h"
-#include "../../utils/ByteUtil/ByteUtil.h"
+#include "../../support/Byte/Byte.h"
 #include "../../models/Game/Game.h"
 #include "../../models/Move/Move.h"
 
@@ -56,8 +56,6 @@ typedef struct
   MoveSet player_2;
 } MoveSets;
 
-typedef Byte Projection[3];
-
 static bool contains_move(MoveSet *move_set, char move[2])
 {
   for (int i = 0; i < move_set->count; i++)
@@ -73,7 +71,7 @@ static bool contains_move(MoveSet *move_set, char move[2])
   return false;
 }
 
-static Byte create_projection_byte(MoveSet *move_set, char template[8][2])
+static unsigned char create_projection_byte(MoveSet *move_set, char template[8][2])
 {
   bool bits[8] = {false};
 
@@ -82,10 +80,10 @@ static Byte create_projection_byte(MoveSet *move_set, char template[8][2])
     bits[i] = contains_move(move_set, template[i]);
   }
 
-  return create_byte(bits);
+  return byte__to_unsigned_char(bits);
 }
 
-static void create_projection(MoveSet *move_set, Projection projection)
+static void create_projection(MoveSet *move_set, unsigned char projection[3])
 {
   for (int i = 0; i < 3; i++)
   {
@@ -95,12 +93,12 @@ static void create_projection(MoveSet *move_set, Projection projection)
 
 static bool check_for_win(MoveSet *move_set)
 {
-  Projection projection;
+  unsigned char projection[3];
   create_projection(move_set, projection);
 
-  Byte result = projection[0] &
-                projection[1] &
-                projection[2];
+  unsigned char result = projection[0] &
+                         projection[1] &
+                         projection[2];
 
   return result > 0;
 }
