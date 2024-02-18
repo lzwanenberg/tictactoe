@@ -12,6 +12,6 @@ typedef enum
   GAME_STATUS_SERVICE__RESULT__P1_WON,
   GAME_STATUS_SERVICE__RESULT__P2_WON,
   GAME_STATUS_SERVICE__RESULT__DRAW
-} GameStatusService_Result;
+} GameStatusAnalyzer_Result;
 
-GameStatusService_Result analyze_game_status(Game *game);
+GameStatusAnalyzer_Result game_status_analyzer__analyze(Game *game);

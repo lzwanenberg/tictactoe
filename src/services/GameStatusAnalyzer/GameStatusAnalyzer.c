@@ -135,7 +135,7 @@ static char check_for_winner(Game *game, char moves_made)
   return 0;
 }
 
-GameStatusService_Result analyze_game_status(Game *game)
+GameStatusAnalyzer_Result game_status_analyzer__analyze(Game *game)
 {
   char moves_made = count_number_of_moves(game);
   char winner = check_for_winner(game, moves_made);

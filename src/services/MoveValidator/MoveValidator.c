@@ -10,7 +10,7 @@
 
 static bool check_game_finished(Game *game)
 {
-  GameStatusService_Result status = analyze_game_status(game);
+  GameStatusAnalyzer_Result status = game_status_analyzer__analyze(game);
 
   return status == GAME_STATUS_SERVICE__RESULT__P1_WON ||
          status == GAME_STATUS_SERVICE__RESULT__P2_WON ||
