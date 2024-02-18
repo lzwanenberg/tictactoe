@@ -13,4 +13,4 @@ typedef enum
   MOVE_VALIDATOR__RESULT__INVALID_OUT_OF_BOUNDS
 } MoveValidator_Result;
 
-MoveValidator_Result validate_move(Game *game, Move *move);
+MoveValidator_Result move_validator__validate(Game *game, Move *move);

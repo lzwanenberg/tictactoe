@@ -25,7 +25,7 @@ void validate_move__valid_move__returns_valid(void)
 
   Move move = create_move(2, 2);
 
-  MoveValidator_Result result = validate_move(&game, &move);
+  MoveValidator_Result result = move_validator__validate(&game, &move);
 
   TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__VALID, result);
 }
@@ -37,7 +37,7 @@ void validate_move__cell_already_occupied__returns_invalid(void)
 
   Move move = create_move(1, 2);
 
-  MoveValidator_Result result = validate_move(&game, &move);
+  MoveValidator_Result result = move_validator__validate(&game, &move);
 
   TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_CELL_OCCUPIED, result);
 }
@@ -56,7 +56,7 @@ void validate_move__move_out_of_bounds__returns_invalid(void)
   {
     Move move = out_of_bound_moves[i];
 
-    MoveValidator_Result result = validate_move(&game, &move);
+    MoveValidator_Result result = move_validator__validate(&game, &move);
 
     TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_OUT_OF_BOUNDS, result);
   }
@@ -67,7 +67,7 @@ void validate_move__gamed_ended_draw__returns_invalid(void)
   Game game = game_stub__draw();
   Move move = create_move(1, 1);
 
-  MoveValidator_Result result = validate_move(&game, &move);
+  MoveValidator_Result result = move_validator__validate(&game, &move);
 
   TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
 }
@@ -77,7 +77,7 @@ void validate_move__game_ended_win_p1__returns_invaild(void)
   Game game = game_stub__p1_won();
   Move move = create_move(1, 1);
 
-  MoveValidator_Result result = validate_move(&game, &move);
+  MoveValidator_Result result = move_validator__validate(&game, &move);
 
   TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
 }
@@ -87,7 +87,7 @@ void validate_move__game_ended_win_p2__returns_invaild(void)
   Game game = game_stub__p2_won();
   Move move = create_move(1, 1);
 
-  MoveValidator_Result result = validate_move(&game, &move);
+  MoveValidator_Result result = move_validator__validate(&game, &move);
 
   TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
 }

@@ -38,7 +38,7 @@ static bool is_cell_occupied(Game *game, Move *move)
   return false;
 }
 
-MoveValidator_Result validate_move(Game *game, Move *move)
+MoveValidator_Result move_validator__validate(Game *game, Move *move)
 {
   if (check_game_finished(game))
     return MOVE_VALIDATOR__RESULT__INVALID_FINISHED;
