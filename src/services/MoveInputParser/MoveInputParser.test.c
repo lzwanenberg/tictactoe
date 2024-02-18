@@ -114,7 +114,7 @@ static MoveInputParser_ParseResult expect_successful(char col, char row)
 static void run_test_case(char *input, MoveInputParser_ParseResult expected)
 {
   MoveInputParser_ParseResult actual;
-  parse_move_input(input, &actual);
+  move_input_parser__parse(input, &actual);
 
   char message[128];
 

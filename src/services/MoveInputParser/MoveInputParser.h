@@ -9,4 +9,4 @@ typedef struct
   int row;
 } MoveInputParser_ParseResult;
 
-void parse_move_input(const char *input, MoveInputParser_ParseResult *result);
+void move_input_parser__parse(const char *input, MoveInputParser_ParseResult *result);

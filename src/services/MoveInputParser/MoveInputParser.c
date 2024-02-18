@@ -48,7 +48,7 @@ static char extract_row(char chars[2])
   return extract_index(chars, '1');
 }
 
-void parse_move_input(const char *input, MoveInputParser_ParseResult *result)
+void move_input_parser__parse(const char *input, MoveInputParser_ParseResult *result)
 {
   if (strlen(input) != 2)
   {
