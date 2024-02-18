@@ -29,7 +29,7 @@ void count_number_of_moves__empty_game__returns_0(void)
 void count_number_of_moves__ongoing_game__returns_number_of_moves(void)
 {
   Game game;
-  load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 3);
+  game_service__load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 3);
 
   char result = count_number_of_moves(&game);
 

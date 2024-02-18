@@ -29,14 +29,14 @@ static Game
 create_empty()
 {
   Game game;
-  initialize_game(&game);
+  game_service__initialize(&game);
   return game;
 }
 
 static Game create_non_empty(char moves[][2], int size)
 {
   Game game;
-  load_game(&game, moves, size);
+  game_service__load_game(&game, moves, size);
   return game;
 }
 

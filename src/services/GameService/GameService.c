@@ -6,7 +6,7 @@
 #include "GameService.h"
 #include "../../utils/MoveUtil/MoveUtil.h"
 
-void initialize_game(Game *game)
+void game_service__initialize(Game *game)
 {
   for (int i = 0; i < MAX_MOVES; i++)
   {
@@ -14,9 +14,9 @@ void initialize_game(Game *game)
   }
 }
 
-void load_game(Game *game, char moves[][2], int size)
+void game_service__load_game(Game *game, char moves[][2], int size)
 {
-  initialize_game(game);
+  game_service__initialize(game);
   for (int i = 0; i < size; i++)
   {
     char row = moves[i][0];

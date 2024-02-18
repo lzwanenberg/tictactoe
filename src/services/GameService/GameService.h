@@ -4,5 +4,5 @@
 
 #include "../../types/Game.h"
 
-void initialize_game(Game *game);
-void load_game(Game *game, char moves[][2], int size);
+void game_service__initialize(Game *game);
+void game_service__load_game(Game *game, char moves[][2], int size);

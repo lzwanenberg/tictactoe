@@ -45,7 +45,7 @@ static void set_message(AppState *app, char *message)
 
 static void new_game(AppState *app)
 {
-  initialize_game(&app->game);
+  game_service__initialize(&app->game);
 }
 
 static void remove_last_character(char *input)

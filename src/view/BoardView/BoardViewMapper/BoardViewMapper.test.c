@@ -25,7 +25,7 @@ void map_game_to_board_view__empty_game__returns_empty(void)
   Game game;
   BoardView board_view;
 
-  initialize_game(&game);
+  game_service__initialize(&game);
 
   map_game_to_board_view(&game, &board_view);
 
@@ -47,7 +47,7 @@ void map_game_to_board_view__non_empty_game__returns_even_moves_p1_odd_moves_p2(
   Game game;
   BoardView board_view;
 
-  load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}, {0, 1}, {2, 0}}, 5);
+  game_service__load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}, {0, 1}, {2, 0}}, 5);
 
   map_game_to_board_view(&game, &board_view);
 
