@@ -22,7 +22,8 @@
     "appservice.h": "c",
     "gameutil.h": "c",
     "boardviewmapper.h": "c",
-    "moveinputparser.h": "c"
+    "moveinputparser.h": "c",
+    "inputbuffer.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

@@ -10,7 +10,9 @@
 #include "../../view/BoardView/BoardView.h"
 #include "../../view/BoardView/BoardViewMapper/BoardViewMapper.h"
 #include "../../view/BoardView/BoardRenderer/BoardRenderer.h"
+#include "../InputBuffer/InputBuffer.h"
 
+// TODO: create AppRenderer
 #define ASCII_TITLE                                                                           \
   "\n"                                                                                        \
   "d888888b d888888b  .o88b.      d888888b  .d8b.   .o88b.      d888888b  .d88b.  d88888b \n" \
@@ -26,12 +28,6 @@ static void copy_input(char *dst, char *src)
   strcpy_s(dst, INPUT_BUFFER_SIZE, src);
 }
 
-static void read_input_into_buffer(AppState *app, char *input)
-{
-  copy_input(app->input_buffer.previous, app->input_buffer.current);
-  copy_input(app->input_buffer.current, input);
-}
-
 static void append_output(char *buffer, char *output)
 {
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, output);
@@ -40,12 +36,6 @@ static void append_output(char *buffer, char *output)
 static void quit(AppState *app)
 {
   app->is_running = false;
-}
-
-static void initialize_input_buffer(AppState *app)
-{
-  copy_input(app->input_buffer.current, "\n");
-  copy_input(app->input_buffer.previous, "\n");
 }
 
 static void set_message(AppState *app, char *message)
@@ -61,10 +51,9 @@ static void new_game(AppState *app)
 void initialize_app(AppState *app)
 {
   new_game(app);
-
   app->is_running = true;
+  input_buffer__initialize(&app->input_buffer, '\n');
   set_message(app, "HELLO WORLD!");
-  initialize_input_buffer(app);
 }
 
 bool string_ends_with_new_line(AppState *app, char *input)
@@ -81,34 +70,36 @@ void remove_last_character(char *input)
 
 void process_input(AppState *app, char *input)
 {
-  read_input_into_buffer(app, input);
-  if (!string_ends_with_new_line(app, app->input_buffer.current))
+  InputBuffer_ReadResult result = input_buffer__read(&app->input_buffer, input);
+
+  switch (result)
   {
-    // Buffer overflowing, wait until new line character enters buffer
+  case INPUT_BUFFER__READ_RESULT__OVERFLOWING:
+    return;
+
+  case INPUT_BUFFER__READ_RESULT__OVERFLOWN:
+    set_message(app, "Invalid input");
+    return;
+
+  case INPUT_BUFFER__READ_RESULT__OK:
+    set_message(app, "TODO!");
     return;
   }
-  if (!string_ends_with_new_line(app, app->input_buffer.previous))
-  {
-    // Buffer overflow
-    set_message(app, "Invalid input.");
-    return;
-  }
 
-  char command[INPUT_BUFFER_SIZE];
-  strcpy_s(command, INPUT_BUFFER_SIZE, input);
-  remove_last_character(command);
+  // char command[INPUT_BUFFER_SIZE];
+  // strcpy_s(command, INPUT_BUFFER_SIZE, input);
+  // remove_last_character(command);
 
-  char buffer[128];
-  sprintf_s(buffer, 128, "TODO: process command: %s", command);
-  set_message(app, buffer);
+  // char buffer[128];
+  // sprintf_s(buffer, 128, "TODO: process command: %s", command);
+  // set_message(app, buffer);
 
-  // TODO, define module that parses commands
-  if (strcmp(input, "q") == 0)
-  {
-    quit(app);
+  // if (strcmp(input, "q") == 0)
+  // {
+  //   quit(app);
 
-    return;
-  }
+  //   return;
+  // }
 }
 
 static void append_board_view(AppState *app, char *buffer)

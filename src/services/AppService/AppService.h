@@ -3,14 +3,9 @@
 #include <stdbool.h>
 #include "../../config.h"
 #include "../../types/Game.h"
+#include "../InputBuffer/InputBuffer.h"
 
 #define MAX_MESSAGE_SIZE 128
-
-typedef struct
-{
-  char previous[INPUT_BUFFER_SIZE];
-  char current[INPUT_BUFFER_SIZE];
-} InputBuffer;
 
 typedef struct
 {
