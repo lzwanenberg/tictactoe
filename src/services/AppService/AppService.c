@@ -48,6 +48,11 @@ static void initialize_input_buffer(AppState *app)
   copy_input(app->input_buffer.previous, "\n");
 }
 
+static void set_message(AppState *app, char *message)
+{
+  strcpy_s(app->message, MAX_MESSAGE_SIZE, message);
+}
+
 static void new_game(AppState *app)
 {
   initialize_game(&app->game);
@@ -58,14 +63,47 @@ void initialize_app(AppState *app)
   new_game(app);
 
   app->is_running = true;
+  set_message(app, "HELLO WORLD!");
   initialize_input_buffer(app);
+}
+
+bool string_ends_with_new_line(AppState *app, char *input)
+{
+  size_t length = strlen(input);
+  return length >= 2 && input[length - 1] == '\n';
+}
+
+void remove_last_character(char *input)
+{
+  size_t length = strlen(input);
+  input[length - 1] = '\0';
 }
 
 void process_input(AppState *app, char *input)
 {
   read_input_into_buffer(app, input);
+  if (!string_ends_with_new_line(app, app->input_buffer.current))
+  {
+    // Buffer overflowing, wait until new line character enters buffer
+    return;
+  }
+  if (!string_ends_with_new_line(app, app->input_buffer.previous))
+  {
+    // Buffer overflow
+    set_message(app, "Invalid input.");
+    return;
+  }
 
-  if (strcmp(input, "q\n") == 0)
+  char command[INPUT_BUFFER_SIZE];
+  strcpy_s(command, INPUT_BUFFER_SIZE, input);
+  remove_last_character(command);
+
+  char buffer[128];
+  sprintf_s(buffer, 128, "TODO: process command: %s", command);
+  set_message(app, buffer);
+
+  // TODO, define module that parses commands
+  if (strcmp(input, "q") == 0)
   {
     quit(app);
 
@@ -73,17 +111,24 @@ void process_input(AppState *app, char *input)
   }
 }
 
-void render_app(AppState *app, char *buffer)
+static void append_board_view(AppState *app, char *buffer)
 {
-  buffer[0] = '\0';
-
   BoardView board_view;
   map_game_to_board_view(&app->game, &board_view);
 
   char *board_view_buffer = create_board_string_buffer();
   render_board_view(&board_view, board_view_buffer);
 
-  append_output(buffer, ASCII_TITLE);
   append_output(buffer, board_view_buffer);
-  append_output(buffer, "\nEnter move for P1:\n");
+}
+
+void render_app(AppState *app, char *buffer)
+{
+  buffer[0] = '\0';
+
+  append_output(buffer, ASCII_TITLE);
+  append_board_view(app, buffer);
+  append_output(buffer, "\n");
+  append_output(buffer, app->message);
+  append_output(buffer, "\n");
 }

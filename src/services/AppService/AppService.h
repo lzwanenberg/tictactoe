@@ -4,6 +4,8 @@
 #include "../../config.h"
 #include "../../types/Game.h"
 
+#define MAX_MESSAGE_SIZE 128
+
 typedef struct
 {
   char previous[INPUT_BUFFER_SIZE];
@@ -15,6 +17,7 @@ typedef struct
   InputBuffer input_buffer;
   bool is_running;
   Game game;
+  char message[MAX_MESSAGE_SIZE];
 } AppState;
 
 void initialize_app(AppState *state);
