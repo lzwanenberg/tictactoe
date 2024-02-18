@@ -33,17 +33,17 @@ static void append_output(char *buffer, char *output)
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, output);
 }
 
-static void quit(AppState *app)
+static void quit(AppService *app)
 {
   app->is_running = false;
 }
 
-static void set_message(AppState *app, char *message)
+static void set_message(AppService *app, char *message)
 {
   strcpy_s(app->message, MAX_MESSAGE_SIZE, message);
 }
 
-static void new_game(AppState *app)
+static void new_game(AppService *app)
 {
   game_service__initialize(&app->game);
 }
@@ -54,13 +54,13 @@ static void remove_last_character(char *input)
   input[length - 1] = '\0';
 }
 
-static bool string_ends_with_new_line(AppState *app, char *input)
+static bool string_ends_with_new_line(AppService *app, char *input)
 {
   size_t length = strlen(input);
   return length >= 2 && input[length - 1] == '\n';
 }
 
-static void append_board_view(AppState *app, char *buffer)
+static void append_board_view(AppService *app, char *buffer)
 {
   BoardView board_view;
   map_game_to_board_view(&app->game, &board_view);
@@ -71,7 +71,7 @@ static void append_board_view(AppState *app, char *buffer)
   append_output(buffer, board_view_buffer);
 }
 
-void app_service__initialize(AppState *app)
+void app_service__initialize(AppService *app)
 {
   new_game(app);
   app->is_running = true;
@@ -79,7 +79,7 @@ void app_service__initialize(AppState *app)
   set_message(app, "HELLO WORLD!");
 }
 
-void app_service__receive_input(AppState *app, char *input)
+void app_service__receive_input(AppService *app, char *input)
 {
   InputBuffer_ReadResult result = input_buffer__read(&app->input_buffer, input);
 
@@ -113,7 +113,7 @@ void app_service__receive_input(AppState *app, char *input)
   // }
 }
 
-void app_service__render(AppState *app, char *buffer)
+void app_service__render(AppService *app, char *buffer)
 {
   buffer[0] = '\0';
 

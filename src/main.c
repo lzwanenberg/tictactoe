@@ -9,13 +9,13 @@
 #include <stdbool.h>
 
 static void clear_screen();
-static void render(AppState *app);
+static void render(AppService *app);
 static void request_input(char *buffer);
-static void enter_game_loop(AppState *app);
+static void enter_game_loop(AppService *app);
 
 int main()
 {
-	AppState app;
+	AppService app;
 
 	clear_screen();
 	app_service__initialize(&app);
@@ -31,7 +31,7 @@ void clear_screen()
 	printf("\033[H\033[J");
 }
 
-static void enter_game_loop(AppState *app)
+static void enter_game_loop(AppService *app)
 {
 	char input[INPUT_BUFFER_SIZE];
 
@@ -48,7 +48,7 @@ static void request_input(char *buffer)
 	fgets(buffer, sizeof(buffer), stdin);
 }
 
-static void render(AppState *app)
+static void render(AppService *app)
 {
 	char output[OUTPUT_BUFFER_SIZE];
 	clear_screen();

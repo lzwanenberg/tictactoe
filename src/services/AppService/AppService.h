@@ -13,8 +13,8 @@ typedef struct
   bool is_running;
   Game game;
   char message[MAX_MESSAGE_SIZE];
-} AppState;
+} AppService;
 
-void app_service__initialize(AppState *state);
-void app_service__receive_input(AppState *state, char *input);
-void app_service__render(AppState *app, char *output);
+void app_service__initialize(AppService *app);
+void app_service__receive_input(AppService *app, char *input);
+void app_service__render(AppService *app, char *output);
