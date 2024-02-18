@@ -1,5 +1,5 @@
 #pragma once
-#include "../../src/types/Game.h"
+#include "../../src/models/Game/Game.h"
 #include "../../src/services/GameService/GameService.h"
 
 #define CREATE_GAME(arr) create_non_empty(arr, sizeof(arr) / sizeof(arr[0]))

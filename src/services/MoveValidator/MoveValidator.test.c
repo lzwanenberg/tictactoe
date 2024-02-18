@@ -5,11 +5,10 @@
 #include "unity.h"
 #include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
 #include "../GameService/GameService.h"
-#include "../../types/Game.h"
-#include "../../types/Move.h"
+#include "../../models/Game/Game.h"
+#include "../../models/Move/Move.h"
 #include "MoveValidator.h"
 #include "../../../stubs/Game/Game.h"
-#include "../../utils/MoveUtil/MoveUtil.h"
 
 void setUp(void)
 {
@@ -24,7 +23,8 @@ void validate__valid_move__returns_valid(void)
   Game game;
   game_service__load_game(&game, (char[][2]){{1, 1}, {0, 0}}, 2);
 
-  Move move = create_move(2, 2);
+  Move move;
+  move__create(&move, 2, 2);
 
   MoveValidator_Result result = move_validator__validate(&game, &move);
 
@@ -36,7 +36,8 @@ void validate__cell_already_occupied__returns_invalid(void)
   Game game;
   game_service__load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 3);
 
-  Move move = create_move(1, 2);
+  Move move;
+  move__create(&move, 1, 2);
 
   MoveValidator_Result result = move_validator__validate(&game, &move);
 
@@ -47,11 +48,13 @@ void validate__move_out_of_bounds__returns_invalid(void)
 {
   Game game = game_stub__ongoing();
 
-  Move out_of_bound_moves[4] = {
-      create_move(-1, 0),
-      create_move(3, 0),
-      create_move(0, -1),
-      create_move(0, 3)};
+  Move m1, m2, m3, m4;
+  move__create(&m1, -1, 0);
+  move__create(&m2, 3, 0);
+  move__create(&m3, 0, -1);
+  move__create(&m4, 0, 3);
+
+  Move out_of_bound_moves[4] = {m1, m2, m3, m4};
 
   for (int i = 0; i < 4; i++)
   {
@@ -66,7 +69,8 @@ void validate__move_out_of_bounds__returns_invalid(void)
 void validate__gamed_ended_draw__returns_invalid(void)
 {
   Game game = game_stub__draw();
-  Move move = create_move(1, 1);
+  Move move;
+  move__create(&move, 1, 1);
 
   MoveValidator_Result result = move_validator__validate(&game, &move);
 
@@ -76,7 +80,8 @@ void validate__gamed_ended_draw__returns_invalid(void)
 void validate__game_ended_win_p1__returns_invaild(void)
 {
   Game game = game_stub__p1_won();
-  Move move = create_move(1, 1);
+  Move move;
+  move__create(&move, 1, 1);
 
   MoveValidator_Result result = move_validator__validate(&game, &move);
 
@@ -86,7 +91,8 @@ void validate__game_ended_win_p1__returns_invaild(void)
 void validate__game_ended_win_p2__returns_invaild(void)
 {
   Game game = game_stub__p2_won();
-  Move move = create_move(1, 1);
+  Move move;
+  move__create(&move, 1, 1);
 
   MoveValidator_Result result = move_validator__validate(&game, &move);
 

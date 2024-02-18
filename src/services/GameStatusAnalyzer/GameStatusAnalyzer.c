@@ -6,8 +6,8 @@
 #include "GameStatusAnalyzer.h"
 #include "../../config.h"
 #include "../../utils/ByteUtil/ByteUtil.h"
-#include "../../utils/GameUtil/GameUtil.h"
-#include "../../utils/MoveUtil/MoveUtil.h"
+#include "../../models/Game/Game.h"
+#include "../../models/Move/Move.h"
 
 #define MAX_MOVES_BY_SINGLE_PLAYER MAX_MOVES / 2 + 1
 
@@ -137,7 +137,7 @@ static char check_for_winner(Game *game, char moves_made)
 
 GameStatusAnalyzer_Result game_status_analyzer__analyze(Game *game)
 {
-  char moves_made = count_number_of_moves(game);
+  char moves_made = game__count_moves(game);
   char winner = check_for_winner(game, moves_made);
 
   if (winner == 1)

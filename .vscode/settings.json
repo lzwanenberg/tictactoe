@@ -23,7 +23,8 @@
     "gameutil.h": "c",
     "boardviewmapper.h": "c",
     "moveinputparser.h": "c",
-    "inputbuffer.h": "c"
+    "inputbuffer.h": "c",
+    "math.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

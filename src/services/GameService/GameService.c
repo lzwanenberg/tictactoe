@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include "../../config.h"
 #include "GameService.h"
-#include "../../utils/MoveUtil/MoveUtil.h"
+#include "../../models/Move/Move.h"
 
 void game_service__initialize(Game *game)
 {
   for (int i = 0; i < MAX_MOVES; i++)
   {
-    empty_move(&game->moves[i]);
+    move__empty(&game->moves[i]);
   }
 }
 
@@ -22,6 +22,6 @@ void game_service__load_game(Game *game, char moves[][2], int size)
     char row = moves[i][0];
     char col = moves[i][1];
 
-    set_move(&game->moves[i], row, col);
+    move__set(&game->moves[i], row, col);
   }
 }

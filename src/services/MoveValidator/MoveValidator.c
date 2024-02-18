@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../config.h"
-#include "../../utils/MoveUtil/MoveUtil.h"
+#include "../../models/Move/Move.h"
 #include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
 
 #include "MoveValidator.h"
@@ -29,7 +29,7 @@ static bool is_cell_occupied(Game *game, Move *move)
 {
   for (int i = 0; i < MAX_MOVES; i++)
   {
-    if (moves_are_equal(&game->moves[i], move))
+    if (move__is_equal(&game->moves[i], move))
     {
       return true;
     }

@@ -5,8 +5,7 @@
 
 #include "BoardViewMapper.h"
 #include "../../../services/GameService/GameService.h"
-#include "../../../utils/GameUtil/GameUtil.h"
-#include "../../../types/Game.h"
+#include "../../../models/Game/Game.h"
 
 #define EMPTY BOARD_VIEW__CELL_EMPTY
 #define P1 BOARD_VIEW__CELL_P1

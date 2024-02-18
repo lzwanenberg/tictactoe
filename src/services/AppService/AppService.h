@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 #include "../../config.h"
-#include "../../types/Game.h"
+#include "../../models/Game/Game.h"
 #include "../InputBuffer/InputBuffer.h"
 
 #define MAX_MESSAGE_SIZE 128

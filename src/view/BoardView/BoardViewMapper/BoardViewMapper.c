@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 #include "../../../config.h"
 #include "BoardViewMapper.h"
-#include "../../../types/Game.h"
+#include "../../../models/Game/Game.h"
 #include "../BoardView.h"
-#include "../../../utils/GameUtil/GameUtil.h"
 
 static void empty_board_view(BoardView *board_view)
 {
@@ -20,7 +18,7 @@ static void empty_board_view(BoardView *board_view)
   }
 }
 
-enum BoardView_CellValue get_cell_value(char move_id)
+static enum BoardView_CellValue get_cell_value(char move_id)
 {
   return move_id % 2 == 0
              ? BOARD_VIEW__CELL_P1
@@ -31,7 +29,7 @@ void map_game_to_board_view(Game *game, BoardView *board_view)
 {
   empty_board_view(board_view);
 
-  char number_of_moves = count_number_of_moves(game);
+  char number_of_moves = game__count_moves(game);
 
   for (int move_id = 0; move_id < number_of_moves; move_id++)
   {

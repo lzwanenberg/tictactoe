@@ -1,6 +1,6 @@
 
 #pragma once
-#include "../../src/types/Game.h"
+#include "../../src/models/Game/Game.h"
 
 Game game_stub__empty();
 Game game_stub__draw();

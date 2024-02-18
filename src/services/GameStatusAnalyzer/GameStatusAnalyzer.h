@@ -1,9 +1,8 @@
 #pragma once
 
 #include <stdbool.h>
-
-#include "../../types/Game.h"
-#include "../../types/Move.h"
+#include "../../models/Game/Game.h"
+#include "../../models/Move/Move.h"
 
 typedef enum
 {

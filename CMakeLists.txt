@@ -3,8 +3,8 @@ project(TicTacToe C)
 
 set(MODULES
     src/utils/ByteUtil/ByteUtil.c
-    src/utils/MoveUtil/MoveUtil.c
-    src/utils/GameUtil/GameUtil.c
+    src/models/Move/Move.c
+    src/models/Game/Game.c
     src/view/BoardView/BoardViewMapper/BoardViewMapper.c
     src/view/BoardView/BoardRenderer/BoardRenderer.c
     src/services/GameService/GameService.c
