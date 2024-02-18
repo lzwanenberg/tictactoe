@@ -48,7 +48,30 @@ static void new_game(AppState *app)
   initialize_game(&app->game);
 }
 
-void initialize_app(AppState *app)
+static void remove_last_character(char *input)
+{
+  size_t length = strlen(input);
+  input[length - 1] = '\0';
+}
+
+static bool string_ends_with_new_line(AppState *app, char *input)
+{
+  size_t length = strlen(input);
+  return length >= 2 && input[length - 1] == '\n';
+}
+
+static void append_board_view(AppState *app, char *buffer)
+{
+  BoardView board_view;
+  map_game_to_board_view(&app->game, &board_view);
+
+  char *board_view_buffer = create_board_string_buffer();
+  render_board_view(&board_view, board_view_buffer);
+
+  append_output(buffer, board_view_buffer);
+}
+
+void app_service__initialize(AppState *app)
 {
   new_game(app);
   app->is_running = true;
@@ -56,19 +79,7 @@ void initialize_app(AppState *app)
   set_message(app, "HELLO WORLD!");
 }
 
-bool string_ends_with_new_line(AppState *app, char *input)
-{
-  size_t length = strlen(input);
-  return length >= 2 && input[length - 1] == '\n';
-}
-
-void remove_last_character(char *input)
-{
-  size_t length = strlen(input);
-  input[length - 1] = '\0';
-}
-
-void process_input(AppState *app, char *input)
+void app_service__receive_input(AppState *app, char *input)
 {
   InputBuffer_ReadResult result = input_buffer__read(&app->input_buffer, input);
 
@@ -102,18 +113,7 @@ void process_input(AppState *app, char *input)
   // }
 }
 
-static void append_board_view(AppState *app, char *buffer)
-{
-  BoardView board_view;
-  map_game_to_board_view(&app->game, &board_view);
-
-  char *board_view_buffer = create_board_string_buffer();
-  render_board_view(&board_view, board_view_buffer);
-
-  append_output(buffer, board_view_buffer);
-}
-
-void render_app(AppState *app, char *buffer)
+void app_service__render(AppState *app, char *buffer)
 {
   buffer[0] = '\0';
 

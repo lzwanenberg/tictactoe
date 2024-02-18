@@ -15,6 +15,6 @@ typedef struct
   char message[MAX_MESSAGE_SIZE];
 } AppState;
 
-void initialize_app(AppState *state);
-void process_input(AppState *state, char *input);
-void render_app(AppState *app, char *output);
+void app_service__initialize(AppState *state);
+void app_service__receive_input(AppState *state, char *input);
+void app_service__render(AppState *app, char *output);

@@ -18,7 +18,7 @@ int main()
 	AppState app;
 
 	clear_screen();
-	initialize_app(&app);
+	app_service__initialize(&app);
 	render(&app);
 	enter_game_loop(&app);
 	clear_screen();
@@ -38,7 +38,7 @@ static void enter_game_loop(AppState *app)
 	while (app->is_running)
 	{
 		request_input(input);
-		process_input(app, input);
+		app_service__receive_input(app, input);
 		render(app);
 	}
 }
@@ -52,6 +52,6 @@ static void render(AppState *app)
 {
 	char output[OUTPUT_BUFFER_SIZE];
 	clear_screen();
-	render_app(app, output);
+	app_service__render(app, output);
 	printf(output);
 }
