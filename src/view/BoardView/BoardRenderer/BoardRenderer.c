@@ -5,7 +5,7 @@
 
 #include "BoardRenderer.h"
 #include "../BoardView.h"
-#include "../../../macros/safe_malloc.h"
+#include "../../../support/macros/safe_malloc.h"
 
 #define HEADER_ROW "   A   B   C\n"
 #define EMPTY_ROW "  _ | _ | _\n"

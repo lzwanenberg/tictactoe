@@ -5,7 +5,7 @@
 #include <math.h>
 #include "GameStatusAnalyzer.h"
 #include "../../config.h"
-#include "../../support/Byte/Byte.h"
+#include "../../support/utils/Byte/Byte.h"
 #include "../../models/Game/Game.h"
 #include "../../models/Move/Move.h"
 
