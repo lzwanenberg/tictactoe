@@ -18,7 +18,7 @@ void run_test_case(char *input, MoveInputParser_ParseResult expected);
 MoveInputParser_ParseResult expect_unsuccessful();
 MoveInputParser_ParseResult expect_successful(char col, char row);
 
-void parse_move_input__positive_test_cases(void)
+void parse__positive_test_cases(void)
 {
   // Row 1
   // A1
@@ -72,7 +72,7 @@ void parse_move_input__positive_test_cases(void)
   run_test_case("3C", expect_successful(2, 2));
 }
 
-void parse_move_input__negative_test_cases(void)
+void parse__negative_test_cases(void)
 {
   MoveInputParser_ParseResult unsuccessful = expect_unsuccessful();
 
@@ -86,8 +86,8 @@ void parse_move_input__negative_test_cases(void)
 int main()
 {
   UNITY_BEGIN();
-  RUN_TEST(parse_move_input__positive_test_cases);
-  RUN_TEST(parse_move_input__negative_test_cases);
+  RUN_TEST(parse__positive_test_cases);
+  RUN_TEST(parse__negative_test_cases);
   UNITY_END();
 
   return 0;

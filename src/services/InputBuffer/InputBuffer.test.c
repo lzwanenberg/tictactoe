@@ -18,7 +18,7 @@ void tearDown(void)
 {
 }
 
-void input_buffer__read__valid_blocks__returns_ok(void)
+void read__valid_blocks__returns_ok(void)
 {
   InputBuffer buffer;
   input_buffer__initialize(&buffer, '\n');
@@ -32,7 +32,7 @@ void input_buffer__read__valid_blocks__returns_ok(void)
   TEST_ASSERT_EQUAL(OK, result1);
   TEST_ASSERT_EQUAL(OK, result2);
 }
-void input_buffer__read__unterminated_block__returns_overflowing(void)
+void read__unterminated_block__returns_overflowing(void)
 {
   InputBuffer buffer;
   input_buffer__initialize(&buffer, '\n');
@@ -44,7 +44,7 @@ void input_buffer__read__unterminated_block__returns_overflowing(void)
   TEST_ASSERT_EQUAL(OVERFLOWING, result);
 }
 
-void input_buffer__read__terminated_block_after_unterminated_block__returns_overflown(void)
+void read__terminated_block_after_unterminated_block__returns_overflown(void)
 {
   InputBuffer buffer;
   input_buffer__initialize(&buffer, '\n');
@@ -62,7 +62,7 @@ void input_buffer__read__terminated_block_after_unterminated_block__returns_over
   TEST_ASSERT_EQUAL(OVERFLOWN, result3);
 }
 
-void input_buffer__read__terminated_block_after_overflown__returns_ok(void)
+void read__terminated_block_after_overflown__returns_ok(void)
 {
   InputBuffer buffer;
   input_buffer__initialize(&buffer, '\n');
@@ -80,7 +80,7 @@ void input_buffer__read__terminated_block_after_overflown__returns_ok(void)
   TEST_ASSERT_EQUAL(OK, result3);
 }
 
-void input_buffer__read__empty_block__returns_overflowing(void)
+void read__empty_block__returns_overflowing(void)
 {
   InputBuffer buffer;
   input_buffer__initialize(&buffer, '\n');
@@ -95,11 +95,11 @@ void input_buffer__read__empty_block__returns_overflowing(void)
 int main()
 {
   UNITY_BEGIN();
-  RUN_TEST(input_buffer__read__valid_blocks__returns_ok);
-  RUN_TEST(input_buffer__read__unterminated_block__returns_overflowing);
-  RUN_TEST(input_buffer__read__terminated_block_after_unterminated_block__returns_overflown);
-  RUN_TEST(input_buffer__read__terminated_block_after_overflown__returns_ok);
-  RUN_TEST(input_buffer__read__empty_block__returns_overflowing);
+  RUN_TEST(read__valid_blocks__returns_ok);
+  RUN_TEST(read__unterminated_block__returns_overflowing);
+  RUN_TEST(read__terminated_block_after_unterminated_block__returns_overflown);
+  RUN_TEST(read__terminated_block_after_overflown__returns_ok);
+  RUN_TEST(read__empty_block__returns_overflowing);
   UNITY_END();
 
   return 0;
