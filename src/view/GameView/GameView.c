@@ -16,7 +16,8 @@
 
 void game_view__initialize(GameView *game_view)
 {
-  game_view->input_error[0] = '\0';
+  game_view->input_error = "";
+  game_view->message = "";
 }
 
 void game_view__render(GameView *game_view, char *buffer)

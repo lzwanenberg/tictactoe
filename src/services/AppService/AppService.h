@@ -4,11 +4,13 @@
 #include "../../config.h"
 #include "../../models/Game/Game.h"
 #include "../InputBuffer/InputBuffer.h"
+#include "../../view/GameView/GameView.h"
 
 typedef struct
 {
   Game game;
   InputBuffer input_buffer;
+  GameView view;
   bool is_running;
 } AppService;
 

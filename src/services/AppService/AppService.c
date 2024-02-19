@@ -18,10 +18,12 @@ void app_service__initialize(AppService *app)
 
   game__initialize(&app->game);
   input_buffer__initialize(&app->input_buffer);
+  game_view__initialize(&app->view);
 }
 
 void app_service__receive_input(AppService *app, char *input)
 {
+  game_view__initialize(&app->view);
   InputBuffer_ReadResult result = input_buffer__read(&app->input_buffer, input);
 
   switch (result)
@@ -30,11 +32,12 @@ void app_service__receive_input(AppService *app, char *input)
     return;
 
   case INPUT_BUFFER__READ_RESULT__OVERFLOWN:
-    // set_message(app, "Invalid input");
+    app->view.input_error = "Invalid input.";
+    app->view.message = "Todo: recalculate message";
     return;
 
   case INPUT_BUFFER__READ_RESULT__OK:
-    // TODO
+    app->view.message = "Todo: recalculate message2";
     return;
   }
 }
@@ -42,10 +45,5 @@ void app_service__receive_input(AppService *app, char *input)
 void app_service__render(AppService *app, char *buffer)
 {
   buffer[0] = '\0';
-
-  GameView game_view = (GameView){
-      .input_error = "Hello this is an error",
-      .message = "Enter move for player 1:"};
-
-  game_view__render(&game_view, buffer);
+  game_view__render(&app->view, buffer);
 }
