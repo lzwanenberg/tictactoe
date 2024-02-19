@@ -8,8 +8,6 @@
 
 #include "../../view/GameView/GameView.h"
 #include "../../view/BoardView/BoardView.h"
-#include "../../view/BoardView/BoardViewMapper/BoardViewMapper.h"
-#include "../../view/BoardView/BoardRenderer/BoardRenderer.h"
 #include "../InputBuffer/InputBuffer.h"
 
 void app_service__initialize(AppService *app)

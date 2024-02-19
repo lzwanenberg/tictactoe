@@ -1,9 +1,11 @@
 #pragma once
 
 #include "../../models/Game/Game.h"
+#include "../../models/Board/Board.h"
 
 typedef struct
 {
+  Board *board;
   char *input_error;
   char *message;
 } GameView;

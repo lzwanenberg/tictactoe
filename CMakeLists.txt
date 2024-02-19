@@ -3,12 +3,14 @@ project(TicTacToe C)
 
 set(MODULES
     src/support/utils/Byte/Byte.c
+
     src/models/Move/Move.c
     src/models/Game/Game.c
     src/models/Board/Board.c
+
     src/view/GameView/GameView.c
-    src/view/BoardView/BoardViewMapper/BoardViewMapper.c
-    src/view/BoardView/BoardRenderer/BoardRenderer.c
+    src/view/BoardView/BoardView.c
+
     src/services/InputBuffer/InputBuffer.c
     src/services/MoveInputParser/MoveInputParser.c
     src/services/GameStatusAnalyzer/GameStatusAnalyzer.c

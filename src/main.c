@@ -5,7 +5,6 @@
 
 #include "services/AppService/AppService.h"
 #include "view/BoardView/BoardView.h"
-#include "view/BoardView/BoardRenderer/BoardRenderer.h"
 #include <stdbool.h>
 
 static void clear_screen();

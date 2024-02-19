@@ -1,30 +1,5 @@
 {
-  "files.associations": {
-    "stdio.h": "c",
-    "unity.h": "c",
-    "stdlib.h": "c",
-    "board.c": "cpp",
-    "boardrenderer.h": "c",
-    "boardview.h": "c",
-    "board.h": "c",
-    "safe_malloc.h": "c",
-    "config.h": "c",
-    "game.h": "c",
-    "stdbool.h": "c",
-    "gamestatusanalyzer.h": "c",
-    "moveservice.h": "c",
-    "moveutil.h": "c",
-    "tictactoe.h": "c",
-    "movevalidator.h": "c",
-    "move.h": "c",
-    "Byte.h": "c",
-    "appservice.h": "c",
-    "gameutil.h": "c",
-    "boardviewmapper.h": "c",
-    "moveinputparser.h": "c",
-    "inputbuffer.h": "c",
-    "math.h": "c"
-  },
+  "files.associations": {},
   "terminal.integrated.profiles.windows": {
     "Cmder": {
       "path": "${env:windir}\\System32\\cmd.exe",
