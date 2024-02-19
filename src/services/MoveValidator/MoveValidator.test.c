@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include "unity.h"
 #include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
-#include "../GameService/GameService.h"
 #include "../../models/Game/Game.h"
 #include "../../models/Move/Move.h"
 #include "MoveValidator.h"
@@ -21,7 +20,7 @@ void tearDown(void)
 void validate__valid_move__returns_valid(void)
 {
   Game game;
-  game_service__load_game(&game, (char[][2]){{1, 1}, {0, 0}}, 2);
+  game__load(&game, (char[][2]){{1, 1}, {0, 0}}, 2);
 
   Move move;
   move__create(&move, 2, 2);
@@ -34,7 +33,7 @@ void validate__valid_move__returns_valid(void)
 void validate__cell_already_occupied__returns_invalid(void)
 {
   Game game;
-  game_service__load_game(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 3);
+  game__load(&game, (char[][2]){{1, 1}, {1, 2}, {2, 1}}, 3);
 
   Move move;
   move__create(&move, 1, 2);

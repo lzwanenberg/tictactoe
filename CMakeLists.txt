@@ -7,7 +7,6 @@ set(MODULES
     src/models/Game/Game.c
     src/view/BoardView/BoardViewMapper/BoardViewMapper.c
     src/view/BoardView/BoardRenderer/BoardRenderer.c
-    src/services/GameService/GameService.c
     src/services/InputBuffer/InputBuffer.c
     src/services/MoveInputParser/MoveInputParser.c
     src/services/GameStatusAnalyzer/GameStatusAnalyzer.c

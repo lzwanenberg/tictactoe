@@ -12,7 +12,6 @@
     "game.h": "c",
     "stdbool.h": "c",
     "gamestatusanalyzer.h": "c",
-    "gameservice.h": "c",
     "moveservice.h": "c",
     "moveutil.h": "c",
     "tictactoe.h": "c",

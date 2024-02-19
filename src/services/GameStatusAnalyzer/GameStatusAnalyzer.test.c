@@ -5,7 +5,6 @@
 #include "unity.h"
 #include "GameStatusAnalyzer.h"
 #include "../../../stubs/Game/Game.h"
-#include "../GameService/GameService.h"
 
 #define CREATE_GAME(arr) create_non_empty(arr, sizeof(arr) / sizeof(arr[0]))
 
@@ -33,7 +32,7 @@ void tearDown(void) {}
 static Game create_non_empty(char moves[][2], int size)
 {
   Game game;
-  game_service__load_game(&game, moves, size);
+  game__load(&game, moves, size);
   return game;
 }
 

@@ -7,5 +7,6 @@ typedef struct
   Move moves[MAX_MOVES];
 } Game;
 
-// TODO move initializing logic etc.. to this model
+void game__initialize(Game *game);
+void game__load(Game *game, char moves[][2], int size);
 char game__count_moves(Game *game);

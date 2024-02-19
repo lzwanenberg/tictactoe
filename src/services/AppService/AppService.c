@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "AppService.h"
-#include "../GameService/GameService.h"
 #include "../../config.h"
 
 #include "../../view/BoardView/BoardView.h"
@@ -45,7 +44,7 @@ static void set_message(AppService *app, char *message)
 
 static void new_game(AppService *app)
 {
-  game_service__initialize(&app->game);
+  game__initialize(&app->game);
 }
 
 static void remove_last_character(char *input)

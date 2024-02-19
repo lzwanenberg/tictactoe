@@ -1,6 +1,5 @@
 #pragma once
 #include "../../src/models/Game/Game.h"
-#include "../../src/services/GameService/GameService.h"
 
 #define CREATE_GAME(arr) create_non_empty(arr, sizeof(arr) / sizeof(arr[0]))
 
@@ -29,14 +28,14 @@ static Game
 create_empty()
 {
   Game game;
-  game_service__initialize(&game);
+  game__initialize(&game);
   return game;
 }
 
 static Game create_non_empty(char moves[][2], int size)
 {
   Game game;
-  game_service__load_game(&game, moves, size);
+  game__load(&game, moves, size);
   return game;
 }
 
