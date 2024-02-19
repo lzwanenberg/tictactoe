@@ -20,7 +20,8 @@ void tearDown(void)
 
 void empty_board__renders_correctly(void)
 {
-  char *buffer = create_board_string_buffer();
+  char buffer[OUTPUT_BUFFER_SIZE];
+  buffer[0] = '\n';
 
   BoardView board_view = {
       .cells = {{_, _, _},
@@ -36,13 +37,12 @@ void empty_board__renders_correctly(void)
       "3  _ | _ | _\n";
 
   TEST_ASSERT_EQUAL_STRING(expected, buffer);
-
-  free(buffer);
 }
 
 void non_empty_board__renders_correctly(void)
 {
-  char *buffer = create_board_string_buffer();
+  char buffer[OUTPUT_BUFFER_SIZE];
+  buffer[0] = '\n';
 
   BoardView board_view = {
       .cells = {{_, X, O},
@@ -58,8 +58,6 @@ void non_empty_board__renders_correctly(void)
       "3  X | _ | _\n";
 
   TEST_ASSERT_EQUAL_STRING(expected, buffer);
-
-  free(buffer);
 }
 
 int main()

@@ -22,15 +22,6 @@ static size_t calculate_character_position(int row, int column);
 static void set_character_at_position(char *buffer, int row_id, int col_id, char character);
 static void process_cell(BoardView *board, char *buffer, int row, int col);
 
-char *create_board_string_buffer()
-{
-  char *buffer;
-
-  SAFE_MALLOC(buffer, BOARD_STRING_SIZE * sizeof(char));
-
-  return buffer;
-}
-
 void render_board_view(BoardView *board, char *buffer)
 {
   strcpy_s(buffer, BOARD_STRING_SIZE, EMPTY_BOARD);

@@ -21,7 +21,7 @@ void tearDown(void)
 void read__valid_blocks__returns_ok(void)
 {
   InputBuffer buffer;
-  input_buffer__initialize(&buffer, '\n');
+  input_buffer__initialize(&buffer);
 
   char *block1 = "First terminated block\n";
   char *block2 = "Second terminated block\n";
@@ -35,7 +35,7 @@ void read__valid_blocks__returns_ok(void)
 void read__unterminated_block__returns_overflowing(void)
 {
   InputBuffer buffer;
-  input_buffer__initialize(&buffer, '\n');
+  input_buffer__initialize(&buffer);
 
   char *block1 = "Unterminated block";
 
@@ -47,7 +47,7 @@ void read__unterminated_block__returns_overflowing(void)
 void read__terminated_block_after_unterminated_block__returns_overflown(void)
 {
   InputBuffer buffer;
-  input_buffer__initialize(&buffer, '\n');
+  input_buffer__initialize(&buffer);
 
   char *block1 = "Unterminated block";
   char *block2 = "Unterminated block";
@@ -65,7 +65,7 @@ void read__terminated_block_after_unterminated_block__returns_overflown(void)
 void read__terminated_block_after_overflown__returns_ok(void)
 {
   InputBuffer buffer;
-  input_buffer__initialize(&buffer, '\n');
+  input_buffer__initialize(&buffer);
 
   char *block1 = "Unterminated block";
   char *block2 = "First terminated block\n";
@@ -83,7 +83,7 @@ void read__terminated_block_after_overflown__returns_ok(void)
 void read__empty_block__returns_overflowing(void)
 {
   InputBuffer buffer;
-  input_buffer__initialize(&buffer, '\n');
+  input_buffer__initialize(&buffer);
 
   char *block1 = "";
 

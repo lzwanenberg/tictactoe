@@ -22,10 +22,9 @@ typedef enum
 
 typedef struct
 {
-  char terminator;
   InputBuffer_State state;
 } InputBuffer;
 
-void input_buffer__initialize(InputBuffer *input_buffer, char terminator);
+void input_buffer__initialize(InputBuffer *input_buffer);
 
 InputBuffer_ReadResult input_buffer__read(InputBuffer *input_buffer, const char *input);

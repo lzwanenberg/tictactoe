@@ -20,13 +20,12 @@ static bool input_is_terminated(InputBuffer *buffer, const char *input)
     return false;
   }
 
-  return input[length - 1] == buffer->terminator;
+  return input[length - 1] == '\n';
 }
 
-void input_buffer__initialize(InputBuffer *input_buffer, char terminator)
+void input_buffer__initialize(InputBuffer *input_buffer)
 {
   input_buffer->state = STATE_OK;
-  input_buffer->terminator = terminator;
 }
 
 InputBuffer_ReadResult input_buffer__read(InputBuffer *buffer, const char *input)

@@ -5,6 +5,7 @@ set(MODULES
     src/support/utils/Byte/Byte.c
     src/models/Move/Move.c
     src/models/Game/Game.c
+    src/view/GameView/GameView.c
     src/view/BoardView/BoardViewMapper/BoardViewMapper.c
     src/view/BoardView/BoardRenderer/BoardRenderer.c
     src/services/InputBuffer/InputBuffer.c

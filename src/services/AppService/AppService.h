@@ -5,14 +5,11 @@
 #include "../../models/Game/Game.h"
 #include "../InputBuffer/InputBuffer.h"
 
-#define MAX_MESSAGE_SIZE 128
-
 typedef struct
 {
+  Game game;
   InputBuffer input_buffer;
   bool is_running;
-  Game game;
-  char message[MAX_MESSAGE_SIZE];
 } AppService;
 
 void app_service__initialize(AppService *app);
