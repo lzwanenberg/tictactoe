@@ -17,8 +17,8 @@ int main()
 {
 	AppService app;
 
-	clear_screen();
 	app_service__initialize(&app);
+	clear_screen();
 	render(&app);
 	enter_game_loop(&app);
 	clear_screen();
