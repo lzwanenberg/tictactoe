@@ -9,4 +9,5 @@ typedef struct
 
 void game__initialize(Game *game);
 void game__load(Game *game, char moves[][2], int size);
+void game__add_move(Game *game, Move *move);
 char game__count_moves(Game *game);
