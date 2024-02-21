@@ -3,26 +3,29 @@
 #include <stdio.h>
 #include <string.h>
 #include "GameView.h"
+#include "../BoardView/BoardView.h"
 
-#define ASCII_TITLE                                                                           \
-  "\n"                                                                                        \
-  "d888888b d888888b  .o88b.      d888888b  .d8b.   .o88b.      d888888b  .d88b.  d88888b \n" \
-  "`~~88~~'   `88'   d8P  Y8      `~~88~~' d8' `8b d8P  Y8      `~~88~~' .8P  Y8. 88'     \n" \
-  "   88       88    8P              88    88ooo88 8P              88    88    88 88ooooo \n" \
-  "   88       88    8b              88    88~~~88 8b              88    88    88 88~~~~~ \n" \
-  "   88      .88.   Y8b  d8         88    88   88 Y8b  d8         88    `8b  d8' 88.     \n" \
-  "   YP    Y888888P  `Y88P'         YP    YP   YP  `Y88P'         YP     `Y88P'  Y88888P \n" \
-  "=======================================================================================\n\n"
+#define ASCII_TITLE                                   \
+  " _______       ______           ______        \n"  \
+  "/_  __(_)___  /_  __/__ _____  /_  __/__  ___ \n"  \
+  " / / / / __/   / / / _ `/ __/   / / / _ \\/ -_)\n" \
+  "/_/ /_/\\__/   /_/  \\_,_/\\__/   /_/  \\___/\\__/ \n\n"
 
 void game_view__initialize(GameView *game_view)
 {
   game_view->error = "";
   game_view->message = "";
+  board__initialize(&game_view->board);
 }
 
 void game_view__render(GameView *game_view, char *buffer)
 {
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, ASCII_TITLE);
+
+  BoardView board_view;
+  board_view__initialize(&board_view, &game_view->board);
+  board_view__render(&board_view, buffer);
+
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, game_view->error);
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, "\n");
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, game_view->message);

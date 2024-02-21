@@ -5,7 +5,7 @@
 
 typedef struct
 {
-  Board *board;
+  Board board;
   char *error;
   char *message;
 } GameView;

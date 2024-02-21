@@ -14,7 +14,9 @@
 #include "../MoveValidator/MoveValidator.h"
 #include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
 #include "../../i18n/en.h"
+#include "../../models/Board/Board.h"
 
+void app_service__update_board(AppService *app);
 char *app_service__calculate_message(AppService *app);
 void app_service__attempt_make_move(AppService *app, Move *move);
 void app_service__process_input(AppService *app, char *input);
@@ -51,6 +53,7 @@ void app_service__receive_input(AppService *app, char *input)
 
   case INPUT_BUFFER__READ_RESULT__OK:
     app_service__process_input(app, input);
+    app_service__update_board(app);
     app->view.message = app_service__calculate_message(app);
     return;
   }
@@ -87,6 +90,11 @@ static char *app_service__calculate_message(AppService *app)
   default:
     return NULL;
   }
+}
+
+static void app_service__update_board(AppService *app)
+{
+  board__update(&app->view.board, &app->game);
 }
 
 static void app_service__process_input(AppService *app, char *input)

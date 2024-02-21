@@ -19,9 +19,9 @@
 #define MARKER_X 'X'
 #define MARKER_O 'O'
 
-size_t calculate_character_position(int row, int column);
-void set_character_at_position(char *buffer, int row_id, int col_id, char character);
-void process_cell(Board *board, char *buffer, int row, int col);
+size_t calculate_character_position(size_t offset, int row, int column);
+void set_character_at_position(char *buffer, size_t offset, int row_id, int col_id, char character);
+void process_cell(Board *board, char *buffer, size_t offset, int row, int col);
 
 void board_view__initialize(BoardView *board_view, Board *board)
 {
@@ -35,14 +35,16 @@ void board_view__set_board(BoardView *board_view, Board *board)
 
 void board_view__render(BoardView *board_view, char *buffer)
 {
-  strcpy_s(buffer, BOARD_STRING_SIZE, EMPTY_BOARD);
+  size_t offset = strlen(buffer);
+
+  strcat_s(buffer, OUTPUT_BUFFER_SIZE, EMPTY_BOARD);
 
   for (int row = 0; row < BOARD_SIZE; row++)
     for (int col = 0; col < BOARD_SIZE; col++)
-      process_cell(board_view->board, buffer, col, row);
+      process_cell(board_view->board, buffer, offset, col, row);
 }
 
-static void process_cell(Board *board, char *buffer, int col, int row)
+static void process_cell(Board *board, char *buffer, size_t offset, int col, int row)
 {
   Board_Cell cell_value = board->cells[col][row];
 
@@ -50,18 +52,19 @@ static void process_cell(Board *board, char *buffer, int col, int row)
     return;
 
   const char marker = cell_value == BOARD__CELL__P1 ? MARKER_X : MARKER_O;
-  set_character_at_position(buffer, col, row, marker);
+  set_character_at_position(buffer, offset, col, row, marker);
 }
 
-static void set_character_at_position(char *buffer, int col_id, int row_id, char character)
+static void set_character_at_position(char *buffer, size_t offset, int col_id, int row_id, char character)
 {
-  size_t position = calculate_character_position(col_id, row_id);
+  size_t position = calculate_character_position(offset, col_id, row_id);
   buffer[position] = character;
 }
 
-static size_t calculate_character_position(int column, int row)
+static size_t calculate_character_position(size_t offset, int column, int row)
 {
-  return HEADER_ROW_LENGTH +
+  return offset +
+         HEADER_ROW_LENGTH +
          ROW_OFFSET_LENGTH +
          (column * (SEPARATOR_LENGTH + 1)) +
          (row * (ROW_LENGTH + 1));

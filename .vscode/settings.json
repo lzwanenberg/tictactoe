@@ -1,7 +1,9 @@
 {
   "files.associations": {
     "move.h": "c",
-    "movevalidator.h": "c"
+    "movevalidator.h": "c",
+    "board.h": "c",
+    "gamestatusanalyzer.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

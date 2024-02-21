@@ -28,7 +28,7 @@ void render__empty_board__renders_correctly(void)
   board_view__initialize(&board_view, &board);
 
   char buffer[OUTPUT_BUFFER_SIZE];
-  buffer[0] = '\n';
+  buffer[0] = '\0';
 
   board_view__render(&board_view, buffer);
 
@@ -44,7 +44,9 @@ void render__empty_board__renders_correctly(void)
 void render__non_empty_board__renders_correctly(void)
 {
   char buffer[OUTPUT_BUFFER_SIZE];
-  buffer[0] = '\n';
+  buffer[0] = '\0';
+
+  strcat_s(buffer, OUTPUT_BUFFER_SIZE, "My Tic Tac Toe Game\n");
 
   Game game;
   Board board;
@@ -61,6 +63,7 @@ void render__non_empty_board__renders_correctly(void)
   board_view__render(&view, buffer);
 
   char *expected =
+      "My Tic Tac Toe Game\n"
       "   A   B   C\n"
       "1  _ | X | O\n"
       "2  O | O | X\n"
