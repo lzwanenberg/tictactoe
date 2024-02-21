@@ -1,4 +1,6 @@
 
+# So I went a bit overboard and wrote a test runner, nothing to see here...
+
 import os
 import subprocess
 from dataclasses import dataclass
