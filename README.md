@@ -2,7 +2,10 @@
 
 Study project for learning C.
 
-![Preview](./preview.png)
+- [Prerequisites](#preqrequisites)
+- [Installation](#installation)
+- [Other commands](#other-commands)
+- [Demo](#demo)
 
 ## Prerequisites
 
@@ -26,3 +29,7 @@ run test # run the test suite
 run test <keyword> # run a subset of tests, for example: run test MoveValidator
 run clean # remove build directory
 ```
+
+## Demo
+https://github.com/lzwanenberg/tictactoe/assets/5617056/3cd8c5a4-430c-488f-8085-fbc79217aec8
+
