@@ -14,9 +14,12 @@ set(MODULES
     src/services/InputBuffer/InputBuffer.c
     src/services/MoveInputParser/MoveInputParser.c
     src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
+    src/services/MoveValidator/MoveValidator.c
+    src/services/AppService/AppService.c
+
+    # Deprecated modules
     src/services/GameStatusAnalyzerOld/GameStatusAnalyzerOld.c
     src/services/MoveValidatorOld/MoveValidatorOld.c
-    src/services/AppService/AppService.c
 )
 
 # Add an executable target
