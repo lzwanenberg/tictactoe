@@ -46,3 +46,27 @@ void board__initialize(Board *board);
  * @param game Pointer to the Game structure representing the Tic Tac Toe game.
  */
 void board__update(Board *board, Game *game);
+
+/**
+ * @brief Count the number of cells that are not empty
+ *
+ * Count the number of cells that are not empty, so the number of cells that
+ * either contain a marker of player one or two.
+ *
+ * @param board Pointer to the Board structure
+ * @return The number of cells that are non-empty
+ */
+char board__count_non_empty_cells(Board *board);
+
+/**
+ * @brief Load a number of moves
+ *
+ * The moves are assumed to be in the order that the moves are made. This means
+ * that moves with an even index are assumed to have been made by player 1, while
+ * the odd moves are assumed to have been made by player 2.
+ *
+ * @param board Pointer to the Board structure that will be modified
+ * @param moves The moves that will be loaded
+ * @param number_of_moves The number of moves that are in the given array
+ */
+void board__load(Board *board, char moves[][2], int number_of_moves);

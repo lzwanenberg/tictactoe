@@ -67,11 +67,36 @@ void map_game_to_board__non_empty_game__returns_even_moves_p1_odd_moves_p2(void)
   TEST_ASSERT_EQUAL(EMPTY, board.cells[2][2]);
 }
 
+void count_non_empty_cells__empty_game__returns_0(void)
+{
+  Board board;
+  board__initialize(&board);
+
+  char actual = board__count_non_empty_cells(&board);
+
+  TEST_ASSERT_EQUAL(0, actual);
+}
+
+void count_non_empty_cells__ongoing_game__returns_amount_of_markers(void)
+{
+  Board board;
+  char moves[][2] = {{0, 0}, {1, 1}, {0, 1}, {0, 2}, {1, 0}};
+
+  board__initialize(&board);
+  board__load(&board, moves, 5);
+
+  char actual = board__count_non_empty_cells(&board);
+
+  TEST_ASSERT_EQUAL(5, actual);
+}
+
 int main()
 {
   UNITY_BEGIN();
   RUN_TEST(map_game_to_board__empty_game__returns_empty);
   RUN_TEST(map_game_to_board__non_empty_game__returns_even_moves_p1_odd_moves_p2);
+  RUN_TEST(count_non_empty_cells__empty_game__returns_0);
+  RUN_TEST(count_non_empty_cells__ongoing_game__returns_amount_of_markers);
   UNITY_END();
 
   return 0;

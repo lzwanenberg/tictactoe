@@ -13,6 +13,7 @@ set(MODULES
 
     src/services/InputBuffer/InputBuffer.c
     src/services/MoveInputParser/MoveInputParser.c
+    src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
     src/services/GameStatusAnalyzerOld/GameStatusAnalyzerOld.c
     src/services/MoveValidator/MoveValidator.c
     src/services/AppService/AppService.c
@@ -46,6 +47,7 @@ file(GLOB_RECURSE TEST_SOURCE_FILES "src/*.test.c")
 
 set(TEST_MODULES
     stubs/Game/Game.c
+    stubs/Board/Board.c
 )
 
 # Create executables for each test source file
