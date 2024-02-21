@@ -38,7 +38,7 @@ void app_service__initialize(AppService *app)
 
 void app_service__receive_input(AppService *app, char *input)
 {
-  game_view__initialize(&app->view);
+  game_view__reset(&app->view);
   InputBuffer_ReadResult result = input_buffer__read(&app->input_buffer, input);
 
   switch (result)

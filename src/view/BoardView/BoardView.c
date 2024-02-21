@@ -21,26 +21,25 @@
 #define MARKER_X 'X'
 #define MARKER_O 'O'
 
-void board_view__find_marker_slots(int *slots, int offset);
+void board_view__cache_marker_slots(int *slots);
 char board_view__map_cell_to_marker(Board_Cell cell);
-void board_view__process_cell(Board *board, int *slots, char *buffer, char slot_id, char col, char row);
-void board_view__fill_marker_slots(Board *board, int *slots, char *buffer);
+void board_view__process_cell(BoardView *board_view, Board *board, char *buffer, int offset, char slot_id, char col, char row);
+void board_view__fill_marker_slots(BoardView *board_view, Board *board, char *buffer, int offset);
 
 void board_view__initialize(BoardView *board_view)
 {
+  board_view__cache_marker_slots(board_view->marker_slots);
 }
 
 void board_view__render(BoardView *board_view, Board *board, char *buffer)
 {
-  int slots[MAX_MOVES];
   int offset = (int)strlen(buffer);
 
-  board_view__find_marker_slots(slots, offset);
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, BOARD_TEMPLATE);
-  board_view__fill_marker_slots(board, slots, buffer);
+  board_view__fill_marker_slots(board_view, board, buffer, offset);
 }
 
-static void board_view__find_marker_slots(int *slots, int offset)
+static void board_view__cache_marker_slots(int *slots)
 {
   char *template = BOARD_TEMPLATE;
 
@@ -52,7 +51,7 @@ static void board_view__find_marker_slots(int *slots, int offset)
   {
     if (template[index] == TEMPLATE_SLOT_MARKER)
     {
-      slots[slots_found] = index + offset;
+      slots[slots_found] = index;
       slots_found++;
     }
 
@@ -66,20 +65,20 @@ static void board_view__find_marker_slots(int *slots, int offset)
   }
 }
 
-static void board_view__fill_marker_slots(Board *board, int *slots, char *buffer)
+static void board_view__fill_marker_slots(BoardView *board_view, Board *board, char *buffer, int offset)
 {
   char slot_id = 0;
   for (char row = 0; row < BOARD_SIZE; row++)
     for (char col = 0; col < BOARD_SIZE; col++)
-      board_view__process_cell(board, slots, buffer, slot_id++, col, row);
+      board_view__process_cell(board_view, board, buffer, offset, slot_id++, col, row);
 }
 
-static void board_view__process_cell(Board *board, int *slots, char *buffer, char slot_id, char col, char row)
+static void board_view__process_cell(BoardView *board_view, Board *board, char *buffer, int offset, char slot_id, char col, char row)
 {
-  int slot = slots[slot_id];
+  int slot = board_view->marker_slots[slot_id];
   Board_Cell cell = board->cells[col][row];
   char marker = board_view__map_cell_to_marker(cell);
-  buffer[slot] = marker;
+  buffer[slot + offset] = marker;
 }
 
 static char board_view__map_cell_to_marker(Board_Cell cell)

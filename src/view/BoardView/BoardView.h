@@ -9,7 +9,7 @@
 
 typedef struct
 {
-  int todo;
+  int marker_slots[MAX_MOVES];
 } BoardView;
 
 void board_view__initialize(BoardView *board_view);

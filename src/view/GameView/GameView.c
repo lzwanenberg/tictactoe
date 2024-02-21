@@ -7,13 +7,18 @@
 #include "../BoardView/BoardView.h"
 
 void game_view__render_board(GameView *game_view, char *buffer);
+void game_view__rest(GameView *game_view);
 
 void game_view__initialize(GameView *game_view)
 {
+  game_view__reset(game_view);
+  board_view__initialize(&game_view->board_view);
+}
+
+void game_view__reset(GameView *game_view)
+{
   game_view->error = "";
   game_view->message = "";
-
-  board_view__initialize(&game_view->board_view);
 }
 
 void game_view__render(GameView *game_view, char *buffer)
