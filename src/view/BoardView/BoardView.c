@@ -70,6 +70,7 @@ static void board_view__cache_marker_slots(BoardView *board_view)
 
 static void board_view__fill_marker_slots(BoardView *board_view, Board *board, char *buffer, int offset)
 {
+
   char slot_id = 0;
   for (char row = 0; row < BOARD_SIZE; row++)
     for (char col = 0; col < BOARD_SIZE; col++)

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../models/Game/Game.h"
 #include "../../models/Board/Board.h"
 #include "../BoardView/BoardView.h"
 
@@ -13,7 +12,7 @@ typedef struct
   BoardView board_view;
 
   /**< The underlying board structure. */
-  Board board;
+  Board *board;
 
   /**< Error message, if any. */
   char *error;
@@ -32,8 +31,10 @@ typedef struct
  * including the board view and the underlying game board.
  *
  * @param game_view A pointer to the GameView structure to be initialized.
+ * @param board A pointer to the Board structure that will be rendered
+ * @param margin_left The whitespace that will be added before each line
  */
-void game_view__initialize(GameView *game_view, char *margin_left);
+void game_view__initialize(GameView *game_view, Board *board, char *margin_left);
 
 /**
  * @brief Resets a GameView to its initial state.

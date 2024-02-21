@@ -2,7 +2,6 @@
 
 #include <stdbool.h>
 #include "../../config.h"
-#include "../../models/Game/Game.h"
 #include "../InputBuffer/InputBuffer.h"
 #include "../../view/GameView/GameView.h"
 
@@ -11,8 +10,8 @@
  */
 typedef struct
 {
-  /**< The current state of the game. */
-  Game game;
+  /**< The current state of the board. */
+  Board board;
 
   /**< The buffer for user input. */
   InputBuffer input_buffer;

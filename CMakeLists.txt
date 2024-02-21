@@ -3,23 +3,14 @@ project(TicTacToe C)
 
 set(MODULES
     src/support/Byte/Byte.c
-
-    src/models/Move/Move.c
-    src/models/Game/Game.c
     src/models/Board/Board.c
-
     src/view/GameView/GameView.c
     src/view/BoardView/BoardView.c
-
     src/services/InputBuffer/InputBuffer.c
     src/services/MoveInputParser/MoveInputParser.c
     src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
     src/services/MoveValidator/MoveValidator.c
     src/services/AppService/AppService.c
-
-    # Deprecated modules
-    src/services/GameStatusAnalyzerOld/GameStatusAnalyzerOld.c
-    src/services/MoveValidatorOld/MoveValidatorOld.c
 )
 
 # Add an executable target
@@ -49,7 +40,6 @@ FetchContent_MakeAvailable(unity)
 file(GLOB_RECURSE TEST_SOURCE_FILES "src/*.test.c")
 
 set(TEST_MODULES
-    stubs/Game/Game.c
     stubs/Board/Board.c
 )
 

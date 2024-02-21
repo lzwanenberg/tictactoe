@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include "unity.h"
 
-#include "../../models/Game/Game.h"
 #include "../../models/Board/Board.h"
 #include "BoardView.h"
 
@@ -50,16 +49,13 @@ void render__non_empty_board__renders_correctly(void)
 
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, "My Tic Tac Toe Game\n");
 
-  Game game;
   Board board;
   BoardView board_view;
 
-  game__initialize(&game);
   char moves[][2] = {{1, 0}, {1, 1}, {0, 2}, {0, 1}, {2, 1}, {2, 0}};
-  game__load(&game, moves, 6);
 
   board__initialize(&board);
-  board__update(&board, &game);
+  board__load(&board, moves, 6);
 
   board_view__initialize(&board_view, "  ");
   board_view__render(&board_view, &board, buffer);

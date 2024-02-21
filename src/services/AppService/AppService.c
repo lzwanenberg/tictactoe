@@ -5,18 +5,17 @@
 #include <string.h>
 #include <ctype.h>
 #include "AppService.h"
-#include "../../config.h"
 
-#include "../../view/GameView/GameView.h"
-#include "../../view/BoardView/BoardView.h"
-#include "../InputBuffer/InputBuffer.h"
-#include "../MoveInputParser/MoveInputParser.h"
-#include "../MoveValidatorOld/MoveValidatorOld.h"
-#include "../GameStatusAnalyzerOld/GameStatusAnalyzerOld.h"
+#include "../../config.h"
 #include "../../i18n/en.h"
 #include "../../models/Board/Board.h"
+#include "../InputBuffer/InputBuffer.h"
+#include "../MoveInputParser/MoveInputParser.h"
+#include "../MoveValidator/MoveValidator.h"
+#include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
+#include "../../view/GameView/GameView.h"
+#include "../../view/BoardView/BoardView.h"
 
-void app_service__update_board(AppService *app);
 char *app_service__calculate_message(AppService *app);
 void app_service__attempt_make_move(AppService *app, Move *move);
 void app_service__process_cleaned_input(AppService *app, char *input);
@@ -29,9 +28,9 @@ void app_service__initialize(AppService *app)
 {
   app->is_running = true;
 
-  game__initialize(&app->game);
+  board__initialize(&app->board);
   input_buffer__initialize(&app->input_buffer);
-  game_view__initialize(&app->view, VIEW_MARGIN_LEFT);
+  game_view__initialize(&app->view, &app->board, VIEW_MARGIN_LEFT);
 
   app->view.message = app_service__calculate_message(app);
 }
@@ -54,7 +53,6 @@ void app_service__process_input(AppService *app, char *input)
   case INPUT_BUFFER__READ_RESULT__OK:
     clean_input(input);
     app_service__process_cleaned_input(app, input);
-    app_service__update_board(app);
     app->view.message = app_service__calculate_message(app);
     return;
   }
@@ -68,8 +66,8 @@ void app_service__render(AppService *app, char *buffer)
 
 static char *app_service__calculate_message(AppService *app)
 {
-  GameStatusAnalyzerOld_Result result =
-      game_status_analyzer_old__analyze(&app->game);
+  GameStatusAnalyzer_Result result =
+      game_status_analyzer__analyze(&app->board);
 
   switch (result)
   {
@@ -93,17 +91,14 @@ static char *app_service__calculate_message(AppService *app)
   }
 }
 
-static void app_service__update_board(AppService *app)
-{
-  board__update(&app->view.board, &app->game);
-}
-
 static void app_service__process_cleaned_input(AppService *app, char *input)
 {
-  GameStatusAnalyzerOld_Result result =
-      game_status_analyzer_old__analyze(&app->game);
 
-  bool is_ongoing = result == GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P1 || result == GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P2;
+  GameStatusAnalyzer_Result result =
+      game_status_analyzer__analyze(&app->board);
+
+  bool is_ongoing = result == GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P1 ||
+                    result == GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P2;
 
   if (is_ongoing)
     app_service__process_input_ongoing_game(app, input);
@@ -134,7 +129,7 @@ static void app_service__process_input_finished_game(AppService *app, char *inpu
   string_to_lower(input);
 
   if (strcmp(input, I18N__CONFIRMATION_POSITIVE) == 0)
-    game__initialize(&app->game);
+    board__clear(&app->board);
   else if (strcmp(input, I18N__CONFIRMATION_NEGATIVE) == 0)
     app->is_running = false;
   else
@@ -143,10 +138,10 @@ static void app_service__process_input_finished_game(AppService *app, char *inpu
 
 static void app_service__attempt_make_move(AppService *app, Move *move)
 {
-  MoveValidatorOld_Result result = move_validator_old__validate(&app->game, move);
+  MoveValidator_Result result = move_validator__validate(&app->board, move);
 
-  if (result == MOVE_VALIDATOR_OLD__RESULT__VALID)
-    game__add_move(&app->game, move);
+  if (result == MOVE_VALIDATOR__RESULT__VALID)
+    board__add_move(&app->board, move);
   else
     app->view.error = I18N__INVALID_INPUT;
 }

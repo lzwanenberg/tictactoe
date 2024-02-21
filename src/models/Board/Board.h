@@ -1,6 +1,6 @@
 #pragma once
 #include "../../config.h"
-#include "../Game/Game.h"
+#include "../Move/Move.h"
 
 /**
  * @brief Enumeration representing the possible states of a cell in a Tic Tac Toe board.
@@ -30,22 +30,18 @@ typedef struct
 } Board;
 
 /**
- * @brief Initializes a Tic Tac Toe board, setting all cells to EMPTY.
+ * @brief Initializes a Tic Tac Toe board
  *
  * @param board Pointer to the Board structure to initialize.
  */
 void board__initialize(Board *board);
 
 /**
- * @brief Updates the board based on the current state of the Tic Tac Toe game.
+ * @brief Reset the Tic Tac Toe board, setting all cells to empty
  *
- * This function takes a Board structure and a Game structure as inputs,
- * updating the board's cell states based on the moves made in the game.
- *
- * @param board Pointer to the Board structure to update.
- * @param game Pointer to the Game structure representing the Tic Tac Toe game.
+ * @param board Pointer to the Board structure that will be emptied.
  */
-void board__update(Board *board, Game *game);
+void board__clear(Board *board);
 
 /**
  * @brief Count the number of cells that are not empty
@@ -70,3 +66,12 @@ char board__count_non_empty_cells(Board *board);
  * @param number_of_moves The number of moves that are in the given array
  */
 void board__load(Board *board, char moves[][2], int number_of_moves);
+
+/**
+ * @brief Add a move to the board
+ *
+ * @param board Pointer to the Board structure to which the move will be added
+ * @param move The move that will be added
+ *
+ */
+void board__add_move(Board *board, Move *move);
