@@ -16,14 +16,14 @@
 
 void game_view__initialize(GameView *game_view)
 {
-  game_view->input_error = "";
+  game_view->error = "";
   game_view->message = "";
 }
 
 void game_view__render(GameView *game_view, char *buffer)
 {
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, ASCII_TITLE);
-  strcat_s(buffer, OUTPUT_BUFFER_SIZE, game_view->input_error);
+  strcat_s(buffer, OUTPUT_BUFFER_SIZE, game_view->error);
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, "\n");
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, game_view->message);
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, "\n");
