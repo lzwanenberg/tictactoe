@@ -25,7 +25,7 @@ void render__empty_board__renders_correctly(void)
   BoardView board_view;
 
   board__initialize(&board);
-  board_view__initialize(&board_view);
+  board_view__initialize(&board_view, "  ");
 
   char buffer[OUTPUT_BUFFER_SIZE];
   buffer[0] = '\0';
@@ -33,12 +33,12 @@ void render__empty_board__renders_correctly(void)
   board_view__render(&board_view, &board, buffer);
 
   char *expected =
-      "   A   B   C \n"
-      "1    |   |   \n"
-      "  -----------\n"
-      "2    |   |   \n"
-      "  -----------\n"
-      "3    |   |   \n";
+      "     A   B   C \n"
+      "  1    |   |   \n"
+      "    -----------\n"
+      "  2    |   |   \n"
+      "    -----------\n"
+      "  3    |   |   \n";
 
   TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
@@ -52,7 +52,7 @@ void render__non_empty_board__renders_correctly(void)
 
   Game game;
   Board board;
-  BoardView view;
+  BoardView board_view;
 
   game__initialize(&game);
   char moves[][2] = {{1, 0}, {1, 1}, {0, 2}, {0, 1}, {2, 1}, {2, 0}};
@@ -61,17 +61,17 @@ void render__non_empty_board__renders_correctly(void)
   board__initialize(&board);
   board__update(&board, &game);
 
-  board_view__initialize(&view);
-  board_view__render(&view, &board, buffer);
+  board_view__initialize(&board_view, "  ");
+  board_view__render(&board_view, &board, buffer);
 
   char *expected =
       "My Tic Tac Toe Game\n"
-      "   A   B   C \n"
-      "1    | X | O \n"
-      "  -----------\n"
-      "2  O | O | X \n"
-      "  -----------\n"
-      "3  X |   |   \n";
+      "     A   B   C \n"
+      "  1    | X | O \n"
+      "    -----------\n"
+      "  2  O | O | X \n"
+      "    -----------\n"
+      "  3  X |   |   \n";
 
   TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }

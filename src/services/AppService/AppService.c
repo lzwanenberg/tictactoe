@@ -31,7 +31,7 @@ void app_service__initialize(AppService *app)
 
   game__initialize(&app->game);
   input_buffer__initialize(&app->input_buffer);
-  game_view__initialize(&app->view);
+  game_view__initialize(&app->view, VIEW_MARGIN_LEFT);
 
   app->view.message = app_service__calculate_message(app);
 }

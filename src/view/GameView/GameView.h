@@ -20,6 +20,9 @@ typedef struct
 
   /**< General message, if any. */
   char *message;
+
+  /**< White space that will be added before each line*/
+  char *margin_left;
 } GameView;
 
 /**
@@ -30,7 +33,7 @@ typedef struct
  *
  * @param game_view A pointer to the GameView structure to be initialized.
  */
-void game_view__initialize(GameView *game_view);
+void game_view__initialize(GameView *game_view, char *margin_left);
 
 /**
  * @brief Resets a GameView to its initial state.

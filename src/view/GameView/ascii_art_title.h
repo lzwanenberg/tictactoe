@@ -1,5 +1,5 @@
 #include "../../config.h"
-#define ASCII_ART_TITLE                                                \
+#define INDENTED_ASCII_ART_TITLE                                                \
   "\n" VIEW_MARGIN_LEFT                                                \
   " _______       ______           ______        \n" VIEW_MARGIN_LEFT  \
   "/_  __(_)___  /_  __/__ _____  /_  __/__  ___ \n" VIEW_MARGIN_LEFT  \

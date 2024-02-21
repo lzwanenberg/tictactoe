@@ -12,6 +12,9 @@
  */
 typedef struct
 {
+  /**< View template corrected with added margin*/
+  char view_template[255];
+
   /**< Array of marker slots for rendering moves on the board. */
   int marker_slots[MAX_MOVES];
 } BoardView;
@@ -21,7 +24,7 @@ typedef struct
  *
  * @param board_view A pointer to the BoardView structure to be initialized.
  */
-void board_view__initialize(BoardView *board_view);
+void board_view__initialize(BoardView *board_view, char *margin_left);
 
 /**
  * @brief Renders the board view
