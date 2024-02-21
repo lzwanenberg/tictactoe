@@ -102,11 +102,11 @@ int main()
 {
   UNITY_BEGIN();
   RUN_TEST(validate__valid_move__returns_valid);
-  // RUN_TEST(validate__move_out_of_bounds__returns_invalid);
-  // RUN_TEST(validate__cell_already_occupied__returns_invalid);
-  // RUN_TEST(validate__gamed_ended_draw__returns_invalid);
-  // RUN_TEST(validate__game_ended_win_p1__returns_invaild);
-  // RUN_TEST(validate__game_ended_win_p2__returns_invaild);
+  RUN_TEST(validate__move_out_of_bounds__returns_invalid);
+  RUN_TEST(validate__cell_already_occupied__returns_invalid);
+  RUN_TEST(validate__gamed_ended_draw__returns_invalid);
+  RUN_TEST(validate__game_ended_win_p1__returns_invaild);
+  RUN_TEST(validate__game_ended_win_p2__returns_invaild);
   UNITY_END();
 
   return 0;
