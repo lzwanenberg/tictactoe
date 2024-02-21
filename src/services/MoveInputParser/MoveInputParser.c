@@ -20,8 +20,8 @@ static void string_to_upper(char *str)
 static void set_unsuccessful(MoveInputParser_ParseResult *result)
 {
   result->is_successful = false;
-  result->col = -1;
-  result->row = -1;
+  result->move.col = -1;
+  result->move.row = -1;
 }
 
 static char extract_index(char chars[2], char zero_char)
@@ -67,6 +67,7 @@ void move_input_parser__parse(const char *input, MoveInputParser_ParseResult *re
   }
 
   result->is_successful = true;
-  result->col = col;
-  result->row = row;
+
+  result->move.col = col;
+  result->move.row = row;
 }

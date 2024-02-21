@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include "../../models/Move/Move.h"
 
 /**
  * @brief Represents the result of parsing move input.
@@ -10,11 +11,8 @@ typedef struct
   /**< Indicates whether the parsing was successful. */
   bool is_successful;
 
-  /**< The zero-based column extracted from the input. */
-  int col;
-
-  /**< The zero-based row extracted from the input. */
-  int row;
+  /**< Move representing the parsed move*/
+  Move move;
 } MoveInputParser_ParseResult;
 
 /**

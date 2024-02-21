@@ -27,8 +27,7 @@ int main()
 
 static void clear_screen()
 {
-	// TODO
-	// printf("\033[H\033[J");
+	printf("\033[H\033[J");
 }
 
 static void enter_game_loop(AppService *app)

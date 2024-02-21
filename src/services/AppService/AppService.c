@@ -93,7 +93,6 @@ static char *app_service__calculate_message(AppService *app)
 
 static void app_service__process_cleaned_input(AppService *app, char *input)
 {
-
   GameStatusAnalyzer_Result result =
       game_status_analyzer__analyze(&app->board);
 
@@ -111,17 +110,10 @@ static void app_service__process_input_ongoing_game(AppService *app, char *input
   MoveInputParser_ParseResult result;
   move_input_parser__parse(input, &result);
 
-  if (!result.is_successful)
-  {
+  if (result.is_successful)
+    app_service__attempt_make_move(app, &result.move);
+  else
     app->view.error = I18N__INVALID_INPUT;
-    return;
-  }
-
-  Move move = (Move){
-      .col = result.col,
-      .row = result.row};
-
-  app_service__attempt_make_move(app, &move);
 }
 
 static void app_service__process_input_finished_game(AppService *app, char *input)
@@ -158,7 +150,6 @@ static void string_to_lower(char *str)
 static void clean_input(char *input)
 {
   size_t length = strlen(input);
-
   if (length > 0 && input[length - 1] == '\n')
     input[length - 1] = '\0';
 }

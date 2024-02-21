@@ -97,8 +97,7 @@ static MoveInputParser_ParseResult expect(bool is_successful, char col, char row
 {
   return (MoveInputParser_ParseResult){
       .is_successful = is_successful,
-      .col = col,
-      .row = row};
+      .move = (Move){.col = col, .row = row}};
 }
 
 static MoveInputParser_ParseResult expect_unsuccessful()
@@ -122,8 +121,8 @@ static void run_test_case(char *input, MoveInputParser_ParseResult expected)
   TEST_ASSERT_EQUAL_MESSAGE(expected.is_successful, actual.is_successful, message);
 
   sprintf_s(message, sizeof(message), "col for input '%s'", input);
-  TEST_ASSERT_EQUAL_MESSAGE(expected.col, actual.col, message);
+  TEST_ASSERT_EQUAL_MESSAGE(expected.move.col, actual.move.col, message);
 
   sprintf_s(message, sizeof(message), "row for input '%s'", input);
-  TEST_ASSERT_EQUAL_MESSAGE(expected.row, actual.row, message);
+  TEST_ASSERT_EQUAL_MESSAGE(expected.move.row, actual.move.row, message);
 }
