@@ -26,19 +26,18 @@ char board_view__map_cell_to_marker(Board_Cell cell);
 void board_view__process_cell(Board *board, int *slots, char *buffer, char slot_id, char col, char row);
 void board_view__fill_marker_slots(Board *board, int *slots, char *buffer);
 
-void board_view__initialize(BoardView *board_view, Board *board)
+void board_view__initialize(BoardView *board_view)
 {
-  board_view->board = board;
 }
 
-void board_view__render(BoardView *board_view, char *buffer)
+void board_view__render(BoardView *board_view, Board *board, char *buffer)
 {
   int slots[MAX_MOVES];
   int offset = (int)strlen(buffer);
 
   board_view__find_marker_slots(slots, offset);
   strcat_s(buffer, OUTPUT_BUFFER_SIZE, BOARD_TEMPLATE);
-  board_view__fill_marker_slots(board_view->board, slots, buffer);
+  board_view__fill_marker_slots(board, slots, buffer);
 }
 
 static void board_view__find_marker_slots(int *slots, int offset)

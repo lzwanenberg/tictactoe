@@ -9,8 +9,8 @@
 
 typedef struct
 {
-  Board *board;
+  int todo;
 } BoardView;
 
-void board_view__initialize(BoardView *board_view, Board *board);
-void board_view__render(BoardView *board_view, char *buffer);
+void board_view__initialize(BoardView *board_view);
+void board_view__render(BoardView *board_view, Board *board, char *buffer);

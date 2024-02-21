@@ -4,7 +4,9 @@
     "movevalidator.h": "c",
     "board.h": "c",
     "gamestatusanalyzer.h": "c",
-    "boardview.h": "c"
+    "boardview.h": "c",
+    "game.h": "c",
+    "stdlib.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

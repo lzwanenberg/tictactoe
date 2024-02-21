@@ -2,9 +2,11 @@
 
 #include "../../models/Game/Game.h"
 #include "../../models/Board/Board.h"
+#include "../BoardView/BoardView.h"
 
 typedef struct
 {
+  BoardView board_view;
   Board board;
   char *error;
   char *message;

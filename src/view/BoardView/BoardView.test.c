@@ -25,12 +25,12 @@ void render__empty_board__renders_correctly(void)
   BoardView board_view;
 
   board__initialize(&board);
-  board_view__initialize(&board_view, &board);
+  board_view__initialize(&board_view);
 
   char buffer[OUTPUT_BUFFER_SIZE];
   buffer[0] = '\0';
 
-  board_view__render(&board_view, buffer);
+  board_view__render(&board_view, &board, buffer);
 
   char *expected =
       "   A   B   C \n"
@@ -61,8 +61,8 @@ void render__non_empty_board__renders_correctly(void)
   board__initialize(&board);
   board__update(&board, &game);
 
-  board_view__initialize(&view, &board);
-  board_view__render(&view, buffer);
+  board_view__initialize(&view);
+  board_view__render(&view, &board, buffer);
 
   char *expected =
       "My Tic Tac Toe Game\n"
