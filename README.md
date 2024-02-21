@@ -14,7 +14,7 @@ Study project for learning C.
 ## Installation
 
 ```.sh
-run init # initialize ./bin directory
+run init # initialize build directory
 run build # build the project
 run start # start the application
 ```
@@ -24,5 +24,5 @@ run start # start the application
 ```.sh
 run test # run the test suite
 run test <keyword> # run a subset of tests, for example: run test MoveValidator
-run clean # remove the ./bin directory
+run clean # remove build directory
 ```
