@@ -19,7 +19,7 @@
 void app_service__update_board(AppService *app);
 char *app_service__calculate_message(AppService *app);
 void app_service__attempt_make_move(AppService *app, Move *move);
-void app_service__process_input(AppService *app, char *input);
+void app_service__process_cleaned_input(AppService *app, char *input);
 void app_service__process_input_ongoing_game(AppService *app, char *input);
 void app_service__process_input_finished_game(AppService *app, char *input);
 void string_to_lower(char *str);
@@ -36,7 +36,7 @@ void app_service__initialize(AppService *app)
   app->view.message = app_service__calculate_message(app);
 }
 
-void app_service__receive_input(AppService *app, char *input)
+void app_service__process_input(AppService *app, char *input)
 {
   game_view__reset(&app->view);
   InputBuffer_ReadResult result = input_buffer__read(&app->input_buffer, input);
@@ -52,7 +52,8 @@ void app_service__receive_input(AppService *app, char *input)
     return;
 
   case INPUT_BUFFER__READ_RESULT__OK:
-    app_service__process_input(app, input);
+    clean_input(input);
+    app_service__process_cleaned_input(app, input);
     app_service__update_board(app);
     app->view.message = app_service__calculate_message(app);
     return;
@@ -97,9 +98,8 @@ static void app_service__update_board(AppService *app)
   board__update(&app->view.board, &app->game);
 }
 
-static void app_service__process_input(AppService *app, char *input)
+static void app_service__process_cleaned_input(AppService *app, char *input)
 {
-  clean_input(input);
   GameStatusAnalyzer_Result result =
       game_status_analyzer__analyze(&app->game);
 

@@ -7,10 +7,10 @@
 #include "view/BoardView/BoardView.h"
 #include <stdbool.h>
 
-static void clear_screen();
-static void render(AppService *app);
-static void request_input(char *buffer);
-static void enter_game_loop(AppService *app);
+void clear_screen();
+void render(AppService *app);
+void request_input(char *buffer);
+void enter_game_loop(AppService *app);
 
 int main()
 {
@@ -25,7 +25,7 @@ int main()
 	return 0;
 }
 
-void clear_screen()
+static void clear_screen()
 {
 	printf("\033[H\033[J");
 }
@@ -37,7 +37,7 @@ static void enter_game_loop(AppService *app)
 	while (app->is_running)
 	{
 		request_input(input);
-		app_service__receive_input(app, input);
+		app_service__process_input(app, input);
 		render(app);
 	}
 }
