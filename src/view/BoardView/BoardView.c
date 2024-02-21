@@ -8,12 +8,13 @@
 #include "../../models/Board/Board.h"
 #include "BoardView.h"
 
-#define BOARD_TEMPLATE \
-  "   A   B   C \n"    \
-  "1  ? | ? | ? \n"    \
-  "  -----------\n"    \
-  "2  ? | ? | ? \n"    \
-  "  -----------\n"    \
+#define BOARD_TEMPLATE               \
+  VIEW_MARGIN_LEFT                   \
+  "   A   B   C \n" VIEW_MARGIN_LEFT \
+  "1  ? | ? | ? \n" VIEW_MARGIN_LEFT \
+  "  -----------\n" VIEW_MARGIN_LEFT \
+  "2  ? | ? | ? \n" VIEW_MARGIN_LEFT \
+  "  -----------\n" VIEW_MARGIN_LEFT \
   "3  ? | ? | ? \n"
 
 #define TEMPLATE_SLOT_MARKER '?'

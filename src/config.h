@@ -26,3 +26,8 @@
  * (error) messages.
  */
 #define OUTPUT_BUFFER_SIZE 2048
+
+/**
+ * @brief Number of spaces that are added before each line and serve as margin
+ */
+#define VIEW_MARGIN_LEFT "    "
