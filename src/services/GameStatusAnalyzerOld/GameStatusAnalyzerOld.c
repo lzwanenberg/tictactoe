@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "GameStatusAnalyzer.h"
+#include "GameStatusAnalyzerOld.h"
 #include "../../config.h"
 #include "../../support/Byte/Byte.h"
 #include "../../models/Game/Game.h"
@@ -12,7 +12,7 @@
 #define MAX_MOVES_BY_SINGLE_PLAYER MAX_MOVES / 2 + 1
 
 #if BOARD_SIZE != 3
-#error "GameStatusAnalyzer assumes a BOARD_SIZE of 3 by 3"
+#error "GameStatusAnalyzerOld assumes a BOARD_SIZE of 3 by 3"
 /* A board of 3 x 3 means that we can win in the following ways:
 ** - 3 rows
 ** - 3 columns
@@ -133,7 +133,7 @@ static char check_for_winner(Game *game, char moves_made)
   return 0;
 }
 
-GameStatusAnalyzer_Result game_status_analyzer__analyze(Game *game)
+GameStatusAnalyzerOld_Result game_status_analyzer_old__analyze(Game *game)
 {
   char moves_made = game__count_moves(game);
   char winner = check_for_winner(game, moves_made);

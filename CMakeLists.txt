@@ -13,7 +13,7 @@ set(MODULES
 
     src/services/InputBuffer/InputBuffer.c
     src/services/MoveInputParser/MoveInputParser.c
-    src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
+    src/services/GameStatusAnalyzerOld/GameStatusAnalyzerOld.c
     src/services/MoveValidator/MoveValidator.c
     src/services/AppService/AppService.c
 )

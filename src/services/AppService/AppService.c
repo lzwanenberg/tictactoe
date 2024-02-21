@@ -12,7 +12,7 @@
 #include "../InputBuffer/InputBuffer.h"
 #include "../MoveInputParser/MoveInputParser.h"
 #include "../MoveValidator/MoveValidator.h"
-#include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
+#include "../GameStatusAnalyzerOld/GameStatusAnalyzerOld.h"
 #include "../../i18n/en.h"
 #include "../../models/Board/Board.h"
 
@@ -68,8 +68,8 @@ void app_service__render(AppService *app, char *buffer)
 
 static char *app_service__calculate_message(AppService *app)
 {
-  GameStatusAnalyzer_Result result =
-      game_status_analyzer__analyze(&app->game);
+  GameStatusAnalyzerOld_Result result =
+      game_status_analyzer_old__analyze(&app->game);
 
   switch (result)
   {
@@ -100,8 +100,8 @@ static void app_service__update_board(AppService *app)
 
 static void app_service__process_cleaned_input(AppService *app, char *input)
 {
-  GameStatusAnalyzer_Result result =
-      game_status_analyzer__analyze(&app->game);
+  GameStatusAnalyzerOld_Result result =
+      game_status_analyzer_old__analyze(&app->game);
 
   bool is_ongoing = result == GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P1 || result == GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P2;
 

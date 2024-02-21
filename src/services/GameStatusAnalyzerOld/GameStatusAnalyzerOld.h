@@ -23,12 +23,12 @@ typedef enum
 
   /**< The game is a draw. */
   GAME_STATUS_SERVICE__RESULT__DRAW
-} GameStatusAnalyzer_Result;
+} GameStatusAnalyzerOld_Result;
 
 /**
  * @brief Analyzes the current state of the game and determines the result.
  *
  * @param game A pointer to the Game structure representing the current game state.
- * @return The result of the game status analysis as a GameStatusAnalyzer_Result.
+ * @return The result of the game status analysis as a GameStatusAnalyzerOld_Result.
  */
-GameStatusAnalyzer_Result game_status_analyzer__analyze(Game *game);
+GameStatusAnalyzerOld_Result game_status_analyzer_old__analyze(Game *game);

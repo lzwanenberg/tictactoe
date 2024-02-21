@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "unity.h"
-#include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
+#include "../GameStatusAnalyzerOld/GameStatusAnalyzerOld.h"
 #include "../../models/Game/Game.h"
 #include "../../models/Move/Move.h"
 #include "MoveValidator.h"

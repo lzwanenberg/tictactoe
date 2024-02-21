@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include "../../config.h"
 #include "../../models/Move/Move.h"
-#include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
+#include "../GameStatusAnalyzerOld/GameStatusAnalyzerOld.h"
 
 #include "MoveValidator.h"
 
 static bool check_game_finished(Game *game)
 {
-  GameStatusAnalyzer_Result status = game_status_analyzer__analyze(game);
+  GameStatusAnalyzerOld_Result status = game_status_analyzer_old__analyze(game);
 
   return status == GAME_STATUS_SERVICE__RESULT__P1_WON ||
          status == GAME_STATUS_SERVICE__RESULT__P2_WON ||
