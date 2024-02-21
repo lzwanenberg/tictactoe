@@ -1,20 +1,14 @@
 #pragma once
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <ctype.h>
-#include "AppService.h"
-
 #include "../../config.h"
 #include "../../i18n/en.h"
+#include "../../models/Move/Move.h"
 #include "../../models/Board/Board.h"
-#include "../InputBuffer/InputBuffer.h"
+#include "../AppService/AppService.h"
+#include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
 #include "../MoveInputParser/MoveInputParser.h"
 #include "../MoveValidator/MoveValidator.h"
-#include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
-#include "../../view/GameView/GameView.h"
-#include "../../view/BoardView/BoardView.h"
 
 char *app_service__calculate_message(AppService *app);
 void app_service__attempt_make_move(AppService *app, Move *move);
