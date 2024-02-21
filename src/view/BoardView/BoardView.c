@@ -8,64 +8,92 @@
 #include "../../models/Board/Board.h"
 #include "BoardView.h"
 
-#define HEADER_ROW "   A   B   C\n"
-#define EMPTY_ROW "  _ | _ | _\n"
-#define ROW_OFFSET_LENGTH strlen("1  ")
-#define SEPARATOR_LENGTH strlen(" | ")
-#define HEADER_ROW_LENGTH strlen(HEADER_ROW)
-#define ROW_LENGTH strlen(EMPTY_ROW)
-#define EMPTY_BOARD HEADER_ROW "1" EMPTY_ROW "2" EMPTY_ROW "3" EMPTY_ROW
-#define BOARD_STRING_SIZE sizeof(EMPTY_BOARD)
+#define BOARD_TEMPLATE \
+  "   A   B   C \n"    \
+  "1  ? | ? | ? \n"    \
+  "  -----------\n"    \
+  "2  ? | ? | ? \n"    \
+  "  -----------\n"    \
+  "3  ? | ? | ? \n"
+
+#define TEMPLATE_SLOT_MARKER '?'
+#define MARKER_EMPTY ' '
 #define MARKER_X 'X'
 #define MARKER_O 'O'
 
-size_t calculate_character_position(size_t offset, int row, int column);
-void set_character_at_position(char *buffer, size_t offset, int row_id, int col_id, char character);
-void process_cell(Board *board, char *buffer, size_t offset, int row, int col);
+void board_view__find_marker_slots(int *slots, int offset);
+char board_view__map_cell_to_marker(Board_Cell cell);
+void board_view__process_cell(Board *board, int *slots, char *buffer, char slot_id, char col, char row);
+void board_view__fill_marker_slots(Board *board, int *slots, char *buffer);
 
 void board_view__initialize(BoardView *board_view, Board *board)
 {
   board_view->board = board;
 }
 
-void board_view__set_board(BoardView *board_view, Board *board)
-{
-  board_view->board = board;
-}
-
 void board_view__render(BoardView *board_view, char *buffer)
 {
-  size_t offset = strlen(buffer);
+  int slots[MAX_MOVES];
+  int offset = (int)strlen(buffer);
 
-  strcat_s(buffer, OUTPUT_BUFFER_SIZE, EMPTY_BOARD);
-
-  for (int row = 0; row < BOARD_SIZE; row++)
-    for (int col = 0; col < BOARD_SIZE; col++)
-      process_cell(board_view->board, buffer, offset, col, row);
+  board_view__find_marker_slots(slots, offset);
+  strcat_s(buffer, OUTPUT_BUFFER_SIZE, BOARD_TEMPLATE);
+  board_view__fill_marker_slots(board_view->board, slots, buffer);
 }
 
-static void process_cell(Board *board, char *buffer, size_t offset, int col, int row)
+static void board_view__find_marker_slots(int *slots, int offset)
 {
-  Board_Cell cell_value = board->cells[col][row];
+  char *template = BOARD_TEMPLATE;
 
-  if (cell_value == BOARD__CELL__EMPTY)
-    return;
+  char current_char = *template;
+  char index = 0;
+  char slots_found = 0;
 
-  const char marker = cell_value == BOARD__CELL__P1 ? MARKER_X : MARKER_O;
-  set_character_at_position(buffer, offset, col, row, marker);
+  while (template[index] != '\0')
+  {
+    if (template[index] == TEMPLATE_SLOT_MARKER)
+    {
+      slots[slots_found] = index + offset;
+      slots_found++;
+    }
+
+    index++;
+  }
+
+  if (slots_found != MAX_MOVES)
+  {
+    fprintf(stderr, "Error: invalid template - wrong number of template slot markers.");
+    exit(EXIT_FAILURE);
+  }
 }
 
-static void set_character_at_position(char *buffer, size_t offset, int col_id, int row_id, char character)
+static void board_view__fill_marker_slots(Board *board, int *slots, char *buffer)
 {
-  size_t position = calculate_character_position(offset, col_id, row_id);
-  buffer[position] = character;
+  char slot_id = 0;
+  for (char row = 0; row < BOARD_SIZE; row++)
+    for (char col = 0; col < BOARD_SIZE; col++)
+      board_view__process_cell(board, slots, buffer, slot_id++, col, row);
 }
 
-static size_t calculate_character_position(size_t offset, int column, int row)
+static void board_view__process_cell(Board *board, int *slots, char *buffer, char slot_id, char col, char row)
 {
-  return offset +
-         HEADER_ROW_LENGTH +
-         ROW_OFFSET_LENGTH +
-         (column * (SEPARATOR_LENGTH + 1)) +
-         (row * (ROW_LENGTH + 1));
+  int slot = slots[slot_id];
+  Board_Cell cell = board->cells[col][row];
+  char marker = board_view__map_cell_to_marker(cell);
+  buffer[slot] = marker;
+}
+
+static char board_view__map_cell_to_marker(Board_Cell cell)
+{
+  switch (cell)
+  {
+  case BOARD__CELL__P1:
+    return MARKER_X;
+
+  case BOARD__CELL__P2:
+    return MARKER_O;
+
+  default:
+    return MARKER_EMPTY;
+  }
 }

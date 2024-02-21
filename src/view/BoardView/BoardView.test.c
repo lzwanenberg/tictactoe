@@ -33,10 +33,12 @@ void render__empty_board__renders_correctly(void)
   board_view__render(&board_view, buffer);
 
   char *expected =
-      "   A   B   C\n"
-      "1  _ | _ | _\n"
-      "2  _ | _ | _\n"
-      "3  _ | _ | _\n";
+      "   A   B   C \n"
+      "1    |   |   \n"
+      "  -----------\n"
+      "2    |   |   \n"
+      "  -----------\n"
+      "3    |   |   \n";
 
   TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
@@ -64,10 +66,12 @@ void render__non_empty_board__renders_correctly(void)
 
   char *expected =
       "My Tic Tac Toe Game\n"
-      "   A   B   C\n"
-      "1  _ | X | O\n"
-      "2  O | O | X\n"
-      "3  X | _ | _\n";
+      "   A   B   C \n"
+      "1    | X | O \n"
+      "  -----------\n"
+      "2  O | O | X \n"
+      "  -----------\n"
+      "3  X |   |   \n";
 
   TEST_ASSERT_EQUAL_STRING(expected, buffer);
 }
