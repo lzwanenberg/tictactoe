@@ -143,7 +143,7 @@ static void app_service__attempt_make_move(AppService *app, Move *move)
     app->view.error = I18N__INVALID_INPUT;
 }
 
-void string_to_lower(char *str)
+static void string_to_lower(char *str)
 {
   while (*str)
   {
