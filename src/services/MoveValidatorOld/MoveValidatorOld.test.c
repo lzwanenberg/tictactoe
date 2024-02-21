@@ -6,7 +6,7 @@
 #include "../GameStatusAnalyzerOld/GameStatusAnalyzerOld.h"
 #include "../../models/Game/Game.h"
 #include "../../models/Move/Move.h"
-#include "MoveValidator.h"
+#include "MoveValidatorOld.h"
 #include "../../../stubs/Game/Game.h"
 
 void setUp(void)
@@ -25,9 +25,9 @@ void validate__valid_move__returns_valid(void)
   Move move;
   move__create(&move, 2, 2);
 
-  MoveValidator_Result result = move_validator__validate(&game, &move);
+  MoveValidatorOld_Result result = move_validator_old__validate(&game, &move);
 
-  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__VALID, result);
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR_OLD__RESULT__VALID, result);
 }
 
 void validate__cell_already_occupied__returns_invalid(void)
@@ -38,9 +38,9 @@ void validate__cell_already_occupied__returns_invalid(void)
   Move move;
   move__create(&move, 1, 2);
 
-  MoveValidator_Result result = move_validator__validate(&game, &move);
+  MoveValidatorOld_Result result = move_validator_old__validate(&game, &move);
 
-  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_CELL_OCCUPIED, result);
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR_OLD__RESULT__INVALID_CELL_OCCUPIED, result);
 }
 
 void validate__move_out_of_bounds__returns_invalid(void)
@@ -59,9 +59,9 @@ void validate__move_out_of_bounds__returns_invalid(void)
   {
     Move move = out_of_bound_moves[i];
 
-    MoveValidator_Result result = move_validator__validate(&game, &move);
+    MoveValidatorOld_Result result = move_validator_old__validate(&game, &move);
 
-    TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_OUT_OF_BOUNDS, result);
+    TEST_ASSERT_EQUAL(MOVE_VALIDATOR_OLD__RESULT__INVALID_OUT_OF_BOUNDS, result);
   }
 }
 
@@ -71,9 +71,9 @@ void validate__gamed_ended_draw__returns_invalid(void)
   Move move;
   move__create(&move, 1, 1);
 
-  MoveValidator_Result result = move_validator__validate(&game, &move);
+  MoveValidatorOld_Result result = move_validator_old__validate(&game, &move);
 
-  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR_OLD__RESULT__INVALID_FINISHED, result);
 }
 
 void validate__game_ended_win_p1__returns_invaild(void)
@@ -82,9 +82,9 @@ void validate__game_ended_win_p1__returns_invaild(void)
   Move move;
   move__create(&move, 1, 1);
 
-  MoveValidator_Result result = move_validator__validate(&game, &move);
+  MoveValidatorOld_Result result = move_validator_old__validate(&game, &move);
 
-  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR_OLD__RESULT__INVALID_FINISHED, result);
 }
 
 void validate__game_ended_win_p2__returns_invaild(void)
@@ -93,9 +93,9 @@ void validate__game_ended_win_p2__returns_invaild(void)
   Move move;
   move__create(&move, 1, 1);
 
-  MoveValidator_Result result = move_validator__validate(&game, &move);
+  MoveValidatorOld_Result result = move_validator_old__validate(&game, &move);
 
-  TEST_ASSERT_EQUAL(MOVE_VALIDATOR__RESULT__INVALID_FINISHED, result);
+  TEST_ASSERT_EQUAL(MOVE_VALIDATOR_OLD__RESULT__INVALID_FINISHED, result);
 }
 
 int main()

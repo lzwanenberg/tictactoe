@@ -11,7 +11,7 @@
 #include "../../view/BoardView/BoardView.h"
 #include "../InputBuffer/InputBuffer.h"
 #include "../MoveInputParser/MoveInputParser.h"
-#include "../MoveValidator/MoveValidator.h"
+#include "../MoveValidatorOld/MoveValidatorOld.h"
 #include "../GameStatusAnalyzerOld/GameStatusAnalyzerOld.h"
 #include "../../i18n/en.h"
 #include "../../models/Board/Board.h"
@@ -143,9 +143,9 @@ static void app_service__process_input_finished_game(AppService *app, char *inpu
 
 static void app_service__attempt_make_move(AppService *app, Move *move)
 {
-  MoveValidator_Result result = move_validator__validate(&app->game, move);
+  MoveValidatorOld_Result result = move_validator_old__validate(&app->game, move);
 
-  if (result == MOVE_VALIDATOR__RESULT__VALID)
+  if (result == MOVE_VALIDATOR_OLD__RESULT__VALID)
     game__add_move(&app->game, move);
   else
     app->view.error = I18N__INVALID_INPUT;

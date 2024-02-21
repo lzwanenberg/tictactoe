@@ -15,7 +15,7 @@ set(MODULES
     src/services/MoveInputParser/MoveInputParser.c
     src/services/GameStatusAnalyzer/GameStatusAnalyzer.c
     src/services/GameStatusAnalyzerOld/GameStatusAnalyzerOld.c
-    src/services/MoveValidator/MoveValidator.c
+    src/services/MoveValidatorOld/MoveValidatorOld.c
     src/services/AppService/AppService.c
 )
 

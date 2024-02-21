@@ -6,7 +6,7 @@
 #include "../../models/Move/Move.h"
 #include "../GameStatusAnalyzerOld/GameStatusAnalyzerOld.h"
 
-#include "MoveValidator.h"
+#include "MoveValidatorOld.h"
 
 static bool check_game_finished(Game *game)
 {
@@ -38,16 +38,16 @@ static bool is_cell_occupied(Game *game, Move *move)
   return false;
 }
 
-MoveValidator_Result move_validator__validate(Game *game, Move *move)
+MoveValidatorOld_Result move_validator_old__validate(Game *game, Move *move)
 {
   if (check_game_finished(game))
-    return MOVE_VALIDATOR__RESULT__INVALID_FINISHED;
+    return MOVE_VALIDATOR_OLD__RESULT__INVALID_FINISHED;
 
   if (is_out_of_bounds(move))
-    return MOVE_VALIDATOR__RESULT__INVALID_OUT_OF_BOUNDS;
+    return MOVE_VALIDATOR_OLD__RESULT__INVALID_OUT_OF_BOUNDS;
 
   if (is_cell_occupied(game, move))
-    return MOVE_VALIDATOR__RESULT__INVALID_CELL_OCCUPIED;
+    return MOVE_VALIDATOR_OLD__RESULT__INVALID_CELL_OCCUPIED;
 
-  return MOVE_VALIDATOR__RESULT__VALID;
+  return MOVE_VALIDATOR_OLD__RESULT__VALID;
 }

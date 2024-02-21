@@ -109,7 +109,7 @@ static char check_for_winner(Board *board)
   split_moves_per_player(board, &move_sets);
 
   if (check_for_win(&move_sets.player1))
-    return;
+    return 1;
 
   if (check_for_win(&move_sets.player2))
     return 2;

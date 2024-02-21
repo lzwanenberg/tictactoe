@@ -11,23 +11,23 @@
 typedef enum
 {
   /**< The move is valid. */
-  MOVE_VALIDATOR__RESULT__VALID,
+  MOVE_VALIDATOR_OLD__RESULT__VALID,
 
   /**< The cell for the move is already occupied. */
-  MOVE_VALIDATOR__RESULT__INVALID_CELL_OCCUPIED,
+  MOVE_VALIDATOR_OLD__RESULT__INVALID_CELL_OCCUPIED,
 
   /**< The game has already finished. */
-  MOVE_VALIDATOR__RESULT__INVALID_FINISHED,
+  MOVE_VALIDATOR_OLD__RESULT__INVALID_FINISHED,
 
   /**< The move is out of bounds of the game board. */
-  MOVE_VALIDATOR__RESULT__INVALID_OUT_OF_BOUNDS
-} MoveValidator_Result;
+  MOVE_VALIDATOR_OLD__RESULT__INVALID_OUT_OF_BOUNDS
+} MoveValidatorOld_Result;
 
 /**
  * @brief Validates a move within the context of a game.
  *
  * @param game A pointer to the Game structure representing the current game state.
  * @param move A pointer to the Move structure representing the move to be validated.
- * @return The result of the move validation as a MoveValidator_Result.
+ * @return The result of the move validation as a MoveValidatorOld_Result.
  */
-MoveValidator_Result move_validator__validate(Game *game, Move *move);
+MoveValidatorOld_Result move_validator_old__validate(Game *game, Move *move);
