@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "move.h": "c"
+    "move.h": "c",
+    "movevalidator.h": "c"
   },
   "terminal.integrated.profiles.windows": {
     "Cmder": {

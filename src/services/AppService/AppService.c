@@ -13,6 +13,7 @@
 #include "../MoveInputParser/MoveInputParser.h"
 #include "../MoveValidator/MoveValidator.h"
 #include "../GameStatusAnalyzer/GameStatusAnalyzer.h"
+#include "../../i18n/en.h"
 
 char *app_service__calculate_message(AppService *app);
 void app_service__attempt_make_move(AppService *app, Move *move);
@@ -44,7 +45,7 @@ void app_service__receive_input(AppService *app, char *input)
     return;
 
   case INPUT_BUFFER__READ_RESULT__OVERFLOWN:
-    app->view.error = "Invalid input.";
+    app->view.error = I18N__INVALID_INPUT;
     app->view.message = app_service__calculate_message(app);
     return;
 
@@ -69,19 +70,19 @@ static char *app_service__calculate_message(AppService *app)
   switch (result)
   {
   case GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P1:
-    return "Enter your move (P1):";
+    return I18N__ENTER_MOVE_P1;
 
   case GAME_STATUS_SERVICE__RESULT__WAIT_FOR_MOVE_P2:
-    return "Enter your move (P2):";
+    return I18N__ENTER_MOVE_P2;
 
   case GAME_STATUS_SERVICE__RESULT__P1_WON:
-    return "P1 won! Play again? (y/n)";
+    return I18N__P1_WON_PLAY_AGAIN;
 
   case GAME_STATUS_SERVICE__RESULT__P2_WON:
-    return "P2 won! Play again? (y/n)";
+    return I18N__P2_WON_PLAY_AGAIN;
 
   case GAME_STATUS_SERVICE__RESULT__DRAW:
-    return "It's a draw! Play again? (y/n)";
+    return I18N__DRAW_PLAY_AGAIN;
 
   default:
     return NULL;
@@ -109,7 +110,7 @@ static void app_service__process_input_ongoing_game(AppService *app, char *input
 
   if (!result.is_successful)
   {
-    app->view.error = "Invalid input.";
+    app->view.error = I18N__INVALID_INPUT;
     return;
   }
 
@@ -124,12 +125,12 @@ static void app_service__process_input_finished_game(AppService *app, char *inpu
 {
   string_to_lower(input);
 
-  if (strcmp(input, "y") == 0)
+  if (strcmp(input, I18N__CONFIRMATION_POSITIVE) == 0)
     game__initialize(&app->game);
-  else if (strcmp(input, "n") == 0)
+  else if (strcmp(input, I18N__CONFIRMATION_NEGATIVE) == 0)
     app->is_running = false;
   else
-    app->view.error = "Invalid input.";
+    app->view.error = I18N__INVALID_INPUT;
 }
 
 static void app_service__attempt_make_move(AppService *app, Move *move)
@@ -139,7 +140,7 @@ static void app_service__attempt_make_move(AppService *app, Move *move)
   if (result == MOVE_VALIDATOR__RESULT__VALID)
     game__add_move(&app->game, move);
   else
-    app->view.error = "Invalid move.";
+    app->view.error = I18N__INVALID_INPUT;
 }
 
 void string_to_lower(char *str)
