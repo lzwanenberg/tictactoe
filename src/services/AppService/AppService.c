@@ -12,13 +12,10 @@
 #include "../MoveInputParser/MoveInputParser.h"
 #include "../MoveValidator/MoveValidator.h"
 
-void clean_input(char *input)
-{
-  size_t length = strlen(input);
-
-  if (length > 0 && input[length - 1] == '\n')
-    input[length - 1] = '\0';
-}
+char *app_service__calculate_message(AppService *app);
+void app_service__attempt_make_move(AppService *app, Move *move);
+void app_service__process_input(AppService *app, char *input);
+void clean_input(char *input);
 
 void app_service__initialize(AppService *app)
 {
@@ -27,41 +24,6 @@ void app_service__initialize(AppService *app)
   game__initialize(&app->game);
   input_buffer__initialize(&app->input_buffer);
   game_view__initialize(&app->view);
-}
-
-static char *app_service__calculate_message(AppService *app)
-{
-  return "TODO: calculate message";
-}
-
-static void app_service__attempt_make_move(AppService *app, Move *move)
-{
-  MoveValidator_Result result = move_validator__validate(&app->game, move);
-
-  if (result == MOVE_VALIDATOR__RESULT__VALID)
-    game__add_move(&app->game, move);
-  else
-    app->view.error = "Invalid move.";
-  app->view.message = "this";
-}
-
-static void app_service__process_input(AppService *app, char *input)
-{
-  clean_input(input);
-  MoveInputParser_ParseResult result;
-  move_input_parser__parse(input, &result);
-
-  if (!result.is_successful)
-  {
-    app->view.error = "Invalid input.";
-    return;
-  }
-
-  Move move = (Move){
-      .col = result.col,
-      .row = result.row};
-
-  app_service__attempt_make_move(app, &move);
 }
 
 void app_service__receive_input(AppService *app, char *input)
@@ -90,4 +52,46 @@ void app_service__render(AppService *app, char *buffer)
 {
   buffer[0] = '\0';
   game_view__render(&app->view, buffer);
+}
+
+static char *app_service__calculate_message(AppService *app)
+{
+  return "TODO: calculate message";
+}
+
+static void app_service__process_input(AppService *app, char *input)
+{
+  clean_input(input);
+  MoveInputParser_ParseResult result;
+  move_input_parser__parse(input, &result);
+
+  if (!result.is_successful)
+  {
+    app->view.error = "Invalid input.";
+    return;
+  }
+
+  Move move = (Move){
+      .col = result.col,
+      .row = result.row};
+
+  app_service__attempt_make_move(app, &move);
+}
+
+static void app_service__attempt_make_move(AppService *app, Move *move)
+{
+  MoveValidator_Result result = move_validator__validate(&app->game, move);
+
+  if (result == MOVE_VALIDATOR__RESULT__VALID)
+    game__add_move(&app->game, move);
+  else
+    app->view.error = "Invalid move.";
+}
+
+static void clean_input(char *input)
+{
+  size_t length = strlen(input);
+
+  if (length > 0 && input[length - 1] == '\n')
+    input[length - 1] = '\0';
 }
