@@ -262,10 +262,10 @@ def print_test_suite_result(suite):
 def get_icon(status):
     match status:
         case Status.PASS:
-            return green("✔")
+            return green("V")
         
         case Status.FAIL:
-            return red("❌")
+            return red("X")
         
         case _:
             return "?"
