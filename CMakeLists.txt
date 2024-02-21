@@ -2,7 +2,7 @@
 project(TicTacToe C)
 
 set(MODULES
-    src/support/utils/Byte/Byte.c
+    src/support/Byte/Byte.c
 
     src/models/Move/Move.c
     src/models/Game/Game.c
